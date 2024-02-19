@@ -7,4 +7,6 @@ add_executable(project1 main.cpp
         GameLib/Scoreboard.cpp
         GameLib/Scoreboard.h
         GameLib/Meter.cpp
-        GameLib/Meter.h)
+        GameLib/Meter.h
+        GameLib/Music.cpp
+        GameLib/Music.h)

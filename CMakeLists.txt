@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(project1 main.cpp
         GameLib/Scoreboard.cpp
-        GameLib/Scoreboard.h)
+        GameLib/Scoreboard.h
+        GameLib/Meter.cpp
+        GameLib/Meter.h)

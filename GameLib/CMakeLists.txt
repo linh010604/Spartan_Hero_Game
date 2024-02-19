@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.27)
 project(GameLib)
 
-set(CMAKE_CXX_STANDARD 17)
-
-add_executable(project1 main.cpp
+set(SOURCE_FILES pch.h
         Scoreboard.cpp
         Scoreboard.h
         Meter.cpp
-        Meter.h)
+        Meter.h
+)
+
+add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})

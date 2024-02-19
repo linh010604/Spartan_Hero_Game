@@ -1,17 +1,14 @@
 cmake_minimum_required(VERSION 3.27)
 project(project1)
+set(APPLICATION_LIBRARY GameLib)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(project1 main.cpp
-<<<<<<< CMakeLists.txt
-        GameLib/Scoreboard.cpp
-        GameLib/Scoreboard.h
-        GameLib/Meter.cpp
-        GameLib/Meter.h
-        GameLib/Music.cpp
-        GameLib/Music.h
-        GameLib/Sound.cpp
-        GameLib/Sound.h
-        )
->>>>>>> CMakeLists.txt
+add_subdirectory(${APPLICATION_LIBRARY})
+include_directories(${APPLICATION_LIBRARY})
+
+set(SOURCE_FILES main.cpp
+        pch.h
+)
+
+add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SOURCE_FILES})

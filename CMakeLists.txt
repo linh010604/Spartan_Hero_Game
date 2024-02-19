@@ -4,9 +4,14 @@ project(project1)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(project1 main.cpp
+<<<<<<< CMakeLists.txt
         GameLib/Scoreboard.cpp
         GameLib/Scoreboard.h
         GameLib/Meter.cpp
         GameLib/Meter.h
         GameLib/Music.cpp
-        GameLib/Music.h)
+        GameLib/Music.h
+        GameLib/Sound.cpp
+        GameLib/Sound.h
+        )
+>>>>>>> CMakeLists.txt

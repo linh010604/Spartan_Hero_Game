@@ -1,8 +1,11 @@
-#include <iostream>
+/**
+ * @file main.cpp
+ * @author Angelina Jolie Daoud
+ *
+ * Main implementation of program.
+ */
 
-int main()
-{
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
-    //angelina testing
-}
+#include "pch.h"
+#include "GameApp.h"
+
+wxIMPLEMENT_APP(GameApp);

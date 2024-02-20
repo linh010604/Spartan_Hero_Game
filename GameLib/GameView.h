@@ -18,13 +18,18 @@ class GameView : public wxWindow
 private:
     GameView(wxFrame* parent);
 
+
 public:
+
     Game mGame; // Game instance
 
     void OnPaint(wxPaintEvent& event);
     void OnLeftDown(wxMouseEvent& event);
 
-    wxDECLARE_EVENT_TABLE();
+
+
+
+wxDECLARE_EVENT_TABLE();
 
 };
 

@@ -9,6 +9,10 @@ set(SOURCE_FILES pch.h
         Sound.h
         Track.cpp
         Track.h
+        GameView.cpp
+        GameView.h
+        Game.cpp
+        Game.h
 
 )
 

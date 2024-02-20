@@ -13,6 +13,8 @@ set(SOURCE_FILES pch.h
         GameView.h
         Game.cpp
         Game.h
+        MainFrame.cpp
+        MainFrame.h
 
 )
 

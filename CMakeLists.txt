@@ -27,3 +27,15 @@ add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SOURCE_FILES})
 # Link required libraries to the executable
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
 target_precompile_headers(${PROJECT_NAME} PRIVATE pch.h)
+
+# Fetch spartanhero-resources from Github
+include(FetchContent)
+FetchContent_Declare(
+        spartanhero-resources
+        GIT_REPOSITORY https://github.com/charles-owen/spartanhero-resources.git
+        GIT_TAG origin/main
+)
+
+FetchContent_MakeAvailable(spartanhero-resources)
+
+file(COPY ${spartanhero-resources_SOURCE_DIR}/resources/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)

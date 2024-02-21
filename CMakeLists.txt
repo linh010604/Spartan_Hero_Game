@@ -42,3 +42,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(spartanhero-resources)
 
 file(COPY ${spartanhero-resources_SOURCE_DIR}/resources/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/images/)

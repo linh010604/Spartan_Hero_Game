@@ -9,6 +9,8 @@
 #define PROJECT1_GAMELIB_GAME_H
 
 #include <wx/graphics.h>
+#include <memory>
+#include<wx/dc.h>
 
 class Game
 {
@@ -23,6 +25,10 @@ private:
 
     /// Directory containing the system images
     std::wstring mImagesDirectory;
+
+    wxBitmap mBackgroundBitmap; // Member variable for the background image
+
+    //wxBitmap *mBackground;  ///< Background image to use
 
 public:
     Game();
@@ -48,6 +54,8 @@ public:
 
     // Function to handle mouse click within the game
     void OnLeftDown(int x, int y);
+
+    void OnDraw(wxDC* dc);
 
 };
 

@@ -10,7 +10,11 @@
 /// relative to the resources directory.
 const std::wstring ImagesDirectory = L"/images";
 
-Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {}
+Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
+    // Load the background image into the wxBitmap member variable
+    mBackgroundBitmap = wxBitmap(L"images/background1.png", wxBITMAP_TYPE_ANY);
+
+}
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     int virtualWidth = 1304;
@@ -27,10 +31,17 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
+    // Check if the background image is loaded correctly and draw it
+    if (mBackgroundBitmap.IsOk()) {
+        wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
+        graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
+    } else {
+        // Fallback: Draw a red rectangle if the image is not loaded
+        wxBrush background(*wxRED);
+        graphics->SetBrush(background);
+        graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
+    }
 
-    wxBrush background(*wxRED);
-    graphics->SetBrush(background);
-    graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
 
     graphics->PopState();
 }

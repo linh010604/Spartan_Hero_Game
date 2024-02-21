@@ -16,7 +16,6 @@
 class GameView : public wxWindow
 {
 private:
-    //GameView(wxFrame* parent);
 
     /// The game
     Game mGame;

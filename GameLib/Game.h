@@ -24,6 +24,8 @@ private:
     /// Directory containing the system images
     std::wstring mImagesDirectory;
 
+    wxBitmap mBackgroundBitmap;
+
 public:
     Game();
 

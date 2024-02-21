@@ -5,18 +5,16 @@
 
 #include "pch.h"
 #include "Game.h"
-#include "GameView.h"
 
 /// Directory containing the project images
 /// relative to the resources directory.
 const std::wstring ImagesDirectory = L"/images";
 
 Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
-    wxImage backgroundImage;
-    if (backgroundImage.LoadFile(L"images/background1.png")) {
-        // Convert the wxImage to a wxBitmap
-        mBackgroundBitmap = wxBitmap(backgroundImage);
-    }
+    // Load the background image into the wxBitmap member variable
+
+    mBackgroundBitmap = wxBitmap(L"images/background1.png", wxBITMAP_TYPE_ANY);
+
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -34,14 +32,17 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
+    // Check if the background image is loaded correctly and draw it
     if (mBackgroundBitmap.IsOk()) {
-        graphics->DrawBitmap(mBackgroundBitmap, 0, 0, virtualWidth, virtualHeight);
+        wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
+        graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
+    } else {
+
+        wxBrush background(*wxRED);
+        graphics->SetBrush(background);
+        graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
     }
 
-
-    //wxBrush background(*wxRED);
-    //graphics->SetBrush(background);
-    //graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
 
     graphics->PopState();
 }
@@ -49,6 +50,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 void Game::OnLeftDown(int x, int y) {
     double virtualX = (x - mXOffset) / mScale;
     double virtualY = (y - mYOffset) / mScale;
+
 }
 
 void Game::CalculateScaleAndOffset(int width, int height) {
@@ -59,7 +61,7 @@ void Game::CalculateScaleAndOffset(int width, int height) {
 
 /**
  * Set the directory the images are stored in
- * @param dir
+ *
  */
 void Game::SetImagesDirectory(const std::wstring &dir) {
     mImagesDirectory = dir + ImagesDirectory;

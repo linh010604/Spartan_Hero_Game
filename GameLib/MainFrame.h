@@ -9,14 +9,13 @@
 #ifndef PROJECT1_GAMELIB_MAINFRAME_H
 #define PROJECT1_GAMELIB_MAINFRAME_H
 
-#include "GameView.h"
+class GameView;
 
 /**
  * The top-level (main) frame of the application
  */
 class MainFrame : public wxFrame {
 private:
-
     /// View class for our aquarium
     GameView *mGameView;
 
@@ -30,7 +29,6 @@ private:
 
 public:
     void Initialize();
-
 
 
 };

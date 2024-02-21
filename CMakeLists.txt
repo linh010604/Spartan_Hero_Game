@@ -26,7 +26,7 @@ set(SOURCE_FILES main.cpp
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SOURCE_FILES})
 
 # Link required libraries to the executable
-target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES} ${APPLICATION_LIBRARY})
 target_precompile_headers(${PROJECT_NAME} PRIVATE pch.h)
 
 # Fetch spartanhero-resources from Github

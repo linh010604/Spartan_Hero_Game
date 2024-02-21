@@ -33,6 +33,28 @@ void MainFrame::Initialize()
 
     // Layout (place) the child windows.
     Layout();
+
+    CreateStatusBar();
+
+    auto menuBar = new wxMenuBar( );
+
+    auto fileMenu = new wxMenu();
+    auto helpMenu = new wxMenu();
+
+    fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
+    helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
+
+
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
+
+
+    menuBar->Append(fileMenu, L"&File" );
+
+    //mGameView->AddMenus(this, menuBar, fileMenu, viewMenu);
+    menuBar->Append(helpMenu, L"&Help");
+
+    SetMenuBar( menuBar );
 }
 
 /**

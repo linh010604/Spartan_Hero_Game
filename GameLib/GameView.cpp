@@ -51,7 +51,6 @@ void GameView::OnPaint(wxPaintEvent& event)
     wxRect rect = GetRect();
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 
-
 }
 
 void GameView::OnLeftDown(wxMouseEvent &event)

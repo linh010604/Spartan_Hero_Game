@@ -4,7 +4,7 @@
  */
 
 #include "pch.h"
-//#include <MainFrame.h>
+#include <MainFrame.h>
 #include "GameApp.h"
 
 /**
@@ -19,9 +19,9 @@ bool GameApp::OnInit()
     // Add image type handlers
     wxInitAllImageHandlers();
 
-    //auto frame = new MainFrame();
-    //frame->Initialize();
-    //frame->Show(true);
+    auto frame = new MainFrame();
+    frame->Initialize();
+    frame->Show(true);
 
     return true;
 }

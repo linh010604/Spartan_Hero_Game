@@ -2,6 +2,11 @@
 // Created by naodg on 2/21/2024.
 //
 
+/**
+ * @file Item.cpp
+ * @author Naod Ghebredngl
+ * The item class used to store the items used in the game
+ */
 
 #include "pch.h"
 #include "Item.h"

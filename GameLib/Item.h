@@ -2,6 +2,12 @@
 // Created by naodg on 2/21/2024.
 //
 
+/**
+ * @file Item.h
+ * @author Naod Ghebredngl
+ * file for the item class
+ */
+
 #ifndef PROJECT1_ITEM_H
 #define PROJECT1_ITEM_H
 

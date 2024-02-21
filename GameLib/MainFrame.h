@@ -1,11 +1,10 @@
 /**
  * @file MainFrame.h
- * @author Roshni Kaur
+ * @author thaol
  *
  *
  */
-#include <wx/wxprec.h>
-#include <wx/wx.h>
+
 #ifndef PROJECT1_GAMELIB_MAINFRAME_H
 #define PROJECT1_GAMELIB_MAINFRAME_H
 
@@ -29,7 +28,6 @@ private:
 
 public:
     void Initialize();
-
 
 };
 

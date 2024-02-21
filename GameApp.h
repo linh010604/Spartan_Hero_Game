@@ -13,7 +13,7 @@
  */
 class GameApp : public wxApp {
 public:
-    bool OnInit() override;
+    virtual bool OnInit();
 
 };
 

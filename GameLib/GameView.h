@@ -1,7 +1,7 @@
 /**
  * @file GameView.h
  * @author Angelina Jolie Daoud
- *
+ * @author Linh Nguyen
  *
  */
 
@@ -12,34 +12,25 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include "Game.h"
-#include "MainFrame.h"
 
 class GameView : public wxWindow
 {
 private:
+    //GameView(wxFrame* parent);
 
-
+    /// The game
+    Game mGame;
 
 public:
-    GameView();
-    GameView(wxFrame* parent);
-
-    void Initialize(wxFrame* parent);
-
-    Game mGame; // Game instance
-
+    void Initialize(wxFrame *mainFrame);
     void OnPaint(wxPaintEvent& event);
     void OnLeftDown(wxMouseEvent& event);
 
 
 
 
+wxDECLARE_EVENT_TABLE();
 
-
-wxDECLARE_EVENT_TABLE()
-
-
-
-;};
+};
 
 #endif //PROJECT1_GAMELIB_GAMEVIEW_H

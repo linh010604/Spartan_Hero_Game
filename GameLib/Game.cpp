@@ -18,18 +18,28 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
+    // Width of virtual pixels
     int virtualWidth = 1304;
+    // Height of virtual pixels
     int virtualHeight = 900;
 
+    // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
+    // Creates Scale for Y values
     auto scaleY = double(height) / double(virtualHeight);
+    // Gets minimum of Scales for X and Y
     mScale = std::min(scaleX, scaleY);
 
+    // Creates offset for X
     mXOffset = (width - virtualWidth * mScale) / 2.0;
+    // Creates offset for Y
     mYOffset = (height - virtualHeight * mScale) > 0 ? (height - virtualHeight * mScale) / 2.0 : 0;
 
+    // Saves current state of graphics
     graphics->PushState();
+    // Translates the coordinates system using offsets
     graphics->Translate(mXOffset, mYOffset);
+    // Scales coordinate system
     graphics->Scale(mScale, mScale);
 
     // Check if the background image is loaded correctly and draw it
@@ -43,7 +53,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
     }
 
-
+    // Restores state of graphics
     graphics->PopState();
 }
 

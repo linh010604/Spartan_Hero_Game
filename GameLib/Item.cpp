@@ -1,7 +1,3 @@
-//
-// Created by naodg on 2/21/2024.
-//
-
 /**
  * @file Item.cpp
  * @author Naod Ghebredngl

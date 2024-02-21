@@ -31,9 +31,12 @@ void GameView::Initialize(wxFrame *mainFrame) {
     std::wstring resourcesDir = standardPaths.GetResourcesDir().ToStdWstring();
     mGame.SetImagesDirectory(resourcesDir);
 
+    // Allows ability to paint on background
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 
+    // Binds paint function with event
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
+    // Binds left down function with event
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 }
 
@@ -60,5 +63,6 @@ void GameView::OnPaint(wxPaintEvent& event)
 
 void GameView::OnLeftDown(wxMouseEvent &event)
 {
+    // On left down mouse click gets X and Y values
     mGame.OnLeftDown(event.GetX(), event.GetY());
 }

@@ -15,7 +15,7 @@ class GameView;
  */
 class MainFrame : public wxFrame {
 private:
-    /// View class for our aquarium
+    /// View class for our Game
     GameView *mGameView;
 
     /**

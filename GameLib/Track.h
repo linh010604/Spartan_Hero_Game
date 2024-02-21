@@ -1,13 +1,21 @@
 /**
  * @file Track.h
- * @author Noad
+ * @author Naod Ghebredngl
  */
 
 #ifndef PROJECT1_TRACK_H
 #define PROJECT1_TRACK_H
 
+#include "Game.h"
+#include "Item.h"
 
-class Track {
+/**
+ * Class for Track that derives from Item
+ */
+class Track : public Item {
+public:
+
+    Track(Game *game, const std::wstring &filename);
 
 };
 

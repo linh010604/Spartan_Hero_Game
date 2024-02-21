@@ -34,11 +34,6 @@ void GameView::Initialize(wxFrame *mainFrame) {
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 }
 
-//GameView::GameView(wxFrame* parent)
-//    : wxWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
-//    // Constructor
-//}
-
 void GameView::OnPaint(wxPaintEvent& event)
 {
     // Create a double-buffered display context

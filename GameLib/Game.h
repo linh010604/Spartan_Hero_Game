@@ -10,7 +10,6 @@
 
 #include <wx/graphics.h>
 
-
 class Game
 {
 private:

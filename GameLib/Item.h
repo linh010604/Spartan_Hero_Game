@@ -23,11 +23,11 @@ class Aquarium;
 
 
 /**
- * Base class for any item in our aquarium.
+ * Base class for any item in our game.
  */
 class Item {
 private:
-    /// The aquarium this item is contained in
+    /// The game this item is contained in
     Game   *mGame;
 
     // Item location in the game

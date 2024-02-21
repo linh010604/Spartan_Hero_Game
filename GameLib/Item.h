@@ -14,7 +14,6 @@
 
 #include "Game.h"
 
-using namespace std;
 
 /**
  * @file Item.h
@@ -22,7 +21,7 @@ using namespace std;
  *
  */
 
-class Aquarium;
+class Game;
 
 
 
@@ -46,7 +45,7 @@ private:
 
 
 protected:
-    Item(Game *game, const wstring &filename);
+    Item(Game *game, const std::wstring &filename);
 public:
     ~Item();
     /**

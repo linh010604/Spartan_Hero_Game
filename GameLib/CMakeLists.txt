@@ -15,6 +15,8 @@ set(SOURCE_FILES pch.h
         Game.h
         MainFrame.cpp
         MainFrame.h
+        Item.cpp
+        Item.h
 
 )
 

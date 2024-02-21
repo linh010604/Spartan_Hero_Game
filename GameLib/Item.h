@@ -12,6 +12,10 @@
 #define PROJECT1_ITEM_H
 
 
+#include "Game.h"
+
+using namespace std;
+
 /**
  * @file Item.h
  * @author Naod Ghebredngl
@@ -27,7 +31,9 @@ class Aquarium;
  */
 class Item {
 private:
-    /// The game this item is contained in
+
+
+/// The game this item is contained in
     Game   *mGame;
 
     // Item location in the game
@@ -39,6 +45,8 @@ private:
 
 
 
+protected:
+    Item(Game *game, const wstring &filename);
 public:
     ~Item();
     /**
@@ -75,7 +83,7 @@ public:
      * Draw this item
      * @param dc Device context to draw on
      */
-   // virtual void Draw(wxDC *dc);
+    virtual void Draw(wxDC *dc);
 
 
 

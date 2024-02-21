@@ -17,8 +17,9 @@ using namespace std;
 /**
  * Destructor
  */
-Item::~Item() {
-    // Cleanup code, if needed
+Item::~Item()
+{
+
 }
 
 /**

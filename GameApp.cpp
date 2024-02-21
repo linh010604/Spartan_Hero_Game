@@ -4,7 +4,8 @@
  */
 
 #include "pch.h"
-#include <MainFrame.h>
+
+#include "MainFrame.h"
 #include "GameApp.h"
 
 /**
@@ -21,6 +22,9 @@ bool GameApp::OnInit()
 
     auto frame = new MainFrame();
     frame->Initialize();
+
+    frame->SetFocus();
+    frame->Raise();
     frame->Show(true);
 
     return true;

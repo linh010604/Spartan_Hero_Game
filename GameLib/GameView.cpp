@@ -9,12 +9,10 @@
 #include <wx/stdpaths.h>
 #include <wx/dcbuffer.h>
 
-#include "Game.h"
+//#include "Game.h"
 #include "GameView.h"
 
 using namespace std;
-
-
 
 wxBEGIN_EVENT_TABLE(GameView, wxWindow)
 EVT_PAINT(GameView::OnPaint)

@@ -44,6 +44,7 @@ public:
      */
     const std::wstring &GetImagesDirectory() const { return mImagesDirectory; }
 
+
     void SetImagesDirectory(const std::wstring &dir);
 
     // Calculate scaling and offset based on the window size

@@ -12,6 +12,7 @@ const std::wstring ImagesDirectory = L"/images";
 
 Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
     // Load the background image into the wxBitmap member variable
+
     mBackgroundBitmap = wxBitmap(L"images/background1.png", wxBITMAP_TYPE_ANY);
 
 }

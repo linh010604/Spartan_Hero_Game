@@ -17,6 +17,9 @@ void MainFrame::Initialize()
 {
     Create(nullptr, wxID_ANY, L"Spartan Hero",
            wxDefaultPosition,  wxSize( 1000,800 ));
+
+
+
     // Create a sizer that will lay out child windows vertically
     // one above each other
     auto sizer = new wxBoxSizer( wxVERTICAL );
@@ -33,5 +36,22 @@ void MainFrame::Initialize()
 
     // Layout (place) the child windows.
     Layout();
+}
+
+/**
+ * Exit menu option handlers
+ * @param event
+ */
+void MainFrame::OnExit(wxCommandEvent& event)
+{
+    Close(true);
+}
+
+
+void MainFrame::OnAbout(wxCommandEvent& event) {
+    wxMessageBox(L"Welcome to the Game!",
+                 L"About Saprtan Hero",
+                 wxOK,
+                 this);
 }
 

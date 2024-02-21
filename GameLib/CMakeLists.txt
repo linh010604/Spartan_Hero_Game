@@ -17,6 +17,8 @@ set(SOURCE_FILES pch.h
         MainFrame.h
         Item.cpp
         Item.h
+        Puck.cpp
+        Puck.h
 
 )
 

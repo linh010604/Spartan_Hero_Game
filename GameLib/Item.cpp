@@ -33,6 +33,5 @@ Item::Item(Game *game, const std::wstring &filename) : mGame(game) {
 }
 
 void Item::Draw(wxDC *dc) {
-    // Existing drawing implementation should be fine.
-    // Adjust if your game has specific rendering needs.
+
 }

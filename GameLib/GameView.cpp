@@ -9,7 +9,6 @@
 #include <wx/stdpaths.h>
 #include <wx/dcbuffer.h>
 
-//#include "Game.h"
 #include "GameView.h"
 
 using namespace std;

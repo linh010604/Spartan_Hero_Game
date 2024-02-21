@@ -1,6 +1,9 @@
-//
-// Created by Nico Roberts on 2/19/24.
-//
+/**
+ * @file Meter.h
+ * @author Nico Roberts
+ */
+
+
 
 #ifndef PROJECT1_METER_H
 #define PROJECT1_METER_H

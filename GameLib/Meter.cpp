@@ -1,5 +1,6 @@
-//
-// Created by Nico Roberts on 2/19/24.
-//
-
+/**
+ * @file Meter.cpp
+ * @author Nico Roberts
+ */
+#include "pch.h"
 #include "Meter.h"

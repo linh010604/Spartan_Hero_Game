@@ -33,7 +33,7 @@ public:
     void CalculateScaleAndOffset(int width, int height);
 
     // Function to draw the game
-    void OnDraw(std::shared_ptr<wxGraphicsContext> gc, int width, int height);
+    void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
 
     // Function to handle mouse click within the game
     void OnLeftDown(int x, int y);

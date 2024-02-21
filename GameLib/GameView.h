@@ -12,14 +12,19 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include "Game.h"
+#include "MainFrame.h"
 
 class GameView : public wxWindow
 {
 private:
-    GameView(wxFrame* parent);
+
 
 
 public:
+    GameView();
+    GameView(wxFrame* parent);
+
+    void Initialize(wxFrame* parent);
 
     Game mGame; // Game instance
 
@@ -29,8 +34,12 @@ public:
 
 
 
-wxDECLARE_EVENT_TABLE();
 
-};
+
+wxDECLARE_EVENT_TABLE()
+
+
+
+;};
 
 #endif //PROJECT1_GAMELIB_GAMEVIEW_H

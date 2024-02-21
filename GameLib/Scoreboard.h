@@ -8,7 +8,6 @@
 #ifndef PROJECT1_GAMELIB_SCOREBOARD_H
 #define PROJECT1_GAMELIB_SCOREBOARD_H
 
-#include "pch.h"
 #include "Game.h"
 #include "Item.h"
 

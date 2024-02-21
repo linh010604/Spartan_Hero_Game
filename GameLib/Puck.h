@@ -2,6 +2,11 @@
 // Created by naodg on 2/21/2024.
 //
 
+/**
+ * @file Puck.h
+ * @author Naod Ghebredngl
+ */
+
 #ifndef PROJECT1_PUCK_H
 #define PROJECT1_PUCK_H
 

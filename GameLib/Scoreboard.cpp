@@ -1,6 +1,7 @@
 /**
  * @file Scoreboard.cpp
  * @author Angelina Jolie Daoud
+ * @author Naod Ghebredngl
  */
 
 #include "pch.h"

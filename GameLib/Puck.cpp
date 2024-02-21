@@ -2,6 +2,12 @@
 // Created by naodg on 2/21/2024.
 //
 
+/**
+ * @file Puck.cpp
+ * @author Naod Ghebredngl
+ *
+ */
+
 #include "pch.h"
 #include "Puck.h"
 #include "Game.h"

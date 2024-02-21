@@ -1,12 +1,18 @@
 /**
  * @file GameView.cpp
  * @author Angelina Jolie Daoud
+ * @author Linh Nguyen
  */
 
 #include "pch.h"
+
+#include <wx/stdpaths.h>
+#include <wx/dcbuffer.h>
+
 #include "Game.h"
 #include "GameView.h"
-#include <wx/dcbuffer.h>
+
+using namespace std;
 
 
 
@@ -15,10 +21,25 @@ EVT_PAINT(GameView::OnPaint)
 EVT_LEFT_DOWN(GameView::OnLeftDown)
 wxEND_EVENT_TABLE()
 
-GameView::GameView(wxFrame* parent)
-    : wxWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
-    // Constructor
+void GameView::Initialize(wxFrame *mainFrame) {
+    Create(mainFrame, wxID_ANY);
+
+    // Determine where the images are stored
+    //auto standardPaths = wxStandardPaths::Get();
+    wxStandardPaths& standardPaths = wxStandardPaths::Get();
+    std::wstring resourcesDir = standardPaths.GetResourcesDir().ToStdWstring();
+    mGame.SetImagesDirectory(resourcesDir);
+
+    SetBackgroundStyle(wxBG_STYLE_PAINT);
+
+    Bind(wxEVT_PAINT, &GameView::OnPaint, this);
+    Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 }
+
+//GameView::GameView(wxFrame* parent)
+//    : wxWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
+//    // Constructor
+//}
 
 void GameView::OnPaint(wxPaintEvent& event)
 {

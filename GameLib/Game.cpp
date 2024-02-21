@@ -6,9 +6,19 @@
 #include "pch.h"
 #include "Game.h"
 
-
+/// Directory containing the project images
+/// relative to the resources directory.
+const std::wstring ImagesDirectory = L"/images";
 
 Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {}
+
+/**
+ * Set the directory the images are stored in
+ * @param dir
+ */
+void Game::SetImagesDirectory(const std::wstring &dir) {
+    mImagesDirectory = dir + ImagesDirectory;
+}
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> gc, int width, int height) {
     CalculateScaleAndOffset(width, height);

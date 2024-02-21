@@ -5,12 +5,19 @@
 
 #include "pch.h"
 #include "Game.h"
+#include "GameView.h"
 
 /// Directory containing the project images
 /// relative to the resources directory.
 const std::wstring ImagesDirectory = L"/images";
 
-Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {}
+Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
+    wxImage backgroundImage;
+    if (backgroundImage.LoadFile(L"images/background1.png")) {
+        // Convert the wxImage to a wxBitmap
+        mBackgroundBitmap = wxBitmap(backgroundImage);
+    }
+}
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     int virtualWidth = 1304;
@@ -27,10 +34,14 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
+    if (mBackgroundBitmap.IsOk()) {
+        graphics->DrawBitmap(mBackgroundBitmap, 0, 0, virtualWidth, virtualHeight);
+    }
 
-    wxBrush background(*wxRED);
-    graphics->SetBrush(background);
-    graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
+
+    //wxBrush background(*wxRED);
+    //graphics->SetBrush(background);
+    //graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
 
     graphics->PopState();
 }

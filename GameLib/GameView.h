@@ -20,10 +20,12 @@ private:
     /// The game
     Game mGame;
 
+
 public:
     void Initialize(wxFrame *mainFrame);
     void OnPaint(wxPaintEvent& event);
     void OnLeftDown(wxMouseEvent& event);
+
 
 
 

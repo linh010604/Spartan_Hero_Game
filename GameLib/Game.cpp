@@ -6,31 +6,32 @@
 #include "pch.h"
 #include "Game.h"
 
-/// Directory containing the project images
-/// relative to the resources directory.
-const std::wstring ImagesDirectory = L"/images";
+
+
 
 Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {}
 
-/**
- * Set the directory the images are stored in
- * @param dir
- */
-void Game::SetImagesDirectory(const std::wstring &dir) {
-    mImagesDirectory = dir + ImagesDirectory;
-}
+void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
+    int virtualWidth = 1304;
+    int virtualHeight = 900;
 
-void Game::OnDraw(std::shared_ptr<wxGraphicsContext> gc, int width, int height) {
-    CalculateScaleAndOffset(width, height);
-    gc->PushState();
+    auto scaleX = double(width) / double(virtualWidth);
+    auto scaleY = double(height) / double(virtualHeight);
+    mScale = std::min(scaleX, scaleY);
 
-    gc->Translate(mXOffset, mYOffset);
-    gc->Scale(mScale, mScale);
+    mXOffset = (width - virtualWidth * mScale) / 2.0;
+    mYOffset = (height - virtualHeight * mScale) > 0 ? (height - virtualHeight * mScale) / 2.0 : 0;
+
+    graphics->PushState();
+    graphics->Translate(mXOffset, mYOffset);
+    graphics->Scale(mScale, mScale);
 
 
-    gc->DrawRectangle(0, 0, mVirtualWidth, mVirtualHeight);
+    wxBrush background(*wxRED);
+    graphics->SetBrush(background);
+    graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
 
-    gc->PopState();
+    graphics->PopState();
 }
 
 void Game::OnLeftDown(int x, int y) {

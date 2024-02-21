@@ -37,7 +37,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
         graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
     } else {
-        // Fallback: Draw a red rectangle if the image is not loaded
+
         wxBrush background(*wxRED);
         graphics->SetBrush(background);
         graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
@@ -61,7 +61,7 @@ void Game::CalculateScaleAndOffset(int width, int height) {
 
 /**
  * Set the directory the images are stored in
- * @param dir
+ *
  */
 void Game::SetImagesDirectory(const std::wstring &dir) {
     mImagesDirectory = dir + ImagesDirectory;

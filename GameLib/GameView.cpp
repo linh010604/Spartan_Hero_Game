@@ -14,6 +14,9 @@
 
 using namespace std;
 
+/**
+* The event table that connects window events
+*/
 wxBEGIN_EVENT_TABLE(GameView, wxWindow)
 EVT_PAINT(GameView::OnPaint)
 EVT_LEFT_DOWN(GameView::OnLeftDown)

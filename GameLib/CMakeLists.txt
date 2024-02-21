@@ -9,6 +9,8 @@ set(SOURCE_FILES pch.h
         Sound.h
         Track.cpp
         Track.h
+        Item.cpp
+        Item.h
 
 )
 

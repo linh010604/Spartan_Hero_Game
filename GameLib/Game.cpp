@@ -36,8 +36,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
     if (mBackgroundBitmap.IsOk()) {
         graphics->DrawBitmap(mBackgroundBitmap, 0, 0, virtualWidth, virtualHeight);
-    } else {
-        // If the bitmap isn't okay, you might want to draw a placeholder or log an error
     }
 
 

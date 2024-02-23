@@ -1,6 +1,7 @@
 /**
  * @file MainFrame.cpp
  * @author thaol
+ * @author Naod Ghebredngl
  */
 
 #include "pch.h"
@@ -41,6 +42,7 @@ void MainFrame::Initialize()
     auto fileMenu = new wxMenu();
     auto helpMenu = new wxMenu();
 
+    // add menu
     menuBar->Append(fileMenu, L"&File" );
     mGameView->AddMenus(this, menuBar);
     menuBar->Append(helpMenu, L"&Help");

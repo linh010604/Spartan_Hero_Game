@@ -1,6 +1,7 @@
 /**
  * @file MainFrame.cpp
  * @author thaol
+ * @author Naod Ghebredngl
  */
 
 #include "pch.h"
@@ -43,6 +44,7 @@ void MainFrame::Initialize()
     auto helpMenu = new wxMenu();
     auto levelMenu = new wxMenu();
 
+    // add menu
     menuBar->Append(fileMenu, L"&File" );
     menuBar->Append(levelMenu, L"&Level" );
     menuBar->Append(helpMenu, L"&Help");

@@ -23,7 +23,7 @@ private:
 
 public:
     /**
-    * Initialize the aquarium view class.
+    * Initialize the game view class.
     * @param mainFrame The parent window for this class
     */
     void Initialize(wxFrame *parent);

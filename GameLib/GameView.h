@@ -17,19 +17,16 @@
 class GameView : public wxWindow
 {
 private:
-    //GameView(wxFrame* parent);
 
     /// The game
     Game mGame;
-
-    void AddLevelMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text);
 
 public:
     /**
     * Initialize the aquarium view class.
     * @param mainFrame The parent window for this class
     */
-    void Initialize(wxFrame *mainFrame);
+    void Initialize(wxFrame *parent);
     /**
     * Paint event, draws the window.
     * @param event Paint event object
@@ -41,9 +38,6 @@ public:
     */
     void OnLeftDown(wxMouseEvent& event);
 
-    void AddMenus(wxFrame *mainFrame, wxMenuBar *menuBar);
-
-    void OnLevelOption(wxCommandEvent& event);
 };
 
 #endif //PROJECT1_GAMELIB_GAMEVIEW_H

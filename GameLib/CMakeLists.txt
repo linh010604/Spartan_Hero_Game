@@ -23,6 +23,7 @@ set(SOURCE_FILES pch.h
         Level.h
         Key.cpp
         Key.h
+        ids.h
 
 )
 

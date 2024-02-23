@@ -23,6 +23,8 @@ private:
     /// The game
     Game mGame;
 
+    void AddTileMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text);
+
 public:
     /**
     * Initialize the aquarium view class.
@@ -40,12 +42,8 @@ public:
     */
     void OnLeftDown(wxMouseEvent& event);
 
+    void AddMenus(wxFrame *mainFrame, wxMenuBar *menuBar);
 
-
-/**
-* Declares event table
-*/
-wxDECLARE_EVENT_TABLE();
 
 };
 

@@ -12,6 +12,10 @@
 #include <memory>
 #include<wx/dc.h>
 
+/**
+ * Allows access to Item without creating a circular dependency.
+ */
+class Item;
 
 /**
  * Class for our game
@@ -52,6 +56,9 @@ private:
     wxBitmap mBackgroundBitmap; // Member variable for the background image
 
     //wxBitmap *mBackground;  ///< Background image to use
+
+    /// All of the items to populate our game
+    std::vector<std::shared_ptr<Item>> mItems;
 
 public:
     Game();
@@ -107,6 +114,12 @@ public:
     * @param dc Pointer to a wxDC object used for drawing, representing the device context to draw on.
     */
     void OnDraw(wxDC* dc);
+
+    void Load(const wxString &filename);
+
+    void Clear();
+
+    void XmlItem(wxXmlNode *node);
 
 };
 

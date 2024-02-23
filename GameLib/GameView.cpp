@@ -5,7 +5,6 @@
  */
 
 #include "pch.h"
-#include "ids.h"
 
 #include <wx/stdpaths.h>
 #include <wx/dcbuffer.h>
@@ -14,8 +13,16 @@
 
 using namespace std;
 
-void GameView::Initialize(wxFrame* parent) {
-    Create(parent, wxID_ANY);
+/**
+* The event table that connects window events
+*/
+wxBEGIN_EVENT_TABLE(GameView, wxWindow)
+        EVT_PAINT(GameView::OnPaint)
+        EVT_LEFT_DOWN(GameView::OnLeftDown)
+wxEND_EVENT_TABLE()
+
+void GameView::Initialize(wxFrame *mainFrame) {
+    Create(mainFrame, wxID_ANY);
 
     // Determine where the images are stored
     //auto standardPaths = wxStandardPaths::Get();
@@ -53,4 +60,3 @@ void GameView::OnLeftDown(wxMouseEvent &event)
     // On left down mouse click gets X and Y values
     mGame.OnLeftDown(event.GetX(), event.GetY());
 }
-

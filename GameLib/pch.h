@@ -9,8 +9,7 @@
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
-
-#endif
 #include <wx/xml/xml.h>
+#endif
 
 #endif //PROJECT1_PCH_H

@@ -107,9 +107,10 @@ void Game::Load(const wxString &filename)
     for( ; child; child=child->GetNext())
     {
         auto name = child->GetName();
-        if(name == L"item")
+        if(name == L"declarations")
         {
-            XmlItem(child);
+            int a = 1 ;// temporary for build the project
+            //XmlDeclarations(child);
         }
     }
 }

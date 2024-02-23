@@ -85,7 +85,7 @@ void Game::SetImagesDirectory(const std::wstring &dir) {
  *
  * Opens the XML file and reads the nodes, creating items as appropriate.
  *
- * @param filename The filename of the file to load the game from.
+ * @param filename The filename of the file to load the aquarium from.
  */
 void Game::Load(const wxString &filename)
 {

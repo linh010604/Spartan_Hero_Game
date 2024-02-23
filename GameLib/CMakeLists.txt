@@ -23,7 +23,6 @@ set(SOURCE_FILES pch.h
         Level.h
         Key.cpp
         Key.h
-
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})

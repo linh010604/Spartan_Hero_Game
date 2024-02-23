@@ -42,6 +42,7 @@ void MainFrame::Initialize()
     auto helpMenu = new wxMenu();
 
     menuBar->Append(fileMenu, L"&File" );
+    mGameView->AddMenus(this, menuBar);
     menuBar->Append(helpMenu, L"&Help");
 
     fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");

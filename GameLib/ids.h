@@ -13,7 +13,7 @@
  */
 enum IDs {
     /// Level>Level 0 menu option
-    IDM_LEVEL0,
+    IDM_LEVEL0 = wxID_HIGHEST + 1,
 
     /// Level>Level 1 Report menu option
     IDM_LEVEL1,

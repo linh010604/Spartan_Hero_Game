@@ -39,13 +39,8 @@ public:
     * @param event
     */
     void OnLeftDown(wxMouseEvent& event);
-
-
-
-/**
-* Declares event table
-*/
-wxDECLARE_EVENT_TABLE();
+    void AddMenus(wxFrame *mainFrame, wxMenuBar *menuBar);
+    void AddTileMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text);
 
 };
 

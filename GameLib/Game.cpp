@@ -128,15 +128,11 @@ void Game::Clear()
  * Handle a node of type item.
  * @param node XML node
  */
-void Game::XmlItem(wxXmlNode *node)
-{
+void Game::XmlItem(wxXmlNode *node) {
     // A pointer for the item we are loading
     shared_ptr<Item> item;
 
-    // We have an item. What type?
-    auto type = node->GetAttribute(L"type");
-    //if (type == L"")
-    //{
-    //    item = make_shared<>(this);
-    //}
+    // What type of data do we have?
+    wxString nodeName = node->GetName();
+
 }

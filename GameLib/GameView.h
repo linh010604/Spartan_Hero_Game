@@ -40,7 +40,7 @@ public:
     */
     void OnLeftDown(wxMouseEvent& event);
 
-
+    void OnLevelOption(wxCommandEvent& event);
 
 /**
 * Declares event table

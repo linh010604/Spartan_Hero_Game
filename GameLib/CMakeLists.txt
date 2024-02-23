@@ -21,6 +21,8 @@ set(SOURCE_FILES pch.h
         Puck.h
         Level.cpp
         Level.h
+        Key.cpp
+        Key.h
 
 )
 

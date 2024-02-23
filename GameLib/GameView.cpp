@@ -10,6 +10,7 @@
 #include <wx/dcbuffer.h>
 
 #include "GameView.h"
+#include "ids.h"
 
 using namespace std;
 
@@ -32,6 +33,8 @@ void GameView::Initialize(wxFrame *mainFrame) {
 
     // Allows ability to paint on background
     SetBackgroundStyle(wxBG_STYLE_PAINT);
+
+    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL0);
 
     // Binds paint function with event
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
@@ -59,4 +62,20 @@ void GameView::OnLeftDown(wxMouseEvent &event)
 {
     // On left down mouse click gets X and Y values
     mGame.OnLeftDown(event.GetX(), event.GetY());
+}
+
+void GameView::OnLevelOption(wxCommandEvent& event)
+{
+    wxString filename;
+
+    switch(event.GetId())
+    {
+        case IDM_LEVEL0:
+            filename = "levels/level0.xml";
+            mGame.Load(filename);
+            Refresh();
+            break;
+
+    }
+
 }

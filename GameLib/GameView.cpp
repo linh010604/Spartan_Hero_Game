@@ -44,12 +44,12 @@ void GameView::AddMenus(wxFrame* mainFrame, wxMenuBar *menuBar)
     //
     // Level menu options
     //
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL0, L"&Level 0");
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL1, L"&Level 1");
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL2, L"&Level 2");
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL3, L"&Level 3");
+    AddLevelMenuOption(mainFrame, levelMenu, IDM_LEVEL0, L"&Level 0");
+    AddLevelMenuOption(mainFrame, levelMenu, IDM_LEVEL1, L"&Level 1");
+    AddLevelMenuOption(mainFrame, levelMenu, IDM_LEVEL2, L"&Level 2");
+    AddLevelMenuOption(mainFrame, levelMenu, IDM_LEVEL3, L"&Level 3");
     levelMenu->AppendSeparator();
-    AddTileMenuOption(mainFrame, levelMenu, IDM_AUTOPLAY, L"&Autoplay");
+    AddLevelMenuOption(mainFrame, levelMenu, IDM_AUTOPLAY, L"&Autoplay");
 
     menuBar->Append(levelMenu, L"Level" );
 
@@ -67,7 +67,7 @@ void GameView::AddMenus(wxFrame* mainFrame, wxMenuBar *menuBar)
  * @param id The Menu option ID
  * @param text Text for the menu option
  */
-void GameView::AddTileMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text)
+void GameView::AddLevelMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text)
 {
     menu->Append(id, text);
     //mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &CityView::OnLevelOption, this, id);
@@ -94,4 +94,35 @@ void GameView::OnLeftDown(wxMouseEvent &event)
 {
     // On left down mouse click gets X and Y values
     mGame.OnLeftDown(event.GetX(), event.GetY());
+}
+
+void GameView::OnLevelOption(wxCommandEvent& event)
+{
+    wxString filename;
+
+    switch(event.GetId())
+    {
+        case IDM_LEVEL0:
+            filename = "levels/level0.xml";
+            mGame.Load(filename);
+            Refresh();
+            break;
+
+        case IDM_LEVEL1:
+            filename = "levels/level1.xml";
+            mGame.Load(filename);
+            Refresh();
+
+        case IDM_LEVEL2:
+            filename = "levels/level2.xml";
+            mGame.Load(filename);
+            Refresh();
+
+        case IDM_LEVEL3:
+            filename = "levels/level3.xml";
+            mGame.Load(filename);
+            Refresh();
+
+    }
+
 }

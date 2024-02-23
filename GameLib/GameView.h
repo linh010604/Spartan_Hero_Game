@@ -8,7 +8,6 @@
 #ifndef PROJECT1_GAMELIB_GAMEVIEW_H
 #define PROJECT1_GAMELIB_GAMEVIEW_H
 
-
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include "Game.h"
@@ -23,7 +22,7 @@ private:
     /// The game
     Game mGame;
 
-    void AddTileMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text);
+    void AddLevelMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text);
 
 public:
     /**
@@ -44,7 +43,7 @@ public:
 
     void AddMenus(wxFrame *mainFrame, wxMenuBar *menuBar);
 
-
+    void OnLevelOption(wxCommandEvent& event);
 };
 
 #endif //PROJECT1_GAMELIB_GAMEVIEW_H

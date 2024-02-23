@@ -65,7 +65,7 @@ void MainFrame::OnExit(wxCommandEvent& event)
 
 void MainFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox(L"Welcome to the Game!",
-                 L"About Saprtan Hero",
+                 L"About Spartan Hero",
                  wxOK,
                  this);
 }

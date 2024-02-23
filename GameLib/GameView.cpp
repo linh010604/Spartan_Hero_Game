@@ -14,8 +14,8 @@
 
 using namespace std;
 
-void GameView::Initialize(wxFrame *mainFrame) {
-    Create(mainFrame, wxID_ANY);
+void GameView::Initialize(wxFrame* parent) {
+    Create(parent, wxID_ANY);
 
     // Determine where the images are stored
     //auto standardPaths = wxStandardPaths::Get();
@@ -31,48 +31,6 @@ void GameView::Initialize(wxFrame *mainFrame) {
     // Binds left down function with event
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 }
-
-/**
- * Add menus specific to the view
- * @param mainFrame The main frame that owns the menu bar
- * @param menuBar The menu bar to add menus to
- */
-void GameView::AddMenus(wxFrame* mainFrame, wxMenuBar *menuBar)
-{
-    auto levelMenu = new wxMenu();
-
-    //
-    // Level menu options
-    //
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL0, L"&Level 0");
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL1, L"&Level 1");
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL2, L"&Level 2");
-    AddTileMenuOption(mainFrame, levelMenu, IDM_LEVEL3, L"&Level 3");
-    levelMenu->AppendSeparator();
-    AddTileMenuOption(mainFrame, levelMenu, IDM_AUTOPLAY, L"&Autoplay");
-
-    menuBar->Append(levelMenu, L"Level" );
-
-}
-
-/**
- * Append an option to a menu and bind it to the function CityView::OnAddTileMenuOption
- *
- * All of the menu options to add a tile use the same menu handler, which uses
- * a switch based on the ID to determine which option to make. This code cuts the
- * number of lines of code in CityView::AddMenus by about half.
- *
- * @param mainFrame The MainFrame object that owns the menu
- * @param menu The Menu we are adding the option to
- * @param id The Menu option ID
- * @param text Text for the menu option
- */
-void GameView::AddTileMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text)
-{
-    menu->Append(id, text);
-    //mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &CityView::OnLevelOption, this, id);
-}
-
 
 void GameView::OnPaint(wxPaintEvent& event)
 {
@@ -95,3 +53,4 @@ void GameView::OnLeftDown(wxMouseEvent &event)
     // On left down mouse click gets X and Y values
     mGame.OnLeftDown(event.GetX(), event.GetY());
 }
+

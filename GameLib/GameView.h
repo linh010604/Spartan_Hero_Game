@@ -8,7 +8,6 @@
 #ifndef PROJECT1_GAMELIB_GAMEVIEW_H
 #define PROJECT1_GAMELIB_GAMEVIEW_H
 
-
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include "Game.h"
@@ -18,19 +17,16 @@
 class GameView : public wxWindow
 {
 private:
-    //GameView(wxFrame* parent);
 
     /// The game
     Game mGame;
 
-    void AddTileMenuOption(wxFrame *mainFrame, wxMenu *menu, int id, std::wstring text);
-
 public:
     /**
-    * Initialize the aquarium view class.
+    * Initialize the game view class.
     * @param mainFrame The parent window for this class
     */
-    void Initialize(wxFrame *mainFrame);
+    void Initialize(wxFrame *parent);
     /**
     * Paint event, draws the window.
     * @param event Paint event object
@@ -41,9 +37,6 @@ public:
     * @param event
     */
     void OnLeftDown(wxMouseEvent& event);
-
-    void AddMenus(wxFrame *mainFrame, wxMenuBar *menuBar);
-
 
 };
 

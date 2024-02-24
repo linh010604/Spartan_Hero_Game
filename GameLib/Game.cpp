@@ -20,7 +20,6 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
 
     mScoreboard = make_unique<wxBitmap>(
             L"images/score-board.png", wxBITMAP_TYPE_ANY);
-
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {

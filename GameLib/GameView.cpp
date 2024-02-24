@@ -11,6 +11,7 @@
 
 #include "GameView.h"
 #include "ids.h"
+#include "Meter.h"
 
 using namespace std;
 

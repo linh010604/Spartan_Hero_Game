@@ -1,7 +1,6 @@
 /**
  * @file Game.cpp
  * @author Angelina Jolie Daoud
- * @author Nicolas Roberts
  */
 
 #include "pch.h"
@@ -22,6 +21,9 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
     mScoreboard = make_unique<wxBitmap>(
             L"images/score-board.png", wxBITMAP_TYPE_ANY);
 
+    mMetercover = make_unique<wxBitmap>(
+        L"images/meter-cover.png", wxBITMAP_TYPE_ANY);
+
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -29,11 +31,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     int virtualWidth = 1304;
     // Height of virtual pixels
     int virtualHeight = 900;
-
-    int scoreboardWidth = 600;
-    int scoreboardHeight = 500;
-
-
 
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
@@ -58,7 +55,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     if (mBackgroundBitmap.IsOk()) {
         wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
         graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
-        graphics->DrawBitmap(*mScoreboard, 0, 0, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mScoreboard, 0, 0, width, height);
+
+        graphics->DrawBitmap(*mMetercover, 0, 0, width, height);
     } else {
 
         wxBrush background(*wxRED);

@@ -55,6 +55,8 @@ private:
     */
     wxBitmap mBackgroundBitmap; // Member variable for the background image
 
+    std::unique_ptr<wxBitmap> mScoreboard;
+
     //wxBitmap *mBackground;  ///< Background image to use
 
     /// All of the items to populate our game

@@ -18,6 +18,9 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
 
     mBackgroundBitmap = wxBitmap(L"images/background1.png", wxBITMAP_TYPE_ANY);
 
+    mScoreboard = make_unique<wxBitmap>(
+            L"images/score-board.png", wxBITMAP_TYPE_ANY);
+
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -49,6 +52,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     if (mBackgroundBitmap.IsOk()) {
         wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
         graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
+        graphics->DrawBitmap(*mScoreboard, 0, 0, width, height);
     } else {
 
         wxBrush background(*wxRED);

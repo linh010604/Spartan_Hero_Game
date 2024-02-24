@@ -45,6 +45,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     int scoreboardWidth = 200;
     int scoreboardHeight = 136;
 
+    int soundboardWidth = 726;
+    int soundboardHeight = 545;
+
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
     // Creates Scale for Y values
@@ -74,7 +77,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         graphics->DrawBitmap(*mMeterneedle, 920, 350, scoreboardWidth, scoreboardHeight);
 
 
-        graphics->DrawBitmap(*mSoundboard, 600, 0, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mSoundboard, 290, 200, soundboardWidth, soundboardHeight);
 
 
     } else {

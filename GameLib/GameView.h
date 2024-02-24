@@ -12,6 +12,7 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include "Game.h"
+
 /**
  * View class for our game
  */

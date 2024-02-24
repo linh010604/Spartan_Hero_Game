@@ -29,5 +29,9 @@ Item::Item(Game *game, const std::wstring &filename) : mGame(game) {
 }
 
 void Item::Draw(wxDC *dc) {
-
+    double wid = mItemBitmap->GetWidth();
+    double hit = mItemBitmap->GetHeight();
+    dc->DrawBitmap(*mItemBitmap,
+                   int(GetX() - wid / 2),
+                   int(GetY() - hit / 2));
 }

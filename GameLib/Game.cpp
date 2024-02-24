@@ -34,6 +34,9 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
     mSoundboard = make_unique<wxBitmap>(
         L"images/sound-board.png", wxBITMAP_TYPE_ANY);
 
+    mSoundboardCover = make_unique<wxBitmap>(
+        L"images/sound-board-cover.png", wxBITMAP_TYPE_ANY);
+
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -78,6 +81,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
 
         graphics->DrawBitmap(*mSoundboard, 290, 200, soundboardWidth, soundboardHeight);
+        graphics->DrawBitmap(*mSoundboardCover, 290, 150, soundboardWidth, soundboardHeight);
 
 
     } else {

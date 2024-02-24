@@ -65,6 +65,8 @@ private:
 
     std::unique_ptr<wxBitmap> mSoundboard;
 
+    std::unique_ptr<wxBitmap> mSoundboardCover;
+
 
 
 //

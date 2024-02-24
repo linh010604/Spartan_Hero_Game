@@ -119,7 +119,7 @@ public:
 
     void Clear();
 
-    void XmlItem(wxXmlNode *node);
+    static void XmlDeclaration(wxXmlNode *node);
 
 };
 

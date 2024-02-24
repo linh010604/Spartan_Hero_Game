@@ -109,7 +109,7 @@ void Game::Load(const wxString &filename)
         auto name = child->GetName();
         if(name == L"declarations")
         {
-            int a = 1 ;// temporary for build the project
+
             //XmlDeclarations(child);
         }
     }
@@ -125,15 +125,15 @@ void Game::Clear()
     mItems.clear();
 }
 
-/**
- * Handle a node of type item.
- * @param node XML node
- */
-void Game::XmlItem(wxXmlNode *node) {
-    // A pointer for the item we are loading
-    shared_ptr<Item> item;
-
-    // What type of data do we have?
-    wxString nodeName = node->GetName();
-
-}
+///**
+// * Handle a node of type item.
+// * @param node XML node
+// */
+//void Game::XmlDeclaration(wxXmlNode *node) {
+//    // A pointer for the item we are loading
+//    shared_ptr<Item> item;
+//
+//    // What type of data do we have?
+//    wxString nodeName = node->GetName();
+//
+//}

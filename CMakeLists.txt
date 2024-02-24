@@ -39,6 +39,17 @@ FetchContent_Declare(
         GIT_TAG origin/main
 )
 
+# Fetch miniaudio from GitHub
+include(FetchContent)
+FetchContent_Declare(
+        miniaudio
+        GIT_REPOSITORY https://github.com/mackron/miniaudio.git
+        GIT_TAG 0.11.21
+)
+
+FetchContent_MakeAvailable(miniaudio)
+include_directories(${miniaudio_SOURCE_DIR})
+
 FetchContent_MakeAvailable(spartanhero-resources)
 
 file(COPY ${spartanhero-resources_SOURCE_DIR}/resources/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)

@@ -24,6 +24,8 @@ set(SOURCE_FILES pch.h
         Key.cpp
         Key.h
         ids.h
+        Soundboard.cpp
+        Soundboard.h
 
 )
 

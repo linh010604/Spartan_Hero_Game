@@ -57,7 +57,12 @@ private:
 
     std::unique_ptr<wxBitmap> mScoreboard;
 
+    std::unique_ptr<wxBitmap> mMeterback;
+
     std::unique_ptr<wxBitmap> mMetercover;
+
+    std::unique_ptr<wxBitmap> mMeterneedle;
+
 
 
 //

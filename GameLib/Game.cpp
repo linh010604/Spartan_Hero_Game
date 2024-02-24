@@ -22,6 +22,15 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
     mScoreboard = make_unique<wxBitmap>(
             L"images/score-board.png", wxBITMAP_TYPE_ANY);
 
+    mMeterback = make_unique<wxBitmap>(
+        L"images/meter-back.png", wxBITMAP_TYPE_ANY);
+
+    mMetercover = make_unique<wxBitmap>(
+        L"images/meter-cover.png", wxBITMAP_TYPE_ANY);
+
+    mMeterneedle = make_unique<wxBitmap>(
+        L"images/meter-needle.png", wxBITMAP_TYPE_ANY);
+
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {

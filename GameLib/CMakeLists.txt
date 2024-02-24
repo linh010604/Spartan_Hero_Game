@@ -3,8 +3,6 @@ project(GameLib)
 set(SOURCE_FILES pch.h
         Scoreboard.cpp
         Scoreboard.h
-        Meter.cpp
-        Meter.h
         Sound.cpp
         Sound.h
         Track.cpp
@@ -24,6 +22,8 @@ set(SOURCE_FILES pch.h
         Key.cpp
         Key.h
         ids.h
+        Soundboard.cpp
+        Soundboard.h
 
 )
 

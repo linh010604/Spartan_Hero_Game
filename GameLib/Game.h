@@ -57,6 +57,20 @@ private:
 
     std::unique_ptr<wxBitmap> mScoreboard;
 
+    std::unique_ptr<wxBitmap> mMeterback;
+
+    std::unique_ptr<wxBitmap> mMetercover;
+
+    std::unique_ptr<wxBitmap> mMeterneedle;
+
+    std::unique_ptr<wxBitmap> mSoundboard;
+
+    std::unique_ptr<wxBitmap> mSoundboardCover;
+
+
+
+//
+
     //wxBitmap *mBackground;  ///< Background image to use
 
     /// All of the items to populate our game

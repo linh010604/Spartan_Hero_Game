@@ -1,6 +1,7 @@
 /**
  * @file Game.cpp
  * @author Angelina Jolie Daoud
+ * @author Nicolas Roberts
  */
 
 #include "pch.h"
@@ -20,6 +21,22 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
 
     mScoreboard = make_unique<wxBitmap>(
             L"images/score-board.png", wxBITMAP_TYPE_ANY);
+
+    mMeterback = make_unique<wxBitmap>(
+        L"images/meter-back.png", wxBITMAP_TYPE_ANY);
+
+    mMetercover = make_unique<wxBitmap>(
+        L"images/meter-cover.png", wxBITMAP_TYPE_ANY);
+
+    mMeterneedle = make_unique<wxBitmap>(
+        L"images/meter-needle.png", wxBITMAP_TYPE_ANY);
+
+    mSoundboard = make_unique<wxBitmap>(
+        L"images/sound-board.png", wxBITMAP_TYPE_ANY);
+
+    mSoundboardCover = make_unique<wxBitmap>(
+        L"images/sound-board-cover.png", wxBITMAP_TYPE_ANY);
+
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -27,6 +44,12 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     int virtualWidth = 1304;
     // Height of virtual pixels
     int virtualHeight = 900;
+
+    int scoreboardWidth = 200;
+    int scoreboardHeight = 136;
+
+    int soundboardWidth = 726;
+    int soundboardHeight = 545;
 
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
@@ -51,7 +74,16 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     if (mBackgroundBitmap.IsOk()) {
         wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
         graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
-        graphics->DrawBitmap(*mScoreboard, 0, 0, width, height);
+        graphics->DrawBitmap(*mScoreboard, 170, 350, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mMeterback, 920, 350, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mMetercover, 920, 350, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mMeterneedle, 920, 350, scoreboardWidth, scoreboardHeight);
+
+
+        graphics->DrawBitmap(*mSoundboard, 290, 200, soundboardWidth, soundboardHeight);
+        graphics->DrawBitmap(*mSoundboardCover, 290, 150, soundboardWidth, soundboardHeight);
+
+
     } else {
 
         wxBrush background(*wxRED);
@@ -112,7 +144,7 @@ void Game::Load(const wxString &filename)
         auto name = child->GetName();
         if(name == L"declarations")
         {
-
+            int a = 1 ;// temporary for build the project
             //XmlDeclarations(child);
         }
     }
@@ -128,15 +160,15 @@ void Game::Clear()
     mItems.clear();
 }
 
-///**
-// * Handle a node of type item.
-// * @param node XML node
-// */
-//void Game::XmlDeclaration(wxXmlNode *node) {
-//    // A pointer for the item we are loading
-//    shared_ptr<Item> item;
-//
-//    // What type of data do we have?
-//    wxString nodeName = node->GetName();
-//
-//}
+/**
+ * Handle a node of type item.
+ * @param node XML node
+ */
+void Game::XmlItem(wxXmlNode *node) {
+    // A pointer for the item we are loading
+    shared_ptr<Item> item;
+
+    // What type of data do we have?
+    wxString nodeName = node->GetName();
+
+}

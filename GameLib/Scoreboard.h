@@ -25,3 +25,4 @@ public:
 };
 
 #endif //PROJECT1_GAMELIB_SCOREBOARD_H
+

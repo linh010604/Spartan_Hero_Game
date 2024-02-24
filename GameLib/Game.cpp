@@ -66,6 +66,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
         graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
         graphics->DrawBitmap(*mScoreboard, 0, 0, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mMeterback, 0, 0, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mMetercover, 0, 0, scoreboardWidth, scoreboardHeight);
+        graphics->DrawBitmap(*mMeterneedle, 0, 0, scoreboardWidth, scoreboardHeight);
     } else {
 
         wxBrush background(*wxRED);

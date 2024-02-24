@@ -6,8 +6,13 @@
 #ifndef PROJECT1_SOUNDBOARD_H
 #define PROJECT1_SOUNDBOARD_H
 
+#include "Game.h"
+#include "Item.h"
 
-class Soundboard {
+class Soundboard : public Item {
+private:
+
+public:
 
 };
 

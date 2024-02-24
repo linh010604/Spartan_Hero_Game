@@ -30,6 +30,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Height of virtual pixels
     int virtualHeight = 900;
 
+    int scoreboardWidth = 600;
+    int scoreboardHeight = 500;
+
+
+
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
     // Creates Scale for Y values
@@ -53,7 +58,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     if (mBackgroundBitmap.IsOk()) {
         wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
         graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
-        graphics->DrawBitmap(*mScoreboard, 0, 0, width, height);
+        graphics->DrawBitmap(*mScoreboard, 0, 0, scoreboardWidth, scoreboardHeight);
     } else {
 
         wxBrush background(*wxRED);

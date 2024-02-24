@@ -31,6 +31,9 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
     mMeterneedle = make_unique<wxBitmap>(
         L"images/meter-needle.png", wxBITMAP_TYPE_ANY);
 
+    mMeterneedle = make_unique<wxBitmap>(
+        L"images/sound-board.png", wxBITMAP_TYPE_ANY);
+
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -69,6 +72,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         graphics->DrawBitmap(*mMeterback, 0, 0, scoreboardWidth, scoreboardHeight);
         graphics->DrawBitmap(*mMetercover, 0, 0, scoreboardWidth, scoreboardHeight);
         graphics->DrawBitmap(*mMeterneedle, 0, 0, scoreboardWidth, scoreboardHeight);
+
+        graphics->DrawBitmap(*mMeterneedle, 600, 0, scoreboardWidth, scoreboardHeight);
+
+
     } else {
 
         wxBrush background(*wxRED);

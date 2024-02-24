@@ -63,6 +63,8 @@ private:
 
     std::unique_ptr<wxBitmap> mMeterneedle;
 
+    std::unique_ptr<wxBitmap> mSoundboard;
+
 
 
 //

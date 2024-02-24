@@ -30,8 +30,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Height of virtual pixels
     int virtualHeight = 900;
 
-    int scoreboardWidth = 150;
-    int scoreboardHeight = 100;
+    int scoreboardWidth = 250;
+    int scoreboardHeight = 200;
 
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);

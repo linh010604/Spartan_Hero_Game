@@ -1,6 +1,7 @@
 /**
  * @file Game.cpp
  * @author Angelina Jolie Daoud
+ * @author Nicolas Roberts
  */
 
 #include "pch.h"

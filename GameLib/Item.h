@@ -1,7 +1,3 @@
-//
-// Created by naodg on 2/21/2024.
-//
-
 /**
  * @file Item.h
  * @author Naod Ghebredngl
@@ -11,19 +7,10 @@
 #ifndef PROJECT1_ITEM_H
 #define PROJECT1_ITEM_H
 
-
-#include "Game.h"
-
-
 /**
- * @file Item.h
- * @author Naod Ghebredngl
- *
+ * Allows access to Aquarium without creating a circular dependency.
  */
-
 class Game;
-
-
 
 /**
  * Base class for any item in our game.
@@ -32,16 +19,18 @@ class Item {
 private:
 
 
-/// The game this item is contained in
+    /// The game this item is contained in
     Game   *mGame;
+
+    /// The underlying game item image
+    std::unique_ptr<wxImage> mItemImage;
+
+    /// The bitmap we can display for this game item
+    std::unique_ptr<wxBitmap> mItemBitmap;
 
     // Item location in the game
     double  mX = 0;     ///< X location for the center of the item
     double  mY = 0;     ///< Y location for the center of the item
-
-
-
-
 
 
 protected:
@@ -84,12 +73,6 @@ public:
      */
     virtual void Draw(wxDC *dc);
 
-
-
-    /// The underlying item image
-    std::unique_ptr<wxImage> mItemImage;
-    /// The bitmap we can display for the item
-    std::unique_ptr<wxBitmap> mItemBitmap;
 };
 
 

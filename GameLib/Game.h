@@ -141,6 +141,9 @@ public:
 
     static void XmlDeclaration(wxXmlNode *node);
 
+    void XmlItem(wxXmlNode *node);
+
+
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H

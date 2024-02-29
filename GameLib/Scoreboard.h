@@ -2,7 +2,7 @@
  * @file Scoreboard.h
  * @author Angelina Jolie Daoud
  *
- *
+ * File for Scoreboard class
  */
 
 #ifndef PROJECT1_GAMELIB_SCOREBOARD_H

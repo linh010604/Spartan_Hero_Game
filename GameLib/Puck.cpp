@@ -1,7 +1,6 @@
 /**
  * @file Puck.cpp
  * @author Naod Ghebredngl
- *
  */
 
 #include "pch.h"

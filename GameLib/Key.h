@@ -19,4 +19,3 @@ class Key : public Item {
 
 
 #endif //PROJECT1_KEY_H
-

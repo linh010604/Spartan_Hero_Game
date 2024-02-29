@@ -20,4 +20,3 @@ public:
 };
 
 #endif //PROJECT1_GAMELIB_LEVEL_H
-

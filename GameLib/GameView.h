@@ -3,6 +3,7 @@
  * @author Angelina Jolie Daoud
  * @author Linh Nguyen
  *
+ * File for view class
  */
 
 #ifndef PROJECT1_GAMELIB_GAMEVIEW_H
@@ -25,20 +26,11 @@ private:
     Game mGame;
 
 public:
-    /**
-    * Initialize the game view class.
-    * @param mainFrame The parent window for this class
-    */
+
     void Initialize(wxFrame *mainFrame);
-    /**
-    * Paint event, draws the window.
-    * @param event Paint event object
-    */
+
     void OnPaint(wxPaintEvent& event);
-    /**
-    * Handle the left mouse button down event
-    * @param event
-    */
+
     void OnLeftDown(wxMouseEvent& event);
 
     void OnLevelOption(wxCommandEvent& event);
@@ -51,4 +43,3 @@ wxDECLARE_EVENT_TABLE();
 };
 
 #endif //PROJECT1_GAMELIB_GAMEVIEW_H
-

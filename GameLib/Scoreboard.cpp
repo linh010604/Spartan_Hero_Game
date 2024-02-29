@@ -20,4 +20,3 @@ Scoreboard::Scoreboard(Game *game, const std::wstring &filename) : Item(game, fi
     //initialize Scoreboard info here
 
 }
-

@@ -22,6 +22,10 @@ wxBEGIN_EVENT_TABLE(GameView, wxWindow)
         EVT_LEFT_DOWN(GameView::OnLeftDown)
 wxEND_EVENT_TABLE()
 
+/**
+ * Initialize the game view class.
+ * @param mainFrame The parent window for this class
+ */
 void GameView::Initialize(wxFrame *mainFrame) {
     Create(mainFrame, wxID_ANY);
 
@@ -42,6 +46,10 @@ void GameView::Initialize(wxFrame *mainFrame) {
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 }
 
+/**
+ * Paint event, draws the window.
+ * @param event Paint event object
+ */
 void GameView::OnPaint(wxPaintEvent& event)
 {
     // Create a double-buffered display context
@@ -58,12 +66,20 @@ void GameView::OnPaint(wxPaintEvent& event)
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 }
 
+/**
+ * Handle the left mouse button down event
+ * @param event
+ */
 void GameView::OnLeftDown(wxMouseEvent &event)
 {
     // On left down mouse click gets X and Y values
     mGame.OnLeftDown(event.GetX(), event.GetY());
 }
 
+/**
+ * Handle the menu option of selecting a level
+ * @param event
+ */
 void GameView::OnLevelOption(wxCommandEvent& event)
 {
     wxString filename;

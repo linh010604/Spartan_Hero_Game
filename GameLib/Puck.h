@@ -1,10 +1,8 @@
-//
-// Created by naodg on 2/21/2024.
-//
-
 /**
  * @file Puck.h
  * @author Naod Ghebredngl
+ *
+ * File for Puck class
  */
 
 #ifndef PROJECT1_PUCK_H
@@ -27,8 +25,6 @@ public:
     Puck(Game *game, const std::wstring &filename);
 
     // Update function most likely needed
-
-
 
 
 };

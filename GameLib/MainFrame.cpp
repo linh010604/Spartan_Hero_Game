@@ -71,7 +71,11 @@ void MainFrame::OnExit(wxCommandEvent& event)
     Close(true);
 }
 
-
+/**
+ * Handles About item event from menu.
+ * Method displays a dialog showing info about application.
+ * @param event The event object associated with the About action.
+ */
 void MainFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox(L"Welcome to the Game!",
                  L"About Spartan Hero",

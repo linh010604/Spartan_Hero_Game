@@ -35,7 +35,15 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
         L"images/sound-board.png", wxBITMAP_TYPE_ANY);
 
     mSoundboardCover = make_unique<wxBitmap>(
-        L"images/sound-board-cover.png", wxBITMAP_TYPE_ANY);
+            L"images/sound-board-cover.png", wxBITMAP_TYPE_ANY);
+
+
+    mGuitarHero1 = make_unique<wxBitmap>(
+            L"images/guitar-guy-1.png", wxBITMAP_TYPE_ANY);
+
+    mGuitarHero2 = make_unique<wxBitmap>(
+            L"images/guitar-guy-2.png", wxBITMAP_TYPE_ANY);
+
 
 }
 
@@ -57,6 +65,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
     int soundboardWidth = 726;
     int soundboardHeight = 545;
+
+    int guitarheroWidth = 200;
+    int guitarheroHeight = 200;
+
+
 
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
@@ -88,7 +101,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
 
         graphics->DrawBitmap(*mSoundboard, 290, 200, soundboardWidth, soundboardHeight);
+        graphics->DrawBitmap(*mGuitarHero1, 100, 600, guitarheroWidth, guitarheroHeight);
+        graphics->DrawBitmap(*mGuitarHero2, 1000, 600, guitarheroWidth, guitarheroHeight);
         graphics->DrawBitmap(*mSoundboardCover, 290, 150, soundboardWidth, soundboardHeight);
+
+
 
 
     } else {

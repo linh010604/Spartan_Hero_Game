@@ -12,6 +12,9 @@
  * Base class for the LevelLoader
  */
 class LevelLoader {
+private:
+
+public:
 
 };
 

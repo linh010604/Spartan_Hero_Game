@@ -2,7 +2,7 @@
  * @file MainFrame.h
  * @author thaol
  *
- *
+ * File for MainFrame class
  */
 
 #ifndef PROJECT1_GAMELIB_MAINFRAME_H

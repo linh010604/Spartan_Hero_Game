@@ -38,3 +38,4 @@ void Item::Draw(wxDC *dc) {
                    int(GetX() - wid / 2),
                    int(GetY() - hit / 2));
 }
+

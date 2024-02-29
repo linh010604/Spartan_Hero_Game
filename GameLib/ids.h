@@ -2,7 +2,7 @@
  * @file ids.h
  * @author thaol
  *
- *
+ * File containing all ids
  */
 
 #ifndef PROJECT1_GAMELIB_IDS_H

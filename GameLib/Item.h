@@ -1,14 +1,15 @@
 /**
  * @file Item.h
  * @author Naod Ghebredngl
- * file for the item class
+ *
+ * File for the item class
  */
 
 #ifndef PROJECT1_ITEM_H
 #define PROJECT1_ITEM_H
 
 /**
- * Allows access to Aquarium without creating a circular dependency.
+ * Allows access to Game without creating a circular dependency.
  */
 class Game;
 
@@ -66,12 +67,6 @@ public:
     /// Assignment operator
     void operator=(const Item &) = delete;
 
-
-
-    /**
-     * Draw this item
-     * @param dc Device context to draw on
-     */
     virtual void Draw(wxDC *dc);
 
 };

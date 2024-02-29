@@ -1,7 +1,6 @@
 /**
  * @file Item.cpp
  * @author Naod Ghebredngl
- * The item class used to store the items used in the game
  */
 
 #include "pch.h"
@@ -28,6 +27,10 @@ Item::Item(Game *game, const std::wstring &filename) : mGame(game) {
     mItemBitmap = make_unique<wxBitmap>(*mItemImage);
 }
 
+/**
+ * Draw this item
+ * @param dc Device context to draw on
+ */
 void Item::Draw(wxDC *dc) {
     double wid = mItemBitmap->GetWidth();
     double hit = mItemBitmap->GetHeight();

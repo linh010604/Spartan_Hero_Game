@@ -39,6 +39,13 @@ Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0),
 
 }
 
+/**
+ * Draw the game's graphics onto the window.
+ *
+ * @param gc A shared pointer to a wxGraphicsContext object used for drawing.
+ * @param width The current width of the window.
+ * @param height The current height of the window.
+ */
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     // Width of virtual pixels
     int virtualWidth = 1304;
@@ -95,12 +102,24 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     graphics->PopState();
 }
 
+/**
+ * Handle mouse click events within the game window.
+ *
+ * @param x The x-coordinate of the mouse click within the window.
+ * @param y The y-coordinate of the mouse click within the window.
+ */
 void Game::OnLeftDown(int x, int y) {
     double virtualX = (x - mXOffset) / mScale;
     double virtualY = (y - mYOffset) / mScale;
 
 }
 
+/**
+ * Calculate the scaling factor and offset for rendering based on the current window size.
+ *
+ * @param width The current width of the window.
+ * @param height The current height of the window.
+ */
 void Game::CalculateScaleAndOffset(int width, int height) {
     mScale = std::min(double(width) / mVirtualWidth, double(height) / mVirtualHeight);
     mXOffset = (width - mVirtualWidth * mScale) / 2.0;
@@ -110,6 +129,7 @@ void Game::CalculateScaleAndOffset(int width, int height) {
 /**
  * Set the directory the images are stored in
  *
+ * @param dir directory in which images are stored in.
  */
 void Game::SetImagesDirectory(const std::wstring &dir) {
     mImagesDirectory = dir + ImagesDirectory;

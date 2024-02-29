@@ -2,16 +2,18 @@
  * @file Key.h
  * @author Nicolas Roberts
  *
- * Main class for key
+ * File for key class
  */
 
 #ifndef PROJECT1_KEY_H
 #define PROJECT1_KEY_H
 
+#include "Item.h"
+
 /**
- * Main class for key
+ * Class for Key that derives from Item
  */
-class Key {
+class Key : public Item {
 
 };
 

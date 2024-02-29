@@ -24,6 +24,8 @@ set(SOURCE_FILES pch.h
         ids.h
         Soundboard.cpp
         Soundboard.h
+        LevelLoader.cpp
+        LevelLoader.h
 
 )
 

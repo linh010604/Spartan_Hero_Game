@@ -11,7 +11,7 @@
 #include "Declaration.h"
 
 /**
- * Class for a fish of type Beta
+ * Class for an Image Declaration
  */
 class DeclarationImage : public Declaration {
 public:

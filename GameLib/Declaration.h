@@ -18,10 +18,10 @@ private:
     double mWidth = 0;  ///< Width of the declaration
     double mHeight = 0; ///< Length of the declaration
 
-    /// The underlying fish image
+    /// The underlying image
     std::unique_ptr<wxImage> mDeclarationImage;
 
-    /// The bitmap we can display for this fish
+    /// The bitmap we can display for this image
     std::unique_ptr<wxBitmap> mDeclarationBitmap;
 
 protected:

@@ -1,8 +1,8 @@
 project(GameLib)
 
 set(SOURCE_FILES pch.h
-        Scoreboard.cpp
-        Scoreboard.h
+        ItemScoreboard.cpp
+        ItemScoreboard.h
         Sound.cpp
         Sound.h
         Track.cpp
@@ -21,10 +21,8 @@ set(SOURCE_FILES pch.h
         Level.h
         Key.cpp
         Key.h
-        LevelLoader.cpp
-        LevelLoader.h
-        Soundboard.cpp
-        Soundboard.h
+        ItemSoundboard.cpp
+        ItemSoundboard.h
         ItemMeter.cpp
         ItemMeter.h
         Declaration.cpp
@@ -35,6 +33,10 @@ set(SOURCE_FILES pch.h
         ItemImage.h
         DeclarationMeter.cpp
         DeclarationMeter.h
+        DeclarationScoreBoard.cpp
+        DeclarationScoreBoard.h
+        DeclarationSoundBoard.cpp
+        DeclarationSoundBoard.h
 
 )
 

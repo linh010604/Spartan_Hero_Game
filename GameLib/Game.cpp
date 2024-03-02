@@ -5,12 +5,15 @@
 
 #include "pch.h"
 #include "Game.h"
-#include "Scoreboard.h"
 #include "Declaration.h"
 #include "DeclarationImage.h"
 #include "DeclarationMeter.h"
+#include "DeclarationSoundBoard.h"
+#include "DeclarationScoreBoard.h"
 #include "ItemImage.h"
 #include "ItemMeter.h"
+#include "ItemSoundBoard.h"
+#include "ItemScoreBoard.h"
 #include <memory>
 
 using namespace std;
@@ -90,17 +93,9 @@ void Game::SetImagesDirectory(const std::wstring &dir) {
  *
  * Deletes all known items in the game level.
  */
-void Game::ItemClear()
+void Game::Clear()
 {
     mItems.clear();
-}
-
-/**
- * Clear the game data.
- *
- * Deletes all known declarations in the game.
- */
-void Game::DeclarationClear(){
     mDeclarations.clear();
 }
 
@@ -120,8 +115,8 @@ void Game::Load(const wxString &filename)
         return;
     }
 
-    DeclarationClear();
-    ItemClear();
+    Clear();
+
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
     //
@@ -185,6 +180,14 @@ void Game::XmlDeclarations(wxXmlNode *node)
         {
             declaration = make_shared<DeclarationMeter>(this);
         }
+        else if(name == L"sound-board")
+        {
+            declaration = make_shared<DeclarationSoundBoard>(this);
+        }
+        else if(name == L"score-board")
+        {
+            declaration = make_shared<DeclarationScoreBoard>(this);
+        }
 
         if (declaration != nullptr)
         {
@@ -215,6 +218,14 @@ void Game::XmlItems(wxXmlNode *node)
         else if(name == L"meter")
         {
             item = make_shared<ItemMeter>(this);
+        }
+        else if(name == L"sound-board")
+        {
+            item = make_shared<ItemSoundBoard>(this);
+        }
+        else if(name == L"score-board")
+        {
+            item = make_shared<ItemScoreBoard>(this);
         }
 
         if (item != nullptr)

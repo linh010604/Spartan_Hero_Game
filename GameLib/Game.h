@@ -1,7 +1,7 @@
 /**
  * @file Game.h
  * @author Angelina Jolie Daoud
- *
+ * @author Linh Thao Nguyen
  *
  */
 
@@ -10,7 +10,7 @@
 
 #include <wx/graphics.h>
 #include <memory>
-#include<wx/dc.h>
+#include <wx/dc.h>
 #include <miniaudio.h>
 
 /**
@@ -135,9 +135,7 @@ public:
 
     void Load(const wxString &filename);
 
-    void DeclarationClear();
-
-    void ItemClear();
+    void Clear();
 
     void AddItem(std::shared_ptr<Item> item);
 

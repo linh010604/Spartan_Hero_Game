@@ -9,11 +9,11 @@
 #define PROJECT1_GAMELIB_DECLARATIONMETER_H
 
 #include "Declaration.h"
+
 /**
  * Meter Class derived from Declaration
  *
  */
-
 class DeclarationMeter : public Declaration
 {
 private:

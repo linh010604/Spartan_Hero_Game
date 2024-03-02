@@ -22,7 +22,7 @@ private:
     // lots more to add
     double speed;
 public:
-    Puck(Game *game, const std::wstring &filename);
+//    Puck(Game *game, const std::wstring &filename);
 
     // Update function most likely needed
 

@@ -19,7 +19,7 @@
 class Track : public Item {
 public:
 
-    Track(Game *game, const std::wstring &filename);
+//    Track(Game *game, const std::wstring &filename);
 
 };
 

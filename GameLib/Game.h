@@ -2,7 +2,7 @@
  * @file Game.h
  * @author Angelina Jolie Daoud
  *
- * File for game class
+ *
  */
 
 #ifndef PROJECT1_GAMELIB_GAME_H
@@ -11,11 +11,17 @@
 #include <wx/graphics.h>
 #include <memory>
 #include<wx/dc.h>
+#include <miniaudio.h>
 
 /**
  * Allows access to Item without creating a circular dependency.
  */
 class Item;
+
+/**
+ * Allows access to Declaration without creating a circular dependency.
+ */
+class Declaration;
 
 /**
  * Class for our game
@@ -55,29 +61,25 @@ private:
     */
     wxBitmap mBackgroundBitmap; // Member variable for the background image
 
-    std::unique_ptr<wxBitmap> mScoreboard;
-
-    std::unique_ptr<wxBitmap> mMeterback;
-
-    std::unique_ptr<wxBitmap> mMetercover;
-
-    std::unique_ptr<wxBitmap> mMeterneedle;
-
-    std::unique_ptr<wxBitmap> mSoundboard;
-
-    std::unique_ptr<wxBitmap> mSoundboardCover;
-
     //wxBitmap *mBackground;  ///< Background image to use
+
+    ma_engine* mAudioEngine;
 
     /// All of the items to populate our game
     std::vector<std::shared_ptr<Item>> mItems;
 
+    /// All of the declarations to populate our aquarium
+    std::vector<std::shared_ptr<Declaration>> mDeclarations;
+
 public:
 
+    /// Size of the area we are going to draw on in pixels
+    constexpr static double Size = 1000;
+
     /**
-     * Constructor
+     * Game Constructor
      */
-    Game();
+    Game(ma_engine *PEngine);
 
     /**
      * Destructor
@@ -98,20 +100,54 @@ public:
     */
     void SetImagesDirectory(const std::wstring &dir);
 
+    /**
+    * Calculate the scaling factor and offset for rendering based on the current window size.
+    *
+    * @param width The current width of the window.
+    * @param height The current height of the window.
+    */
     void CalculateScaleAndOffset(int width, int height);
 
+    /**
+    * Draw the game's graphics onto the window.
+    *
+    * @param gc A shared pointer to a wxGraphicsContext object used for drawing.
+    * @param width The current width of the window.
+    * @param height The current height of the window.
+     */
     void OnDraw(std::shared_ptr<wxGraphicsContext> gc, int width, int height);
 
+
+    /**
+    * Handle mouse click events within the game window.
+    *
+    * @param x The x-coordinate of the mouse click within the window.
+    * @param y The y-coordinate of the mouse click within the window.
+    */
     void OnLeftDown(int x, int y);
+
+    /**
+    * Draw the game's graphics onto the window using a device context.
+    *
+    * @param dc Pointer to a wxDC object used for drawing, representing the device context to draw on.
+    */
+    void OnDraw(wxDC* dc);
 
     void Load(const wxString &filename);
 
-    void Clear();
+    void DeclarationClear();
 
-    static void XmlDeclaration(wxXmlNode *node);
+    void ItemClear();
 
-    void XmlItem(wxXmlNode *node);
+    void AddItem(std::shared_ptr<Item> item);
 
+    void AddDeclaration(std::shared_ptr<Declaration> declaration);
+
+    void XmlDeclarations(wxXmlNode *node);
+
+    void XmlItems(wxXmlNode *node);
+
+    ma_engine* GetAudioEngine() {return mAudioEngine;}
 
 };
 

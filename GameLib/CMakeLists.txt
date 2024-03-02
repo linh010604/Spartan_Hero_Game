@@ -27,6 +27,12 @@ set(SOURCE_FILES pch.h
         Soundboard.h
         Meter.cpp
         Meter.h
+        Declaration.cpp
+        Declaration.h
+        DeclarationImage.cpp
+        DeclarationImage.h
+        ItemImage.cpp
+        ItemImage.h
 
 )
 

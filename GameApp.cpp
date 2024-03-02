@@ -4,12 +4,12 @@
  */
 
 #include "pch.h"
-
-#include "MainFrame.h"
 #include "GameApp.h"
 
 #define MINIAUDIO_IMPLEMENTATION
 #include "miniaudio.h"
+
+#include "MainFrame.h"
 
 /**
  * Initialize the application.
@@ -24,7 +24,7 @@ bool GameApp::OnInit()
     wxInitAllImageHandlers();
 
     auto frame = new MainFrame();
-    frame->Initialize();
+    frame->Initialize(&mAudioEngine);
 
     frame->SetFocus();
     frame->Raise();

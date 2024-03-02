@@ -6,13 +6,20 @@
 
 #include "pch.h"
 
-#include <wx/stdpaths.h>
-#include <wx/dcbuffer.h>
-
 #include "GameView.h"
+#include "Sound.h"
 #include "ids.h"
 
+#include <wx/stdpaths.h>
+#include <wx/dcbuffer.h>
+#include <thread>
+#include <chrono>
+
 using namespace std;
+
+
+/// Frame duration in milliseconds
+const int FrameDuration = 30;
 
 /**
 * The event table that connects window events
@@ -21,6 +28,11 @@ wxBEGIN_EVENT_TABLE(GameView, wxWindow)
         EVT_PAINT(GameView::OnPaint)
         EVT_LEFT_DOWN(GameView::OnLeftDown)
 wxEND_EVENT_TABLE()
+
+GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine)
+{
+
+}
 
 /**
  * Initialize the game view class.
@@ -31,55 +43,64 @@ void GameView::Initialize(wxFrame *mainFrame) {
 
     // Determine where the images are stored
     //auto standardPaths = wxStandardPaths::Get();
-    wxStandardPaths& standardPaths = wxStandardPaths::Get();
-    std::wstring resourcesDir = standardPaths.GetResourcesDir().ToStdWstring();
-    mGame.SetImagesDirectory(resourcesDir);
+//    wxStandardPaths& standardPaths = wxStandardPaths::Get();
+//    std::wstring resourcesDir = standardPaths.GetResourcesDir().ToStdWstring();
+//    mGame.SetImagesDirectory(resourcesDir);
 
     // Allows ability to paint on background
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL0);
+    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL1);
+    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL2);
+    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
 
     // Binds paint function with event
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     // Binds left down function with event
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
+    Bind(wxEVT_TIMER, &GameView::OnTimer, this);
+
+    mainFrame->Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
+    mainFrame->Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
+
+    mTimer.SetOwner(this);
+    mTimer.Start(FrameDuration);
+    mStopWatch.Start();
+
+    mGame.Load(L"levels/level0.xml");
+
 }
 
-/**
- * Paint event, draws the window.
- * @param event Paint event object
- */
 void GameView::OnPaint(wxPaintEvent& event)
 {
     // Create a double-buffered display context
     wxAutoBufferedPaintDC dc(this);
 
+    wxBrush background(*wxBLACK);
+    dc.SetBackground(background);
+    dc.Clear();
+
+    // Compute the time that has elapsed
+    // since the last call to OnPaint.
+    auto newTime = mStopWatch.Time();
+    mTime = newTime;
     // Create a graphics context
     auto gc = std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
 
-    gc->SetBrush(*wxBLACK_BRUSH);
+    // Tell the game class to draw
     wxRect rect = GetRect();
-    gc->DrawRectangle(0, 0, rect.GetWidth(), rect.GetHeight());
-
-
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
+
 }
 
-/**
- * Handle the left mouse button down event
- * @param event
- */
 void GameView::OnLeftDown(wxMouseEvent &event)
 {
     // On left down mouse click gets X and Y values
     mGame.OnLeftDown(event.GetX(), event.GetY());
 }
 
-/**
- * Handle the menu option of selecting a level
- * @param event
- */
+
 void GameView::OnLevelOption(wxCommandEvent& event)
 {
     wxString filename;
@@ -87,11 +108,103 @@ void GameView::OnLevelOption(wxCommandEvent& event)
     switch(event.GetId())
     {
         case IDM_LEVEL0:
-            filename = "levels/level0.xml";
+            filename = L"levels/level0.xml";
+            mGame.Load(filename);
+            Refresh();
+            break;
+        case IDM_LEVEL1:
+            filename = L"levels/level1.xml";
+            mGame.Load(filename);
+            Refresh();
+            break;
+        case IDM_LEVEL2:
+            filename = L"levels/level2.xml";
+            mGame.Load(filename);
+            Refresh();
+            break;
+        case IDM_LEVEL3:
+            filename = L"levels/level3.xml";
             mGame.Load(filename);
             Refresh();
             break;
 
     }
 
+}
+
+/**
+ * Handle a key press event
+ * @param event Keypress event
+ */
+void GameView::OnKeyDown(wxKeyEvent& event)
+{
+    wxChar key = event.GetKeyCode();
+    // A = 65, S = 83, D = 68, F = 70
+    // J = 74, K = 75, L = 76, ; = 59
+    Sound sound;
+
+    switch(key)
+    {
+        case(wxChar(65)):
+            sound.SetAudioFile(L"trumpet/C4.wav");
+            std::cout << "A" << std::endl;
+            break;
+        case(wxChar(83)):
+            sound.SetAudioFile(L"trumpet/Db4.wav");
+            std::cout << "S" << std::endl;
+            break;
+        case(wxChar(68)):
+            sound.SetAudioFile(L"trumpet/Eb4.wav");
+            std::cout << "D" << std::endl;
+            break;
+        case(wxChar(70)):
+            sound.SetAudioFile(L"trumpet/E4.wav");
+            std::cout << "F" << std::endl;
+            break;
+
+        case(wxChar(74)):
+            sound.SetAudioFile(L"trumpet/C5.wav");
+            std::cout << "J" << std::endl;
+            break;
+        case(wxChar(75)):
+            sound.SetAudioFile(L"trumpet/Db5.wav");
+            std::cout << "K" << std::endl;
+            break;
+        case(wxChar(76)):
+            sound.SetAudioFile(L"trumpet/Eb5.wav");
+            std::cout << "L" << std::endl;
+            break;
+        case(wxChar(59)):
+            sound.SetAudioFile(L"trumpet/E5.wav");
+            std::cout << ";" << std::endl;
+            break;
+
+        default:
+            sound.SetAudioFile(L"trumpet/B4.wav");
+            std::cout << "Not a key" << std::endl;
+            break;
+    }
+    sound.SetVolume(0.5);
+    sound.LoadSound(mGame.GetAudioEngine());
+
+    sound.PlaySound();
+    std::this_thread::sleep_for(std::chrono::seconds(2)); //pauses for 2 seconds
+    sound.PlayEnd();
+}
+
+/**
+ * Handle a key release event
+ * @param event Key release event
+ */
+void GameView::OnKeyUp(wxKeyEvent& event)
+{
+}
+
+/**
+ * Handle timer events
+ * @param event timer event
+ */
+void GameView::OnTimer(wxTimerEvent& event)
+{
+    Refresh();
 }

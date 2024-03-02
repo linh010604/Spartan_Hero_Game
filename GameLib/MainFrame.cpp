@@ -11,19 +11,17 @@
 /**
  * Initialize the MainFrame window.
  */
-void MainFrame::Initialize()
+void MainFrame::Initialize(ma_engine *PEngine)
 {
     Create(nullptr, wxID_ANY, L"Spartan Hero",
            wxDefaultPosition,  wxSize( 1000,800 ));
-
-
 
     // Create a sizer that will lay out child windows vertically
     // one above each other
     auto sizer = new wxBoxSizer( wxVERTICAL );
 
     // Create the view class object as a child of MainFrame
-    auto gameView = new GameView();
+    auto gameView = new GameView(PEngine);
     gameView->Initialize(this);
 
     // Add it to the sizer
@@ -58,6 +56,7 @@ void MainFrame::Initialize()
 
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
+    Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
 
     SetMenuBar( menuBar );
 }
@@ -71,14 +70,20 @@ void MainFrame::OnExit(wxCommandEvent& event)
     Close(true);
 }
 
-/**
- * Handles About item event from menu.
- * Method displays a dialog showing info about application.
- * @param event The event object associated with the About action.
- */
+
 void MainFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox(L"Welcome to the Game!",
                  L"About Spartan Hero",
                  wxOK,
                  this);
+}
+
+/**
+ * Handle a close event. Stop the animation and destroy this window.
+ * @param event The Close event
+ */
+void MainFrame::OnClose(wxCloseEvent& event)
+{
+    mGameView->Stop();
+    Destroy();
 }

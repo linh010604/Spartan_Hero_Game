@@ -1,6 +1,7 @@
 /**
  * @file Item.cpp
  * @author Naod Ghebredngl
+ * The item class used to store the items used in the game
  */
 
 #include "pch.h"
@@ -20,21 +21,24 @@ Item::~Item()
 /**
  * Constructor
  * @param game The game this item is a member of
- * @param filename Image file name for the item
  */
-Item::Item(Game *game, const std::wstring &filename) : mGame(game) {
-    mItemImage = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
-    mItemBitmap = make_unique<wxBitmap>(*mItemImage);
+Item::Item(Game *game) : mGame(game)
+{
 }
 
 /**
- * Draw this item
- * @param dc Device context to draw on
+ * Load the attributes for an item node.
+ *
+ * This is the  base class version that loads the attributes
+ * common to all items. Override this to load custom attributes
+ * for specific items.
+ *
+ * @param node The Xml node we are loading the item from
  */
-void Item::Draw(wxDC *dc) {
-    double wid = mItemBitmap->GetWidth();
-    double hit = mItemBitmap->GetHeight();
-    dc->DrawBitmap(*mItemBitmap,
-                   int(GetX() - wid / 2),
-                   int(GetY() - hit / 2));
+void Item::XmlLoad(wxXmlNode *node)
+{
+    auto position = node->GetAttribute("p","0,0");
+    position.BeforeFirst(',').ToDouble(&mX);
+    position.AfterFirst(',').ToDouble(&mY);
+    mId = node->GetAttribute(L"id", L"0").ToStdWstring();
 }

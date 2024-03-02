@@ -19,7 +19,7 @@ class Scoreboard : public Item{
 private:
 
 public:
-    Scoreboard(Game *game, const std::wstring &filename);
+//    Scoreboard(Game *game, const std::wstring &filename);
 
 
 };

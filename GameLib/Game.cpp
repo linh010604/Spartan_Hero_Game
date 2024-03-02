@@ -4,8 +4,17 @@
  * @author Nicolas Roberts
  */
 
+/**
+ * @file Game.cpp
+ * @author Angelina Jolie Daoud
+ */
+
 #include "pch.h"
 #include "Game.h"
+#include "Scoreboard.h"
+#include "Declaration.h"
+#include "DeclarationImage.h"
+#include "ItemImage.h"
 #include <memory>
 
 using namespace std;
@@ -14,54 +23,18 @@ using namespace std;
 /// relative to the resources directory.
 const std::wstring ImagesDirectory = L"/images";
 
-Game::Game() : mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
+Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine), mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
     // Load the background image into the wxBitmap member variable
 
     mBackgroundBitmap = wxBitmap(L"images/background1.png", wxBITMAP_TYPE_ANY);
 
-    mScoreboard = make_unique<wxBitmap>(
-            L"images/score-board.png", wxBITMAP_TYPE_ANY);
-
-    mMeterback = make_unique<wxBitmap>(
-        L"images/meter-back.png", wxBITMAP_TYPE_ANY);
-
-    mMetercover = make_unique<wxBitmap>(
-        L"images/meter-cover.png", wxBITMAP_TYPE_ANY);
-
-    mMeterneedle = make_unique<wxBitmap>(
-        L"images/meter-needle.png", wxBITMAP_TYPE_ANY);
-
-    mSoundboard = make_unique<wxBitmap>(
-        L"images/sound-board.png", wxBITMAP_TYPE_ANY);
-
-    mSoundboardCover = make_unique<wxBitmap>(
-            L"images/sound-board-cover.png", wxBITMAP_TYPE_ANY);
-
 }
 
-/**
- * Draw the game's graphics onto the window.
- *
- * @param gc A shared pointer to a wxGraphicsContext object used for drawing.
- * @param width The current width of the window.
- * @param height The current height of the window.
- */
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     // Width of virtual pixels
-    int virtualWidth = 1304;
+    int virtualWidth = mDeclarations[0]->GetWidth();
     // Height of virtual pixels
-    int virtualHeight = 900;
-
-    int scoreboardWidth = 200;
-    int scoreboardHeight = 136;
-
-    int soundboardWidth = 726;
-    int soundboardHeight = 545;
-
-    int guitarheroWidth = 200;
-    int guitarheroHeight = 200;
-
-
+    int virtualHeight = mDeclarations[0]->GetHeight();
 
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
@@ -82,51 +55,26 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Scales coordinate system
     graphics->Scale(mScale, mScale);
 
-    // Check if the background image is loaded correctly and draw it
-    if (mBackgroundBitmap.IsOk()) {
-        wxGraphicsBitmap gb = graphics->CreateBitmap(mBackgroundBitmap);
-        graphics->DrawBitmap(gb, 0, 0, virtualWidth, virtualHeight);
-        graphics->DrawBitmap(*mScoreboard, 170, 350, scoreboardWidth, scoreboardHeight);
-        graphics->DrawBitmap(*mMeterback, 920, 350, scoreboardWidth, scoreboardHeight);
-        graphics->DrawBitmap(*mMetercover, 920, 350, scoreboardWidth, scoreboardHeight);
-        graphics->DrawBitmap(*mMeterneedle, 920, 350, scoreboardWidth, scoreboardHeight);
+    for (auto declaration : mDeclarations)
+    {
+        for (auto item : mItems)
+        {
+            if (item->GetId() == declaration->GetId())
+                declaration->Draw(graphics,item->GetX(), item->GetY());
+        }
 
-
-        graphics->DrawBitmap(*mSoundboard, 290, 200, soundboardWidth, soundboardHeight);
-        graphics->DrawBitmap(*mSoundboardCover, 290, 150, soundboardWidth, soundboardHeight);
-
-
-
-
-    } else {
-
-        wxBrush background(*wxRED);
-        graphics->SetBrush(background);
-        graphics->DrawRectangle(0, 0, virtualWidth, virtualHeight);
     }
 
     // Restores state of graphics
     graphics->PopState();
 }
 
-/**
- * Handle mouse click events within the game window.
- *
- * @param x The x-coordinate of the mouse click within the window.
- * @param y The y-coordinate of the mouse click within the window.
- */
 void Game::OnLeftDown(int x, int y) {
     double virtualX = (x - mXOffset) / mScale;
     double virtualY = (y - mYOffset) / mScale;
 
 }
 
-/**
- * Calculate the scaling factor and offset for rendering based on the current window size.
- *
- * @param width The current width of the window.
- * @param height The current height of the window.
- */
 void Game::CalculateScaleAndOffset(int width, int height) {
     mScale = std::min(double(width) / mVirtualWidth, double(height) / mVirtualHeight);
     mXOffset = (width - mVirtualWidth * mScale) / 2.0;
@@ -136,10 +84,28 @@ void Game::CalculateScaleAndOffset(int width, int height) {
 /**
  * Set the directory the images are stored in
  *
- * @param dir directory in which images are stored in.
  */
 void Game::SetImagesDirectory(const std::wstring &dir) {
     mImagesDirectory = dir + ImagesDirectory;
+}
+
+/**
+ * Clear the game data.
+ *
+ * Deletes all known items in the game level.
+ */
+void Game::ItemClear()
+{
+    mItems.clear();
+}
+
+/**
+ * Clear the game data.
+ *
+ * Deletes all known declarations in the game.
+ */
+void Game::DeclarationClear(){
+    mDeclarations.clear();
 }
 
 /**
@@ -158,7 +124,8 @@ void Game::Load(const wxString &filename)
         return;
     }
 
-    Clear();
+    DeclarationClear();
+    ItemClear();
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
     //
@@ -171,31 +138,85 @@ void Game::Load(const wxString &filename)
         auto name = child->GetName();
         if(name == L"declarations")
         {
-            int a = 1 ;// temporary for build the project
-            //XmlDeclarations(child);
+            auto node = child->GetChildren();
+            XmlDeclarations(node);
+        }
+        else if (name == L"items")
+        {
+            auto node = child->GetChildren();
+            for( *node ; node; node=node->GetNext())
+                XmlItems(node);
         }
     }
 }
 
 /**
- * Clear the game data.
- *
- * Deletes all known items in the game level.
+ * Add an item to the game
+ * @param item New item to add
  */
-void Game::Clear()
+void Game::AddItem(std::shared_ptr<Item> item)
 {
-    mItems.clear();
+    mItems.push_back(item);
+}
+
+/**
+ * Add a declaration to the game
+ * @param declaration New declaration to add
+ */
+void Game::AddDeclaration(std::shared_ptr<Declaration> declaration)
+{
+    mDeclarations.push_back(declaration);
 }
 
 /**
  * Handle a node of type item.
  * @param node XML node
  */
-void Game::XmlItem(wxXmlNode *node) {
+void Game::XmlDeclarations(wxXmlNode *node)
+{
     // A pointer for the item we are loading
-    shared_ptr<Item> item;
 
-    // What type of data do we have?
-    wxString nodeName = node->GetName();
+    // auto child = node->GetChildren();
+    for( *node ; node; node=node->GetNext())
+    {
+        shared_ptr<Declaration> declaration;
+        auto name = node->GetName();
+        if(name == L"image")
+        {
+            declaration = make_shared<DeclarationImage>(this);
+        }
 
+        if (declaration != nullptr)
+        {
+            declaration->XmlLoad(node);
+            AddDeclaration(declaration);
+        }
+    }
+}
+
+/**
+ * Handle a node of type item.
+ * @param node XML node
+ */
+void Game::XmlItems(wxXmlNode *node)
+{
+    // A pointer for the item we are loading
+
+    // auto child = node->GetChildren();
+    for( *node ; node; node=node->GetNext())
+    {
+        shared_ptr<Item> item;
+        auto name = node->GetName();
+        if(name == L"image")
+        {
+            int a = 1;
+            item = make_shared<ItemImage>(this);
+        }
+
+        if (item != nullptr)
+        {
+            item->XmlLoad(node);
+            AddItem(item);
+        }
+    }
 }

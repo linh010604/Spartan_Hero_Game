@@ -1,15 +1,14 @@
 /**
  * @file Item.h
  * @author Naod Ghebredngl
- *
- * File for the item class
+ * file for the item class
  */
 
 #ifndef PROJECT1_ITEM_H
 #define PROJECT1_ITEM_H
 
 /**
- * Allows access to Game without creating a circular dependency.
+ * Allows access to Aquarium without creating a circular dependency.
  */
 class Game;
 
@@ -23,21 +22,17 @@ private:
     /// The game this item is contained in
     Game   *mGame;
 
-    /// The underlying game item image
-    std::unique_ptr<wxImage> mItemImage;
-
-    /// The bitmap we can display for this game item
-    std::unique_ptr<wxBitmap> mItemBitmap;
-
     // Item location in the game
     double  mX = 0;     ///< X location for the center of the item
     double  mY = 0;     ///< Y location for the center of the item
 
+    wxString  mId = "";  ///< Id of the declaration
+
 
 protected:
-    Item(Game *game, const std::wstring &filename);
+    Item(Game *game);
 public:
-    ~Item();
+    virtual ~Item();
     /**
      * The X location of the item
      * @return X location in pixels
@@ -50,6 +45,11 @@ public:
      */
     double GetY() const { return mY; }
 
+    /**
+     * The Id of the item
+     * @return Id
+     */
+    wxString GetId() const { return mId; }
 
     /**
      * Set the item location
@@ -67,7 +67,7 @@ public:
     /// Assignment operator
     void operator=(const Item &) = delete;
 
-    virtual void Draw(wxDC *dc);
+    virtual void XmlLoad(wxXmlNode *node);
 
 };
 

@@ -1,12 +1,6 @@
 /**
  * @file Game.cpp
  * @author Angelina Jolie Daoud
- * @author Nicolas Roberts
- */
-
-/**
- * @file Game.cpp
- * @author Angelina Jolie Daoud
  */
 
 #include "pch.h"
@@ -14,7 +8,9 @@
 #include "Scoreboard.h"
 #include "Declaration.h"
 #include "DeclarationImage.h"
+#include "DeclarationMeter.h"
 #include "ItemImage.h"
+#include "ItemMeter.h"
 #include <memory>
 
 using namespace std;
@@ -55,9 +51,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Scales coordinate system
     graphics->Scale(mScale, mScale);
 
-    for (auto declaration : mDeclarations)
+    for (auto item : mItems)
     {
-        for (auto item : mItems)
+        for (auto declaration : mDeclarations)
         {
             if (item->GetId() == declaration->GetId())
                 declaration->Draw(graphics,item->GetX(), item->GetY());
@@ -185,6 +181,10 @@ void Game::XmlDeclarations(wxXmlNode *node)
         {
             declaration = make_shared<DeclarationImage>(this);
         }
+        else if(name == L"meter")
+        {
+            declaration = make_shared<DeclarationMeter>(this);
+        }
 
         if (declaration != nullptr)
         {
@@ -211,6 +211,10 @@ void Game::XmlItems(wxXmlNode *node)
         {
             int a = 1;
             item = make_shared<ItemImage>(this);
+        }
+        else if(name == L"meter")
+        {
+            item = make_shared<ItemMeter>(this);
         }
 
         if (item != nullptr)

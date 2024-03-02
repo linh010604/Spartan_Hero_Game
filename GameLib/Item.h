@@ -26,7 +26,7 @@ private:
     double  mX = 0;     ///< X location for the center of the item
     double  mY = 0;     ///< Y location for the center of the item
 
-    wxString  mId = "";  ///< Id of the declaration
+    wxString  mId = L"";  ///< Id of the declaration
 
 
 protected:

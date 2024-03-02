@@ -25,14 +25,16 @@ set(SOURCE_FILES pch.h
         LevelLoader.h
         Soundboard.cpp
         Soundboard.h
-        Meter.cpp
-        Meter.h
+        ItemMeter.cpp
+        ItemMeter.h
         Declaration.cpp
         Declaration.h
         DeclarationImage.cpp
         DeclarationImage.h
         ItemImage.cpp
         ItemImage.h
+        DeclarationMeter.cpp
+        DeclarationMeter.h
 
 )
 

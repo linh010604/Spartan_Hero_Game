@@ -35,6 +35,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Height of virtual pixels
     int virtualHeight = mDeclarations[0]->GetHeight();
 
+
+
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
     // Creates Scale for Y values

@@ -61,8 +61,8 @@ void GameView::Initialize(wxFrame *mainFrame) {
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
 
-    mainFrame->Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
-    mainFrame->Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
+    Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
+    Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
 
     mTimer.SetOwner(this);
     mTimer.Start(FrameDuration);

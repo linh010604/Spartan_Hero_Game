@@ -33,8 +33,6 @@ void MainFrame::Initialize(ma_engine *PEngine)
     // Layout (place) the child windows.
     Layout();
 
-    CreateStatusBar();
-
     auto menuBar = new wxMenuBar( );
 
     auto fileMenu = new wxMenu();
@@ -54,11 +52,12 @@ void MainFrame::Initialize(ma_engine *PEngine)
     levelMenu->AppendSeparator();
     levelMenu->Append(IDM_AUTOPLAY, L"Autoplay", L"Select Autoplay");
 
+    SetMenuBar( menuBar );
+    CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);
+
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
-
-    SetMenuBar( menuBar );
 }
 
 /**

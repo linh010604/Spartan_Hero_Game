@@ -78,7 +78,7 @@ void Sound::PlaySound()
         ma_sound_seek_to_pcm_frame(&mSound, 0);
 
         // And play the sound!
-        ma_sound_start(&mSound);
+         ma_sound_start(&mSound);
     }
 }
 

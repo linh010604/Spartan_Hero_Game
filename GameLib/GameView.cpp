@@ -41,34 +41,31 @@ GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine)
 void GameView::Initialize(wxFrame *mainFrame) {
     Create(mainFrame, wxID_ANY);
 
-    // Determine where the images are stored
-    //auto standardPaths = wxStandardPaths::Get();
-//    wxStandardPaths& standardPaths = wxStandardPaths::Get();
-//    std::wstring resourcesDir = standardPaths.GetResourcesDir().ToStdWstring();
-//    mGame.SetImagesDirectory(resourcesDir);
-
     // Allows ability to paint on background
     SetBackgroundStyle(wxBG_STYLE_PAINT);
+
+    // Binds paint function with event
+    Bind(wxEVT_PAINT, &GameView::OnPaint, this);
 
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL0);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL1);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL2);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
 
-    // Binds paint function with event
-    Bind(wxEVT_PAINT, &GameView::OnPaint, this);
-    // Binds left down function with event
-    Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
-    Bind(wxEVT_TIMER, &GameView::OnTimer, this);
+    mGame.Load(L"levels/level1.xml");
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
-    Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
+    mainFrame->Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
+    // Binds left down function with event
+    Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
+
 
     mTimer.SetOwner(this);
     mTimer.Start(FrameDuration);
-    mStopWatch.Start();
 
-    mGame.Load(L"levels/level0.xml");
+    Bind(wxEVT_TIMER, &GameView::OnTimer, this);
+
+    mStopWatch.Start();
 
 }
 
@@ -147,36 +144,28 @@ void GameView::OnKeyDown(wxKeyEvent& event)
     {
         case(wxChar(65)):
             sound.SetAudioFile(L"trumpet/C4.wav");
-            std::cout << "A" << std::endl;
             break;
         case(wxChar(83)):
             sound.SetAudioFile(L"trumpet/Db4.wav");
-            std::cout << "S" << std::endl;
             break;
         case(wxChar(68)):
             sound.SetAudioFile(L"trumpet/Eb4.wav");
-            std::cout << "D" << std::endl;
             break;
         case(wxChar(70)):
             sound.SetAudioFile(L"trumpet/E4.wav");
-            std::cout << "F" << std::endl;
             break;
 
         case(wxChar(74)):
             sound.SetAudioFile(L"trumpet/C5.wav");
-            std::cout << "J" << std::endl;
             break;
         case(wxChar(75)):
             sound.SetAudioFile(L"trumpet/Db5.wav");
-            std::cout << "K" << std::endl;
             break;
         case(wxChar(76)):
             sound.SetAudioFile(L"trumpet/Eb5.wav");
-            std::cout << "L" << std::endl;
             break;
         case(wxChar(59)):
             sound.SetAudioFile(L"trumpet/E5.wav");
-            std::cout << ";" << std::endl;
             break;
 
         default:

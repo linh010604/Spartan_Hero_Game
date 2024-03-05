@@ -26,8 +26,6 @@ bool GameApp::OnInit()
     auto frame = new MainFrame();
     frame->Initialize(&mAudioEngine);
 
-    frame->SetFocus();
-    frame->Raise();
     frame->Show(true);
 
     // Initialize the audio engine

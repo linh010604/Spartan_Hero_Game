@@ -137,8 +137,7 @@ void Game::Load(const wxString &filename)
         else if (name == L"items")
         {
             auto node = child->GetChildren();
-            for( *node ; node; node=node->GetNext())
-                XmlItems(node);
+            XmlItems(node);
         }
     }
 }

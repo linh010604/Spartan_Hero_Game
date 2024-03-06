@@ -9,6 +9,7 @@
 #define PROJECT1_GAMELIB_ITEMSCOREBOARD_H
 
 #include "Item.h"
+#include "DeclarationScoreBoard.h"
 
 class ItemScoreBoard : public Item
 {
@@ -24,6 +25,13 @@ public:
 
     ItemScoreBoard(Game *game);
 
+    ItemScoreBoard(Game *game, std::shared_ptr<DeclarationScoreBoard> declaration);
+    void Draw(wxGraphicsContext *graphics);
+    void SetText(const std::wstring& text);
+
+private:
+    std::shared_ptr<DeclarationScoreBoard> mDeclarationScoreBoard;
+    std::wstring mText;
 };
 
 #endif //PROJECT1_GAMELIB_ITEMSCOREBOARD_H

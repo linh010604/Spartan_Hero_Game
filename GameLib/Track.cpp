@@ -1,80 +1,51 @@
 /**
- * @file Track.h
+ * @file Track.cpp
  * @author Naod Ghebredngl
- *
- * File for Track class
  */
 
-#ifndef PROJECT1_TRACK_H
-#define PROJECT1_TRACK_H
-
+#include "pch.h"
+#include "Track.h"
 #include "Game.h"
-#include "Item.h"
-#include <string>
-#include <vector>
+
+using namespace std;
+
+/// All images directory
+wstring const ImageDir = L"images/";
 
 /**
- * Allows access to ItemSoundBoars without creating a circular dependency.
+ * Constructor
+ * @param soundboard The soundboard this track is a member of
  */
-class ItemSoundBoard;
+Track::Track(ItemSoundBoard *soundboard) : mItemSoundBoard(soundboard)
+{
+    //initialize Track info here
+}
 
 /**
- * Class for Track that derives from Item
+ * Load the attributes for an item node.
+ *
+ * This is the  base class version that loads the attributes
+ * common to all items. Override this to load custom attributes
+ * for specific items.
+ *
+ * @param node The Xml node we are loading the item from
  */
-class Track {
-private:
-
-    /// The soundboard this track is contained in
-    ItemSoundBoard  *mItemSoundBoard;
-
-    /// The track number
-    int mTrack = 0;
-
-    /// The bitmap we can display for this soundboard
-    std::unique_ptr<wxBitmap> mKeyBitmap;
-
-    wxString  mKey = "";  ///< Key of the track
-    double mWidth = 0;  ///< Width of the key
-    double mHeight = 0; ///< Length of the key
-    // Item location in the game
-    double  mX = 0;     ///< X location for the center of the item
-    double  mY = 0;     ///< Y location for the center of the item
-
-public:
-    /// Default constructor (disabled)
-    Track() = delete;
-
-    /// Copy constructor (disabled)
-    Track(const Track &) = delete;
-
-    /// Assignment operator
-    void operator=(const Track &) = delete;
-
-    Track(ItemSoundBoard *soundboard);
-
-    /**
-     * Set X location of the item
-     * @param x X position
-     */
-    void SetX(double x) { mX = x; }
-
-    /**
-     * Set Y location of the item
-     * @param y Y position
-     */
-    void SetY(double y) { mY = y; }
-
-    void XmlLoad(wxXmlNode *node);
-
-    /**
-     * Draw this item
-     * @param gp Device context to draw on
-     * @param x X position
-     * @param y Y position
-     */
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
-
-};
+void Track::XmlLoad(wxXmlNode *node)
+{
+    auto size = node->GetAttribute("key-size","0,0");
+    size.BeforeFirst(',').ToDouble(&mWidth);
+    size.AfterFirst(',').ToDouble(&mHeight);
+    node->GetAttribute(L"track", L"0").ToInt(&mTrack);
+    mKey = node->GetAttribute(L"key", L"").ToStdWstring();
+    wxString filename = ImageDir + node->GetAttribute(L"key-image","");
+    mKeyBitmap = make_unique<wxBitmap>(filename, wxBITMAP_TYPE_ANY);
+}
 
 
-#endif //PROJECT1_TRACK_H
+void Track::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
+    gp->DrawBitmap(*mKeyBitmap,
+                   int(x - mWidth / 2),
+                   int(y - mHeight / 2),
+                   mWidth, mHeight);
+}
+

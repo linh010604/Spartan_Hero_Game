@@ -33,7 +33,7 @@ void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x
 
 
     // Set the font for drawing the "Get Ready" text
-    wxFont font(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+    wxFont font(20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
     gp->SetFont(font, *wxBLACK);
 
     // Measure the text size

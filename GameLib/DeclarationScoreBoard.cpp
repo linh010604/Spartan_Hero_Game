@@ -11,7 +11,9 @@
 using namespace std;
 
 
-wstring const ImageDir = L"images/score-board.png";
+wstring const ImageDir = L"images/";
+
+const int ReadyY = -10;
 
 /**
  * Constructor
@@ -21,27 +23,28 @@ DeclarationScoreBoard::DeclarationScoreBoard(Game *game): Declaration(game)
 {
 }
 
-/**
- * Load the attributes for an declaration node.
- * @param node The Xml node we are loading the declaration from
- */
-void DeclarationScoreBoard::XmlLoad(wxXmlNode *node)
+
+
+void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y)
 {
-    wxString coverFilename = ImageDir;
-    mCoverBitmap = make_unique<wxBitmap>(
-        coverFilename, wxBITMAP_TYPE_ANY);
+   Declaration::Draw(gp, x, y);
 
-    //node->GetAttribute(L"top-width", L"0").ToInt(&mTopWidth);
-    //node->GetAttribute(L"size-beats", L"0").ToInt(&mSizeBeats);
+    if(gp == nullptr) return;
 
-    Declaration::XmlLoad(node);
-}
 
-void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
-    Declaration::Draw(gp, x, y);
+    // Set the font for drawing the "Get Ready" text
+    wxFont font(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+    gp->SetFont(font, *wxBLACK);
 
-    gp->DrawBitmap(*mCoverBitmap,
-                   int(x - this->GetWidth() / 2),
-                   int(y - this->GetHeight() / 2),
-                   this->GetWidth() , this->GetHeight());
+    // Measure the text size
+    double textWidth, textHeight;
+    gp->GetTextExtent(mText, &textWidth, &textHeight, nullptr, nullptr);
+
+    // Calculate the position for the text to be centered on the scoreboard
+    double textX = x - textWidth / 2;
+    double textY = y - textHeight / 2 + ReadyY;
+
+    // Draw the "Get Ready" text on the scoreboard
+    gp->DrawText(mText, textX, textY);
+
 }

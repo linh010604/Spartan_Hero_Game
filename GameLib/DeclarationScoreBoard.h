@@ -28,15 +28,16 @@ public:
 
     DeclarationScoreBoard(Game *game);
 
-    void XmlLoad(wxXmlNode *node) override;
 
     /**
      * Draw this item
      * @param dc Device context to draw on
      */
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
 private:
     std::unique_ptr<wxBitmap> mCoverBitmap;
+
+    std::string mText = "Placeholder";
 
 
 };

@@ -18,6 +18,16 @@
 using namespace std;
 
 
+/// Level notices duration in seconds
+const double LevelNoticeDuration = 2.0;
+
+/// Size of notices displayed on screen in virtual pixels
+const int NoticeSize = 100;
+
+/// Color to draw the level notices
+const auto LevelNoticeColor = wxColour(192, 252, 207);
+
+
 /// Frame duration in milliseconds
 const int FrameDuration = 30;
 
@@ -89,6 +99,30 @@ void GameView::OnPaint(wxPaintEvent& event)
     wxRect rect = GetRect();
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 
+    if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
+        wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
+        wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+        gc->SetFont(font, LevelNoticeColor);
+
+        // Measure text size
+        double textWidth, textHeight;
+        gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+        // Calculate positions to center the text
+        int xPos = (rect.GetWidth() - textWidth) / 2;
+        int yPos = (rect.GetHeight() - textHeight) / 2;
+
+        gc->DrawText(noticeText, xPos, yPos);
+    } else {
+        mDisplayLevelNotice = false;
+    }
+
+}
+
+void GameView::DisplayLevelNotice(int level) {
+    mCurrentLevel = level;
+    mDisplayLevelNotice = true;
+    mLevelNoticeStopWatch.Start();
 }
 
 void GameView::OnLeftDown(wxMouseEvent &event)
@@ -104,31 +138,31 @@ void GameView::OnLeftDown(wxMouseEvent &event)
 void GameView::OnLevelOption(wxCommandEvent& event)
 {
     wxString filename;
+    int levelNumber = 0;
 
-    switch(event.GetId())
-    {
+    switch(event.GetId()) {
         case IDM_LEVEL0:
             filename = L"levels/level0.xml";
-            mGame.Load(filename);
-            Refresh();
+            levelNumber = 0;
             break;
         case IDM_LEVEL1:
             filename = L"levels/level1.xml";
-            mGame.Load(filename);
-            Refresh();
+            levelNumber = 1;
             break;
         case IDM_LEVEL2:
             filename = L"levels/level2.xml";
-            mGame.Load(filename);
-            Refresh();
+            levelNumber = 2;
             break;
         case IDM_LEVEL3:
             filename = L"levels/level3.xml";
-            mGame.Load(filename);
-            Refresh();
+            levelNumber = 3;
             break;
-
+            // Add more cases as needed for additional levels
     }
+
+    mGame.Load(filename);
+    Refresh();
+    DisplayLevelNotice(levelNumber);
 
 }
 

@@ -18,13 +18,14 @@
  */
 class ItemSoundBoard;
 
+
 /**
  * Class for Track that derives from Item
  */
 class Track {
 private:
 
-    /// The soundboard this track is contained in
+    // The soundboard this track is contained in
     ItemSoundBoard  *mItemSoundBoard;
 
     /// The track number
@@ -66,12 +67,6 @@ public:
 
     void XmlLoad(wxXmlNode *node);
 
-    /**
-     * Draw this item
-     * @param gp Device context to draw on
-     * @param x X position
-     * @param y Y position
-     */
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
 
 };

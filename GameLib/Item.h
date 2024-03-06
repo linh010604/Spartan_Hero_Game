@@ -10,7 +10,7 @@
 #include "Declaration.h"
 
 /**
- * Allows access to Game without creating a circular dependency.
+ * Allows access to Aquarium without creating a circular dependency.
  */
 class Game;
 
@@ -72,7 +72,6 @@ public:
     virtual void XmlLoad(wxXmlNode *node);
 
     virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration);
-
 
 };
 

@@ -38,6 +38,10 @@ private:
     /// The game
     Game mGame;
 
+    bool mDisplayLevelNotice = false;
+    wxStopWatch mLevelNoticeStopWatch;
+    int mCurrentLevel = 0;
+
 public:
 
     /**
@@ -57,6 +61,9 @@ public:
      * Stop the timer so the window can close
      */
     void Stop() {mTimer.Stop();}
+
+    /// Method to display level notice
+    void DisplayLevelNotice(int level);
 
 /**
 * Declares event table

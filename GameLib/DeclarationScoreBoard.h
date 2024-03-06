@@ -1,6 +1,7 @@
 /**
  * @file DeclarationScoreBoard.h
  * @author Linh Nguyen
+ * @author Angelina Jolie Daoud
  *
  *
  */
@@ -27,13 +28,18 @@ public:
 
     DeclarationScoreBoard(Game *game);
 
+
     /**
      * Draw this item
-     * @param gp Device context to draw on
-     * @param x X location
-     * @param y Y location
+     * @param dc Device context to draw on
      */
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
+private:
+    std::unique_ptr<wxBitmap> mCoverBitmap;
+
+    std::string mText = "Placeholder";
+
+
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONSCOREBOARD_H

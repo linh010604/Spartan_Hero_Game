@@ -5,14 +5,16 @@
  */
 
 #include "pch.h"
-#include "ItemScoreBoard.h"
+#include "Game.h"
+#include "ItemScoreboard.h"
+#include "DeclarationScoreBoard.h"
 
-/**
- * Constructor
- * @param game The game this item is a member of
- */
-ItemScoreBoard::ItemScoreBoard(Game *game) : Item(game)
-{
-    //initialize Image info here
 
-}
+
+
+ItemScoreBoard::ItemScoreBoard(Game* game)
+: Item(game)
+    {
+
+    }
+

@@ -7,6 +7,7 @@
 #include "DeclarationMeter.h"
 #include "Game.h"
 
+
 using namespace std;
 
 /// All images directory
@@ -36,19 +37,17 @@ void DeclarationMeter::XmlLoad(wxXmlNode *node)
     Declaration::XmlLoad(node);
 }
 
-void DeclarationMeter::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y)
+void DeclarationMeter:: Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y)
 {
     Declaration::Draw(gp, x, y);
 
     gp->DrawBitmap(*mNeedleBitmap,
-                   int(x - this->GetWidth() / 2),
-                   int(y - this->GetHeight() / 2),
+                   int(x -this->GetWidth() / 2),
+                   int(y -this->GetHeight() / 2),
                    this->GetWidth(), this->GetHeight());
-
 
     gp->DrawBitmap(*mCoverBitmap,
-                   int(x - this->GetWidth() / 2),
-                   int(y - this->GetHeight() / 2),
+                   int(x -this->GetWidth() / 2),
+                   int(y -this->GetHeight() / 2),
                    this->GetWidth(), this->GetHeight());
-
-}
+                }

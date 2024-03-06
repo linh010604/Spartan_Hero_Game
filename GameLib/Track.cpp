@@ -1,15 +1,18 @@
 /**
  * @file Track.cpp
  * @author Naod Ghebredngl
+ *
  */
 
 #include "pch.h"
 #include "Track.h"
+#include "Game.h"
 
 using namespace std;
 
 /// All images directory
 wstring const ImageDir = L"images/";
+
 
 /**
  * Constructor
@@ -17,7 +20,7 @@ wstring const ImageDir = L"images/";
  */
 Track::Track(ItemSoundBoard *soundboard) : mItemSoundBoard(soundboard)
 {
-    //initialize Track info here
+
 }
 
 /**
@@ -40,11 +43,15 @@ void Track::XmlLoad(wxXmlNode *node)
     mKeyBitmap = make_unique<wxBitmap>(filename, wxBITMAP_TYPE_ANY);
 }
 
-
+/**
+ * Draw this item
+ * @param gp Device context to draw on
+ * @param x X position
+ * @param y Y position
+ */
 void Track::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
     gp->DrawBitmap(*mKeyBitmap,
                    int(x - mWidth / 2),
                    int(y - mHeight / 2),
                    mWidth, mHeight);
 }
-

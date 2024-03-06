@@ -6,7 +6,7 @@
  */
 
 #include "pch.h"
-#include "ItemSoundBoard.h"
+#include "ItemSoundboard.h"
 #include "Track.h"
 #include <memory>
 
@@ -52,8 +52,9 @@ ItemSoundBoard::ItemSoundBoard(Game *game) : Item(game)
 
 }
 
+
 /**
- * Add track to the soundboard
+ * Add track to soundboard
  * @param track New track to add
  */
 void ItemSoundBoard::AddTrack(std::shared_ptr<Track> track)
@@ -61,12 +62,17 @@ void ItemSoundBoard::AddTrack(std::shared_ptr<Track> track)
     mTracks.push_back(track);
 }
 
+/**
+ * Load the attributes for Soundboard node.
+ * @param node The Xml node we are loading the declaration from
+ */
 void ItemSoundBoard::XmlLoad(wxXmlNode *node)
 {
     Item::XmlLoad(node);
     mTracks.clear();
-    auto soundnode = node->GetChildren();
-    for( *soundnode ; soundnode; soundnode=soundnode->GetNext()){
+    auto soundnode = node-> GetChildren();
+    for(*soundnode ; soundnode; soundnode=soundnode->GetNext())
+    {
         shared_ptr<Track> track = make_shared<Track>(this);
         track->XmlLoad(soundnode);
         AddTrack(track);
@@ -80,27 +86,27 @@ void ItemSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
     double TopWidthSoundBoard = soundboard->GetTopWidth();
     int tracksCount = mTracks.size();
 
-    //draw tracks
+    // Draw tracks
     wxPen linePen(*wxBLACK, TrackLineWidth);
     gp->SetPen(linePen);
 
-    //find length of sound board at KeyRow and TopClearance
+    // Find length of soundboard at KeyRow and TopClearance
     double soundBoardLengthAtX1Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*TopClearance) + TopWidthSoundBoard;
     double soundBoardLengthAtX2Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*KeyRow) + TopWidthSoundBoard;
 
-    //x1 and x2 for leftmost and rightmost track
+    // X1 and X2 for leftmost and rightmost track
     double x1InitLeftTrack = (GetX()-(soundBoardLengthAtX1Init/2)) + (soundBoardLengthAtX1Init*Border);
     double x2InitLeftTrack = (GetX()-(soundBoardLengthAtX2Init/2)) + (soundBoardLengthAtX2Init*Border);
 
     double x1InitRightTrack = (GetX()+(soundBoardLengthAtX1Init/2)) - (soundBoardLengthAtX1Init*Border);
     double x2InitRightTrack = (GetX()+(soundBoardLengthAtX2Init/2)) - (soundBoardLengthAtX2Init*Border);
 
-    //y1 and y2 for all tracks
-    double overlapCorrection = 7; //track is too long otherwise
-    double y1Track = (GetY() - (HeightSoundBoard/2)) + (HeightSoundBoard*TopClearance) + overlapCorrection;
-    double y2Track = (GetY() - (HeightSoundBoard/2)) + (HeightSoundBoard*KeyRow);
+    // Y1 and Y2 for all tracks
+    double overlapCorrection = 7; // track is too long otherwise
+    double y1Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*TopClearance) + overlapCorrection;
+    double y2Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*KeyRow);
 
-    //space between each track
+    // Space between each track
     double x1Space = (x1InitRightTrack - x1InitLeftTrack)/(MaxTracks - 1);
     double x2Space = (x2InitRightTrack - x2InitLeftTrack)/(MaxTracks - 1);
 
@@ -108,7 +114,8 @@ void ItemSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
     double shiftX2 = 0;
     for (int i = 0; i < tracksCount; ++i)
     {
-        if(i == tracksCount/2 && tracksCount == MinTracks) {
+        if(i == tracksCount/2 && tracksCount == MinTracks)
+        {
             shiftX1 += 2*x1Space;
             shiftX2 += 2*x2Space;
         }
@@ -117,6 +124,5 @@ void ItemSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
         mTracks[i]->Draw(gp, x2InitLeftTrack + shiftX2, y2Track);
         shiftX1 += x1Space;
         shiftX2 += x2Space;
-
     }
 }

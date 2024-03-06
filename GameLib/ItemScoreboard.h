@@ -9,6 +9,7 @@
 #define PROJECT1_GAMELIB_ITEMSCOREBOARD_H
 
 #include "Item.h"
+#include "DeclarationScoreBoard.h"
 
 /**
  * Class for a Scoreboard Item
@@ -27,6 +28,9 @@ public:
     void operator=(const ItemScoreBoard &) = delete;
 
     ItemScoreBoard(Game *game);
+
+
+private:
 
 };
 

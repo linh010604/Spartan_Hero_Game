@@ -52,6 +52,7 @@ ItemSoundBoard::ItemSoundBoard(Game *game) : Item(game)
 
 }
 
+
 /**
  * Add track to soundboard
  * @param track New track to add
@@ -120,6 +121,7 @@ void ItemSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
         }
 
         gp->StrokeLine(x1InitLeftTrack + shiftX1, y1Track, x2InitLeftTrack + shiftX2, y2Track);
+        mTracks[i]->Draw(gp, x2InitLeftTrack + shiftX2, y2Track);
         shiftX1 += x1Space;
         shiftX2 += x2Space;
     }

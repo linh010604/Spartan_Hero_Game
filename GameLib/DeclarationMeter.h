@@ -36,6 +36,8 @@ public:
     DeclarationMeter(Game *game);
 
     void XmlLoad(wxXmlNode *node) override;
+
+    void Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y) override;
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONMETER_H

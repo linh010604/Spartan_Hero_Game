@@ -23,10 +23,6 @@ using namespace std;
 const std::wstring ImagesDirectory = L"/images";
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine), mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
-    // Load the background image into the wxBitmap member variable
-
-    mBackgroundBitmap = wxBitmap(L"images/background1.png", wxBITMAP_TYPE_ANY);
-
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -34,7 +30,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     int virtualWidth = mDeclarations[0]->GetWidth();
     // Height of virtual pixels
     int virtualHeight = mDeclarations[0]->GetHeight();
-
 
 
     // Creates Scale for X values
@@ -60,34 +55,16 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     {
         for (auto declaration : mDeclarations)
         {
-            if (item->GetId() == declaration->GetId())
+            if (item->GetId() == declaration->GetId()){
                 declaration->Draw(graphics,item->GetX(), item->GetY());
+                item->Draw(graphics, declaration);
+                }
         }
 
     }
 
     // Restores state of graphics
     graphics->PopState();
-}
-
-void Game::OnLeftDown(int x, int y) {
-    double virtualX = (x - mXOffset) / mScale;
-    double virtualY = (y - mYOffset) / mScale;
-
-}
-
-void Game::CalculateScaleAndOffset(int width, int height) {
-    mScale = std::min(double(width) / mVirtualWidth, double(height) / mVirtualHeight);
-    mXOffset = (width - mVirtualWidth * mScale) / 2.0;
-    mYOffset = (height - mVirtualHeight * mScale) / 2.0;
-}
-
-/**
- * Set the directory the images are stored in
- *
- */
-void Game::SetImagesDirectory(const std::wstring &dir) {
-    mImagesDirectory = dir + ImagesDirectory;
 }
 
 /**

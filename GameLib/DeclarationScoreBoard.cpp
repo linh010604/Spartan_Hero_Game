@@ -16,3 +16,8 @@ using namespace std;
 DeclarationScoreBoard::DeclarationScoreBoard(Game *game): Declaration(game)
 {
 }
+void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y)
+{
+    Declaration::Draw(gp, x, y);
+
+}

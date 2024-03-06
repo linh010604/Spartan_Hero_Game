@@ -67,7 +67,7 @@ private:
     /// All of the items to populate our game
     std::vector<std::shared_ptr<Item>> mItems;
 
-    /// All of the declarations to populate our aquarium
+    /// All of the declarations to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarations;
 
 public:
@@ -97,28 +97,6 @@ public:
      * Destructor
     */
     virtual ~Game() = default;
-
-    /**
-     * Get the directory the images are stored in
-     * @return Images directory path
-     */
-    const std::wstring &GetImagesDirectory() const { return mImagesDirectory; }
-
-
-    /**
-    * Set the directory where game images are stored.
-    *
-    * @param dir The directory path where images are stored.
-    */
-    void SetImagesDirectory(const std::wstring &dir);
-
-    /**
-    * Calculate the scaling factor and offset for rendering based on the current window size.
-    *
-    * @param width The current width of the window.
-    * @param height The current height of the window.
-    */
-    void CalculateScaleAndOffset(int width, int height);
 
     /**
     * Draw the game's graphics onto the window.

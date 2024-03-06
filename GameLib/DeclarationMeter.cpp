@@ -29,9 +29,26 @@ void DeclarationMeter::XmlLoad(wxXmlNode *node)
     wxString coverFilename = ImageDir + node->GetAttribute(L"cover","");
     mCoverBitmap = make_unique<wxBitmap>(
         coverFilename, wxBITMAP_TYPE_ANY);
-    wxString neddleFilename = ImageDir + node->GetAttribute(L"needle","");
-    mCoverBitmap = make_unique<wxBitmap>(
-        coverFilename, wxBITMAP_TYPE_ANY);
+    wxString needleFilename = ImageDir + node->GetAttribute(L"needle","");
+    mNeedleBitmap = make_unique<wxBitmap>(
+        needleFilename, wxBITMAP_TYPE_ANY);
 
     Declaration::XmlLoad(node);
+}
+
+void DeclarationMeter::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y)
+{
+    Declaration::Draw(gp, x, y);
+
+    gp->DrawBitmap(*mNeedleBitmap,
+                   int(x - this->GetWidth() / 2),
+                   int(y - this->GetHeight() / 2),
+                   this->GetWidth(), this->GetHeight());
+
+
+    gp->DrawBitmap(*mCoverBitmap,
+                   int(x - this->GetWidth() / 2),
+                   int(y - this->GetHeight() / 2),
+                   this->GetWidth(), this->GetHeight());
+
 }

@@ -16,16 +16,3 @@ using namespace std;
 DeclarationImage::DeclarationImage(Game *game): Declaration(game)
 {
 }
-
-///**
-// * Save this declaration to an XML node
-// * @param node The parent node we are going to be a child of
-// * @return
-// */
-//wxXmlNode* FishBeta::XmlSave(wxXmlNode* node)
-//{
-//    auto itemNode = Fish::XmlSave(node);
-//    itemNode->AddAttribute(L"type", L"beta");
-//
-//    return itemNode;
-//}

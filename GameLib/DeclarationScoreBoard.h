@@ -26,6 +26,14 @@ public:
     void operator=(const DeclarationScoreBoard &) = delete;
 
     DeclarationScoreBoard(Game *game);
+
+    /**
+     * Draw this item
+     * @param gp Device context to draw on
+     * @param x X location
+     * @param y Y location
+     */
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONSCOREBOARD_H

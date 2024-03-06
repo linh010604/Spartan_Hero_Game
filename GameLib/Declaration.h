@@ -8,6 +8,9 @@
 #ifndef PROJECT1_GAMELIB_DECLARATION_H
 #define PROJECT1_GAMELIB_DECLARATION_H
 
+/**
+ * Allows access to Game without creating a circular dependency.
+ */
 class Game;
 
 /**
@@ -59,6 +62,12 @@ public:
      * @return Id
      */
     wxString GetId() const { return mId; }
+
+    /**
+     * The top width of the soundboard
+     * @return top width of the soundboard
+     */
+    virtual double GetTopWidth() {return 0;}
 
     /**
      * Get the pointer to the Game object

@@ -42,3 +42,13 @@ void Item::XmlLoad(wxXmlNode *node)
     position.AfterFirst(',').ToDouble(&mY);
     mId = node->GetAttribute(L"id", L"0").ToStdWstring();
 }
+
+/**
+ * Draw this item
+ * @param gp Device context to draw on
+ * @param declaration The corresponding declaration
+ */
+void Item::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration)
+{
+
+}

@@ -26,7 +26,6 @@ public:
 
     ItemImage(Game *game);
 
-    //wxXmlNode* XmlSave(wxXmlNode* node) override;
 };
 
 #endif //PROJECT1_GAMELIB_ITEMIMAGE_H

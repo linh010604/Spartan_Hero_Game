@@ -59,10 +59,9 @@ private:
     /**
     * Represents the bitmap background of the virtual playing area.
     */
-    wxBitmap mBackgroundBitmap; // Member variable for the background image
+    wxBitmap mBackgroundBitmap; /// Member variable for the background image
 
-    //wxBitmap *mBackground;  ///< Background image to use
-
+    /// The audio engine for miniaudio
     ma_engine* mAudioEngine;
 
     /// All of the items to populate our game
@@ -77,7 +76,20 @@ public:
     constexpr static double Size = 1000;
 
     /**
+     * Get size of mItems
+     * @return size of mItems
+     */
+     size_t GetItemSize() const {return mItems.size();}
+
+    /**
+     * Get size of mDeclarations
+     * @return size of mDeclarations
+     */
+    size_t GetDeclarationSize() const {return mDeclarations.size();}
+
+    /**
      * Game Constructor
+     * @param PEngine The audio engine for miniaudio
      */
     Game(ma_engine *PEngine);
 
@@ -126,13 +138,6 @@ public:
     */
     void OnLeftDown(int x, int y);
 
-    /**
-    * Draw the game's graphics onto the window using a device context.
-    *
-    * @param dc Pointer to a wxDC object used for drawing, representing the device context to draw on.
-    */
-    void OnDraw(wxDC* dc);
-
     void Load(const wxString &filename);
 
     void Clear();
@@ -145,6 +150,10 @@ public:
 
     void XmlItems(wxXmlNode *node);
 
+    /**
+     *
+     * @return mAudioEngine
+     */
     ma_engine* GetAudioEngine() {return mAudioEngine;}
 
 };

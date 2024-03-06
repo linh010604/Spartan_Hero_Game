@@ -11,6 +11,9 @@
 
 #include "Item.h"
 
+/**
+ * Class for a Soundboard Item
+ */
 class ItemSoundBoard : public Item
 {
 public:

@@ -10,6 +10,9 @@
 
 #include "Item.h"
 
+/**
+ * Class for a Image Item
+ */
 class ItemImage : public Item {
 public:
     /// Default constructor (disabled)

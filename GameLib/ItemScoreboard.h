@@ -11,6 +11,10 @@
 #include "Item.h"
 #include "DeclarationScoreBoard.h"
 
+/**
+ * Class for a Scoreboard Item
+ */
+
 class ItemScoreBoard : public Item
 {
 public:

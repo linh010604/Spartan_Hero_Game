@@ -10,6 +10,9 @@
 
 #include "Declaration.h"
 
+/**
+ * Class for a Soundboard Declaration
+ */
 class DeclarationSoundBoard : public Declaration
 {
 private:
@@ -38,7 +41,9 @@ public:
 
     /**
      * Draw this item
-     * @param dc Device context to draw on
+     * @param gp Device context to draw on
+     * @param x X location
+     * @param y Y location
      */
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
 };

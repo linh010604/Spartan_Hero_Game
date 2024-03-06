@@ -9,6 +9,7 @@
 
 using namespace std;
 
+/// All images directory
 wstring const ImageDir = L"images/";
 
 /**

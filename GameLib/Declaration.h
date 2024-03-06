@@ -10,8 +10,12 @@
 
 class Game;
 
+/**
+ * Base class for any declaration in our game.
+ */
 class Declaration {
 private:
+    /// The game this declaration is contained in
     Game   *mGame;
 
     wxString  mId = "";  ///< Id of the declaration
@@ -66,7 +70,9 @@ public:
 
     /**
      * Draw this item
-     * @param dc Device context to draw on
+     * @param gp Device context to draw on
+     * @param x X location
+     * @param y Y location
      */
     virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
 };

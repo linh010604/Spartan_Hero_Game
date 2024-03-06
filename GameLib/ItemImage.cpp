@@ -8,7 +8,10 @@
 
 using namespace std;
 
-
+/**
+ * Constructor
+ * @param game The game this item is a member of
+ */
 ItemImage::ItemImage(Game *game) : Item(game)
 {
     //initialize Image info here

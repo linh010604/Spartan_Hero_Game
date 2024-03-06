@@ -5,18 +5,10 @@
 
 #include <pch.h>
 #include "gtest/gtest.h"
+
 #define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
+#include <miniaudio.h>
 #include <Game.h>
-#include <Declaration.h>
-#include <DeclarationImage.h>
-#include <DeclarationMeter.h>
-#include <DeclarationSoundBoard.h>
-#include <DeclarationScoreBoard.h>
-#include <ItemImage.h>
-#include <ItemMeter.h>
-#include <ItemSoundBoard.h>
-#include <ItemScoreBoard.h>
 
 using namespace std;
 

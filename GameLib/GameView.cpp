@@ -97,7 +97,10 @@ void GameView::OnLeftDown(wxMouseEvent &event)
     mGame.OnLeftDown(event.GetX(), event.GetY());
 }
 
-
+/**
+ * Handle level choosing event
+ * @param event Command event
+ */
 void GameView::OnLevelOption(wxCommandEvent& event)
 {
     wxString filename;

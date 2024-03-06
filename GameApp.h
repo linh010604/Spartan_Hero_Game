@@ -15,7 +15,7 @@
  */
 class GameApp : public wxApp {
 private:
-    // The audio engine for miniaudio
+    /// The audio engine for miniaudio
     ma_engine mAudioEngine;
 public:
     virtual bool OnInit();

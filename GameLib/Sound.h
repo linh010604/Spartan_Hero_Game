@@ -11,6 +11,9 @@
 #include <string>
 #include <miniaudio.h>
 
+/**
+ * Class for playing sound in game.
+ */
 class Sound
 {
 private:

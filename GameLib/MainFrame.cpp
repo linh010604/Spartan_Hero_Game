@@ -10,6 +10,7 @@
 
 /**
  * Initialize the MainFrame window.
+ * @param PEngine The audio engine for miniaudio
  */
 void MainFrame::Initialize(ma_engine *PEngine)
 {

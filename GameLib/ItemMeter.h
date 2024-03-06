@@ -10,6 +10,9 @@
 
 #include "Item.h"
 
+/**
+ * Class for a Meter Item
+ */
 class ItemMeter : public Item
 {
 public:

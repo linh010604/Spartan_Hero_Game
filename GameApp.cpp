@@ -43,6 +43,10 @@ bool GameApp::OnInit()
     return true;
 }
 
+/**
+ * Exit the application.
+ * @return
+ */
 int GameApp::OnExit()
 {
     ma_engine_uninit(&mAudioEngine);

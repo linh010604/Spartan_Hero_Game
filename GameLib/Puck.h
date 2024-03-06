@@ -18,8 +18,7 @@
 class Puck : public Item {
 
 private:
-    // variables for puck go here
-    // lots more to add
+    /// The speed of the Puck when go down
     double speed;
 public:
 //    Puck(Game *game, const std::wstring &filename);

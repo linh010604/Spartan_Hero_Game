@@ -10,6 +10,9 @@
 
 #include "Declaration.h"
 
+/**
+ * Class for a Scoreboard Declaration
+ */
 class DeclarationScoreBoard : public Declaration
 {
 public:

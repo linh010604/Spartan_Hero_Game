@@ -61,6 +61,12 @@ public:
     wxString GetId() const { return mId; }
 
     /**
+     * The top width of the soundboard
+     * @return top width of the soundboard
+     */
+     virtual double GetTopWidth() {return 0;}
+
+    /**
      * Get the pointer to the Game object
      * @return Pointer to Game object
      */

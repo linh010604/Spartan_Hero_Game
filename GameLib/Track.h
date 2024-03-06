@@ -14,16 +14,32 @@
 #include <vector>
 
 /**
+ * Allows access to ItemSoundBoars without creating a circular dependency.
+ */
+class ItemSoundBoard;
+
+
+/**
  * Class for Track that derives from Item
  */
-class Track : public Item {
+class Track {
 private:
 
-    /// Member variable for amount of tilt needed
-    int mTilt = -130;
+    // The soundboard this track is contained in
+    ItemSoundBoard  *mItemSoundBoard;
 
-    /// Member variable for track number
+    /// The track number
     int mTrack = 0;
+
+    /// The bitmap we can display for this soundboard
+    std::unique_ptr<wxBitmap> mKeyBitmap;
+
+    wxString  mKey = "";  ///< Key of the track
+    double mWidth = 0;  ///< Width of the key
+    double mHeight = 0; ///< Length of the key
+    // Item location in the game
+    double  mX = 0;     ///< X location for the center of the item
+    double  mY = 0;     ///< Y location for the center of the item
 
 public:
     /// Default constructor (disabled)
@@ -35,7 +51,23 @@ public:
     /// Assignment operator
     void operator=(const Track &) = delete;
 
-    Track(Game *game, const std::wstring &filename);
+    Track(ItemSoundBoard *soundboard);
+
+    /**
+     * Set X location of the item
+     * @param x X position
+     */
+    void SetX(double x) { mX = x; }
+
+    /**
+     * Set Y location of the item
+     * @param y Y position
+     */
+    void SetY(double y) { mY = y; }
+
+    void XmlLoad(wxXmlNode *node);
+
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
 
 };
 

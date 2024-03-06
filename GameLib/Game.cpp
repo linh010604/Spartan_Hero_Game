@@ -12,8 +12,8 @@
 #include "DeclarationScoreBoard.h"
 #include "ItemImage.h"
 #include "ItemMeter.h"
-#include "ItemSoundBoard.h"
-#include "ItemScoreBoard.h"
+#include "ItemSoundboard.h"
+#include "ItemScoreboard.h"
 #include <memory>
 
 using namespace std;
@@ -60,8 +60,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     {
         for (auto declaration : mDeclarations)
         {
-            if (item->GetId() == declaration->GetId())
+            if (item->GetId() == declaration->GetId()){
                 declaration->Draw(graphics,item->GetX(), item->GetY());
+                item->Draw(graphics, declaration);
+            }
         }
 
     }

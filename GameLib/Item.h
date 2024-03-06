@@ -7,6 +7,8 @@
 #ifndef PROJECT1_ITEM_H
 #define PROJECT1_ITEM_H
 
+#include "Declaration.h"
+
 /**
  * Allows access to Aquarium without creating a circular dependency.
  */
@@ -68,6 +70,8 @@ public:
     void operator=(const Item &) = delete;
 
     virtual void XmlLoad(wxXmlNode *node);
+
+    virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration);
 
 };
 

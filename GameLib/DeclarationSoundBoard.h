@@ -40,12 +40,18 @@ public:
     void XmlLoad(wxXmlNode *node) override;
 
     /**
+     * The top width of the soundboard
+     * @return top width of the soundboard
+     */
+    double GetTopWidth() override {return mTopWidth;}
+
+    /**
      * Draw this item
      * @param gp Device context to draw on
      * @param x X location
      * @param y Y location
      */
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONSOUNDBOARD_H

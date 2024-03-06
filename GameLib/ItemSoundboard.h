@@ -42,6 +42,8 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard) override;
+
 };
 
 #endif //PROJECT1_SOUNDBOARD_H

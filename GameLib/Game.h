@@ -77,6 +77,18 @@ public:
     constexpr static double Size = 1000;
 
     /**
+     * Get size of mItems
+     * return size of mItems
+     */
+     size_t GetItemSize() const {return mItems.size();}
+
+    /**
+     * Get size of mDeclarations
+     * return size of mDeclarations
+     */
+    size_t GetDeclarationSize() const {return mDeclarations.size();}
+
+    /**
      * Game Constructor
      */
     Game(ma_engine *PEngine);

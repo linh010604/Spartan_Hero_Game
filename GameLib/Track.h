@@ -17,9 +17,25 @@
  * Class for Track that derives from Item
  */
 class Track : public Item {
-public:
+private:
 
-//    Track(Game *game, const std::wstring &filename);
+    /// Member variable for amount of tilt needed
+    int mTilt = -130;
+
+    /// Member variable for track number
+    int mTrack = 0;
+
+public:
+    /// Default constructor (disabled)
+    Track() = delete;
+
+    /// Copy constructor (disabled)
+    Track(const Track &) = delete;
+
+    /// Assignment operator
+    void operator=(const Track &) = delete;
+
+    Track(Game *game, const std::wstring &filename);
 
 };
 

@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "DeclarationSoundBoard.h"
 #include "Game.h"
+#include "Track.h"
 
 using namespace std;
 

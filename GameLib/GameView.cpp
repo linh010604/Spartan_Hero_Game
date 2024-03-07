@@ -36,7 +36,6 @@ const int FrameDuration = 30;
 */
 wxBEGIN_EVENT_TABLE(GameView, wxWindow)
         EVT_PAINT(GameView::OnPaint)
-        EVT_LEFT_DOWN(GameView::OnLeftDown)
 wxEND_EVENT_TABLE()
 
 GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine)
@@ -66,9 +65,6 @@ void GameView::Initialize(wxFrame *mainFrame) {
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
     mainFrame->Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
-    // Binds left down function with event
-    Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
-
 
     mTimer.SetOwner(this);
     mTimer.Start(FrameDuration);
@@ -123,12 +119,6 @@ void GameView::DisplayLevelNotice(int level) {
     mCurrentLevel = level;
     mDisplayLevelNotice = true;
     mLevelNoticeStopWatch.Start();
-}
-
-void GameView::OnLeftDown(wxMouseEvent &event)
-{
-    // On left down mouse click gets X and Y values
-    mGame.OnLeftDown(event.GetX(), event.GetY());
 }
 
 /**
@@ -214,7 +204,7 @@ void GameView::OnKeyDown(wxKeyEvent& event)
     sound.LoadSound(mGame.GetAudioEngine());
 
     sound.PlaySound();
-    std::this_thread::sleep_for(std::chrono::seconds(2)); //pauses for 2 seconds
+    std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
     sound.PlayEnd();
 }
 

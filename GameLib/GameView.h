@@ -52,12 +52,6 @@ public:
 
     void Initialize(wxFrame *mainFrame);
 
-    /**
-    * Handle the left mouse button down event
-    * @param event
-    */
-    void OnLeftDown(wxMouseEvent& event);
-
     void OnLevelOption(wxCommandEvent& event);
 
     void OnKeyDown(wxKeyEvent& event);

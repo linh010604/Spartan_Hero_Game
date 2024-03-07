@@ -26,8 +26,6 @@ public:
 
     DeclarationImage(Game *game);
 
-//    wxXmlNode* XmlSave(wxXmlNode* node) override;
-
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONIMAGE_H

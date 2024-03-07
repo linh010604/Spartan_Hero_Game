@@ -27,7 +27,6 @@ public:
 
     ItemMeter(Game *game);
 
-    //wxXmlNode* XmlSave(wxXmlNode* node) override;
 };
 
 #endif //PROJECT1_GAMELIB_ITEMMETER_H

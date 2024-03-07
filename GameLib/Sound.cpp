@@ -18,7 +18,6 @@ void Sound::XmlLoad(wxXmlNode* node)
 {
     node->GetAttribute(L"name", &mName);
     node->GetAttribute(L"audio", &mAudioFile);
-    node->GetAttribute(L"volume", L"1.0").ToDouble(&mVolume);
 }
 
 /**

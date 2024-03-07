@@ -35,5 +35,7 @@ TEST_F(GameTest, Load) {
 
     ASSERT_EQ(game.GetItemSize(), 4) << L"All items are loaded";
 
-    ASSERT_EQ(game.GetDeclarationSize(), 4) << L"All declarations are loaded";
+    ASSERT_EQ(game.GetDeclarationSize(), 12) << L"All declarations are loaded";
+
+
 }

@@ -37,6 +37,8 @@ set(SOURCE_FILES pch.h
         DeclarationScoreBoard.h
         DeclarationSoundBoard.cpp
         DeclarationSoundBoard.h
+        DeclarationNote.cpp
+        DeclarationNote.h
 
 )
 

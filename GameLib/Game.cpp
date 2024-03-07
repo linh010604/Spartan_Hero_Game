@@ -10,6 +10,7 @@
 #include "DeclarationMeter.h"
 #include "DeclarationSoundBoard.h"
 #include "DeclarationScoreBoard.h"
+#include "DeclarationNote.h"
 #include "ItemImage.h"
 #include "ItemMeter.h"
 #include "ItemSoundboard.h"
@@ -190,6 +191,11 @@ void Game::XmlDeclarations(wxXmlNode *node)
         else if(name == L"score-board")
         {
             declaration = make_shared<DeclarationScoreBoard>(this);
+        }
+
+        else if(name == L"note")
+        {
+            declaration = make_shared<DeclarationNote>(this);
         }
 
         if (declaration != nullptr)

@@ -10,6 +10,7 @@
 #define PROJECT1_GAMELIB_DECLARATIONSCOREBOARD_H
 
 #include "Declaration.h"
+#include "GameStateManager.h"
 
 /**
  * Class for a Scoreboard Declaration
@@ -38,6 +39,8 @@ private:
     std::unique_ptr<wxBitmap> mCoverBitmap;
 
     std::string mText = "Placeholder";
+
+    int mScore;
 
 };
 

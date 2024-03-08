@@ -1,0 +1,43 @@
+/**
+ * @file GameStateManager.cpp
+ * @author Angelina Jolie Daoud
+ */
+
+#include "GameStateManager.h"
+//#include "Game.h"
+
+/// The maximum bonus we can get for
+/// holding for the duration for a long sound
+const int MaxDurationBonus = 10;
+
+GameStateManager::GameStateManager(Game* game)
+    : mGame(game), mScore(0), mCurrentMeasure(0), mCurrentBeat(0)
+    {
+    }
+
+void GameStateManager::UpdateScore(int points)
+{
+    mScore += points;
+}
+
+void GameStateManager::UpdateMeasureAndBeat(int measure, int beat)
+{
+    mCurrentMeasure = measure;
+    mCurrentBeat = beat;
+}
+
+void GameStateManager::SetDurationBonus(float duration)
+{
+    int bonus = static_cast<int>(MaxDurationBonus * duration);
+    mScore += bonus;
+}
+
+int GameStateManager::GetScore() const
+{
+    return mScore;
+}
+
+std::pair<int, int> GameStateManager::GetCurrentMeasureAndBeat() const
+{
+    return {mCurrentMeasure, mCurrentBeat};
+}

@@ -1,8 +1,8 @@
 /**
  * @file VisitorMeter.h
  * @author Roshni Kaur
- * Class for Visitor Meter
  *
+ * Meter visitor base class.
  */
 
 #ifndef PROJECT1_GAMELIB_VISITORMETER_H

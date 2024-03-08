@@ -8,6 +8,8 @@
 #ifndef PROJECT1_PUCKVISITOR_H
 #define PROJECT1_PUCKVISITOR_H
 
+// Forward references to all item types
+class ItemSoundboard;
 
 class PuckVisitor {
 protected:
@@ -21,6 +23,12 @@ private:
 
 public:
     virtual ~PuckVisitor() {}
+
+    /**
+     * Visit soundboard
+     * @param soundboard The soundboard we are visiting
+     */
+     virtual void VisitSoundboard(ItemSoundboard* soundboard) {}
 
 };
 

@@ -1,8 +1,8 @@
 /**
  * @file VisitorSoundboard.h
  * @author Roshni Kaur
- * Class for Visitor Soundboard
  *
+ * Soundboard visitor base class.
  */
 
 #ifndef PROJECT1_GAMELIB_VISITORSOUNDBOARD_H

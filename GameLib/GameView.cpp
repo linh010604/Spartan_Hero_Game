@@ -107,8 +107,8 @@ void GameView::OnPaint(wxPaintEvent& event)
         gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
 
         // Calculate positions to center the text
-        int xPos = (mGame.GetWidth() - textWidth) / 2;
-        int yPos = (mGame.GetHeight() - textHeight) / 2;
+        double xPos = (mGame.GetWidth() - textWidth) / 2;
+        double yPos = (mGame.GetHeight() - textHeight) / 2;
 
         gc->DrawText(noticeText, xPos, yPos);
     } else {
@@ -152,7 +152,6 @@ void GameView::OnLevelOption(wxCommandEvent& event)
             filename = L"levels/level3.xml";
             levelNumber = 3;
             break;
-            // Add more cases as needed for additional levels
     }
 
     mGame.Load(filename);
@@ -170,52 +169,52 @@ void GameView::OnKeyDown(wxKeyEvent& event)
     wxChar key = event.GetKeyCode();
     // A = 65, S = 83, D = 68, F = 70
     // J = 74, K = 75, L = 76, ; = 59
-    Sound sound;
-
-    switch(key)
-    {
-        case(wxChar(65)):
-            sound.SetAudioFile(L"trumpet/C4.wav");
-            break;
-        case(wxChar(83)):
-            sound.SetAudioFile(L"trumpet/Db4.wav");
-            break;
-        case(wxChar(68)):
-            sound.SetAudioFile(L"trumpet/Eb4.wav");
-            break;
-        case(wxChar(70)):
-            sound.SetAudioFile(L"trumpet/E4.wav");
-            break;
-
-        case(wxChar(74)):
-            sound.SetAudioFile(L"trumpet/C5.wav");
-            break;
-        case(wxChar(75)):
-            sound.SetAudioFile(L"trumpet/Db5.wav");
-            break;
-        case(wxChar(76)):
-            sound.SetAudioFile(L"trumpet/Eb5.wav");
-            break;
-        case(wxChar(59)):
-            sound.SetAudioFile(L"trumpet/E5.wav");
-            break;
-
-        default:
-            sound.SetAudioFile(L"trumpet/B4.wav");
-            std::cout << "Not a key" << std::endl;
-            break;
-    }
-    sound.SetVolume(0.5);
-    sound.LoadSound(mGame.GetAudioEngine());
-
-    sound.PlaySound();
-    std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
-    sound.PlayEnd();
+//    Sound sound;
+//
+//    switch(key)
+//    {
+//        case(wxChar(65)):
+//            sound.SetAudioFile(L"trumpet/C4.wav");
+//            break;
+//        case(wxChar(83)):
+//            sound.SetAudioFile(L"trumpet/Db4.wav");
+//            break;
+//        case(wxChar(68)):
+//            sound.SetAudioFile(L"trumpet/Eb4.wav");
+//            break;
+//        case(wxChar(70)):
+//            sound.SetAudioFile(L"trumpet/E4.wav");
+//            break;
+//
+//        case(wxChar(74)):
+//            sound.SetAudioFile(L"trumpet/C5.wav");
+//            break;
+//        case(wxChar(75)):
+//            sound.SetAudioFile(L"trumpet/Db5.wav");
+//            break;
+//        case(wxChar(76)):
+//            sound.SetAudioFile(L"trumpet/Eb5.wav");
+//            break;
+//        case(wxChar(59)):
+//            sound.SetAudioFile(L"trumpet/E5.wav");
+//            break;
+//
+//        default:
+//            sound.SetAudioFile(L"trumpet/B4.wav");
+//            std::cout << "Not a key" << std::endl;
+//            break;
+//    }
+//    sound.SetVolume(0.5);
+//    sound.LoadSound(mGame.GetAudioEngine());
+//
+//    sound.PlaySound();
+//    std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
+//    sound.PlayEnd();
 }
 
 /**
  * Handle a key release event
- * @param event Key release event
+ * @param event ItemTrackLine release event
  */
 void GameView::OnKeyUp(wxKeyEvent& event)
 {

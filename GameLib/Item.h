@@ -10,7 +10,7 @@
 #include "Declaration.h"
 
 /**
- * Allows access to Aquarium without creating a circular dependency.
+ * Allows access to Game without creating a circular dependency.
  */
 class Game;
 

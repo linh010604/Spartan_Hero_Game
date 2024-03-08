@@ -8,6 +8,7 @@
 #include "pch.h"
 #include "ItemSoundboard.h"
 #include "ItemKey.h"
+#include "ItemTrackLine.h"
 #include <memory>
 
 using namespace std;
@@ -59,7 +60,7 @@ ItemSoundBoard::ItemSoundBoard(Game *game) : Item(game)
  */
 void ItemSoundBoard::AddTrack(std::shared_ptr<ItemKey> track)
 {
-    mTracks.push_back(track);
+    mKeys.push_back(track);
 }
 
 /**
@@ -69,6 +70,7 @@ void ItemSoundBoard::AddTrack(std::shared_ptr<ItemKey> track)
 void ItemSoundBoard::XmlLoad(wxXmlNode *node)
 {
     Item::XmlLoad(node);
+    mKeys.clear();
     mTracks.clear();
     auto soundnode = node-> GetChildren();
     for(*soundnode ; soundnode; soundnode=soundnode->GetNext())
@@ -84,7 +86,7 @@ void ItemSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
     double WidthSoundBoard = soundboard->GetWidth();
     double HeightSoundBoard = soundboard->GetHeight();
     double TopWidthSoundBoard = soundboard->GetTopWidth();
-    int tracksCount = mTracks.size();
+    int tracksCount = mKeys.size();
 
     // Draw tracks
     wxPen linePen(*wxBLACK, TrackLineWidth);
@@ -120,8 +122,11 @@ void ItemSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
             shiftX2 += 2*x2Space;
         }
 
-        gp->StrokeLine(x1InitLeftTrack + shiftX1, y1Track, x2InitLeftTrack + shiftX2, y2Track);
-        mTracks[i]->Draw(gp, x2InitLeftTrack + shiftX2, y2Track);
+        shared_ptr<ItemTrackLine> trackline = make_shared<ItemTrackLine>(this,x1InitLeftTrack + shiftX1,y1Track, x2InitLeftTrack + shiftX2, y2Track );
+        mTracks.push_back(trackline);
+
+        mTracks[i]->Draw(gp);
+        mKeys[i]->Draw(gp, x2InitLeftTrack + shiftX2, y2Track);
         shiftX1 += x1Space;
         shiftX2 += x2Space;
     }

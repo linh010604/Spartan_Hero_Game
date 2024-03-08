@@ -17,14 +17,22 @@
 class ItemKey;
 
 /**
+ * Allows access to ItemTrackLine without creating circular dependency.
+ */
+class ItemTrackLine;
+
+/**
  * Class for a Soundboard Item
  */
 class ItemSoundBoard : public Item
 {
 private:
 
+    /// All of the keys to populate our soundboard
+    std::vector<std::shared_ptr<ItemKey>> mKeys;
+
     /// All of the tracks to populate our soundboard
-    std::vector<std::shared_ptr<ItemKey>> mTracks;
+    std::vector<std::shared_ptr<ItemTrackLine>> mTracks;
 
 public:
     /// Default constructor (disabled)

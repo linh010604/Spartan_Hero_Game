@@ -15,12 +15,10 @@ set(SOURCE_FILES pch.h
         MainFrame.h
         Item.cpp
         Item.h
-        Puck.cpp
-        Puck.h
         Level.cpp
         Level.h
-        Key.cpp
-        Key.h
+        ItemTrackLine.cpp
+        ItemTrackLine.h
         ItemSoundboard.cpp
         ItemSoundboard.h
         ItemMeter.cpp
@@ -43,6 +41,8 @@ set(SOURCE_FILES pch.h
         VisitorSoundboard.h
         VisitorMeter.cpp
         VisitorMeter.h
+        Music.cpp
+        Music.h
 
 )
 

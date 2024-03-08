@@ -24,6 +24,16 @@ class Item;
 class Declaration;
 
 /**
+ * Allows access to Music without creating a circular dependency.
+ */
+class Music;
+
+/**
+ * Allows access to Audio without creating a circular dependency.
+ */
+class Sound;
+
+/**
  * Class for our game
  */
 class Game
@@ -70,6 +80,12 @@ private:
     /// All of the declarations to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarations;
 
+    /// All of music to use our game
+    std::vector<std::shared_ptr<Music>> mMusic;
+
+    /// All of audio to use our game
+    std::vector<std::shared_ptr<Sound>> mAudio;
+
 public:
 
     /// Size of the area we are going to draw on in pixels
@@ -80,6 +96,18 @@ public:
      * @return size of mItems
      */
      size_t GetItemSize() const {return mItems.size();}
+
+    /**
+     * Get size of mAudio
+     * @return size of mAudio
+     */
+    size_t GetAudioSize() const {return mAudio.size();}
+
+    /**
+     * Get size of mMusic
+     * @return size of mMusic
+     */
+    size_t GetMusicSize() const {return mMusic.size();}
 
     /**
      * Get size of mDeclarations
@@ -129,6 +157,10 @@ public:
     void XmlDeclarations(wxXmlNode *node);
 
     void XmlItems(wxXmlNode *node);
+
+    void XmlMusic(wxXmlNode *node);
+
+    void XmlAudio(wxXmlNode *node);
 
     void Update(double elapsed);
 

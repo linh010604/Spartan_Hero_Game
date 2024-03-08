@@ -11,6 +11,14 @@
 const std::wstring AudioDirectory = L"audio";
 
 /**
+ * Constructor
+ * @param game The game this item is a member of
+ */
+Sound::Sound(Game *game) : mGame(game)
+{
+}
+
+/**
  * Load the attributes for an audio node.
  * @param node The Xml node we are loading the audio from
  */

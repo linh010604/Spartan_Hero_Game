@@ -27,6 +27,13 @@ public:
 
     ItemMeter(Game *game);
 
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitItemMeter(this); }
+
+
 };
 
 #endif //PROJECT1_GAMELIB_ITEMMETER_H

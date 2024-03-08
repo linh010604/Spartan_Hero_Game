@@ -18,7 +18,7 @@ wstring const ImageDir = L"images/";
  * Constructor
  * @param soundboard The soundboard this track is a member of
  */
-ItemKey::ItemKey(ItemSoundBoard *soundboard) : mItemSoundBoard(soundboard)
+ItemKey::ItemKey(ItemSoundboard *soundboard) : mItemSoundBoard(soundboard)
 {
 
 }

@@ -10,9 +10,7 @@
 #include "DeclarationScoreBoard.h"
 
 
-
-
-ItemScoreBoard::ItemScoreBoard(Game* game)
+ItemScoreboard::ItemScoreboard(Game* game)
 : Item(game)
     {
 

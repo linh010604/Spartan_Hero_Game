@@ -16,7 +16,7 @@
 /**
  * Allows access to ItemSoundBoars without creating a circular dependency.
  */
-class ItemSoundBoard;
+class ItemSoundboard;
 
 
 /**
@@ -26,7 +26,7 @@ class ItemTrackLine {
 private:
 
     // The soundboard this track is contained in
-    ItemSoundBoard  *mItemSoundBoard;
+    ItemSoundboard  *mItemSoundBoard;
 
     /// The track number
     int mTrack = 0;
@@ -47,7 +47,7 @@ public:
     /// Assignment operator
     void operator=(const ItemTrackLine &) = delete;
 
-    ItemTrackLine(ItemSoundBoard *soundboard, double x1, double y1, double x2, double y2);
+    ItemTrackLine(ItemSoundboard *soundboard, double x1, double y1, double x2, double y2);
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp);
 

@@ -17,6 +17,7 @@
 #include "ItemScoreboard.h"
 #include "Music.h"
 #include "Sound.h"
+#include "ItemVisitor.h"
 #include <memory>
 
 using namespace std;
@@ -232,11 +233,11 @@ void Game::XmlItems(wxXmlNode *node)
         }
         else if(name == L"sound-board")
         {
-            item = make_shared<ItemSoundBoard>(this);
+            item = make_shared<ItemSoundboard>(this);
         }
         else if(name == L"score-board")
         {
-            item = make_shared<ItemScoreBoard>(this);
+            item = make_shared<ItemScoreboard>(this);
         }
 
         if (item != nullptr)
@@ -272,5 +273,26 @@ void Game::XmlAudio(wxXmlNode *node)
         shared_ptr<Sound> sound = make_shared<Sound>(this);
         sound->XmlLoad(node);
         mAudio.push_back(sound);
+    }
+}
+
+/**
+ * Handle a key press event
+ * @param key The key was pressed
+ */
+void Game::PressKey(wxChar key)
+{
+
+}
+
+/**
+ * Accept a visitor for the collection
+ * @param visitor The visitor for the collection
+ */
+void Game::Accept(ItemVisitor *visitor)
+{
+    for (auto item : mItems)
+    {
+        item->Accept(visitor);
     }
 }

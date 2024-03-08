@@ -12,11 +12,7 @@
 #include <memory>
 #include <wx/dc.h>
 #include <miniaudio.h>
-
-/**
- * Allows access to Item without creating a circular dependency.
- */
-class Item;
+#include "Item.h"
 
 /**
  * Allows access to Declaration without creating a circular dependency.
@@ -162,6 +158,8 @@ public:
 
     void XmlAudio(wxXmlNode *node);
 
+    void PressKey(wxChar key);
+
     void Update(double elapsed);
 
     /**
@@ -169,6 +167,8 @@ public:
      * @return mAudioEngine
      */
     ma_engine* GetAudioEngine() {return mAudioEngine;}
+
+    void Accept(ItemVisitor* visitor);
 
 };
 

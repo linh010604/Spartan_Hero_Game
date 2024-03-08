@@ -24,7 +24,7 @@ class ItemTrackLine;
 /**
  * Class for a Soundboard Item
  */
-class ItemSoundBoard : public Item
+class ItemSoundboard : public Item
 {
 private:
 
@@ -36,15 +36,15 @@ private:
 
 public:
     /// Default constructor (disabled)
-    ItemSoundBoard() = delete;
+    ItemSoundboard() = delete;
 
     /// Copy constructor (disabled)
-    ItemSoundBoard(const ItemSoundBoard &) = delete;
+    ItemSoundboard(const ItemSoundboard &) = delete;
 
     /// Assignment operator
-    void operator=(const ItemSoundBoard &) = delete;
+    void operator=(const ItemSoundboard &) = delete;
 
-    ItemSoundBoard(Game *game);
+    ItemSoundboard(Game *game);
 
     void AddTrack(std::shared_ptr<ItemKey> track);
 
@@ -52,6 +52,11 @@ public:
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard) override;
 
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitItemSoundboard(this); }
 };
 
 #endif //PROJECT1_SOUNDBOARD_H

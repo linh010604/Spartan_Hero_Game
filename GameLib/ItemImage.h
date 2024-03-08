@@ -26,6 +26,13 @@ public:
 
     ItemImage(Game *game);
 
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitItemImage(this); }
+
+
 };
 
 #endif //PROJECT1_GAMELIB_ITEMIMAGE_H

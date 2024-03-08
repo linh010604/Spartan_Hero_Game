@@ -8,6 +8,7 @@
 #define PROJECT1_ITEM_H
 
 #include "Declaration.h"
+#include "ItemVisitor.h"
 
 /**
  * Allows access to Game without creating a circular dependency.
@@ -72,6 +73,12 @@ public:
     virtual void XmlLoad(wxXmlNode *node);
 
     virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration);
+
+    /**
+    * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    virtual void Accept(ItemVisitor* visitor) = 0;
 
 };
 

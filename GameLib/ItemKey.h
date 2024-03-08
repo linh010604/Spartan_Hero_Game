@@ -16,7 +16,7 @@
 /**
  * Allows access to ItemSoundBoars without creating a circular dependency.
  */
-class ItemSoundBoard;
+class ItemSoundboard;
 
 
 /**
@@ -26,7 +26,7 @@ class ItemKey {
 private:
 
     // The soundboard this track is contained in
-    ItemSoundBoard  *mItemSoundBoard;
+    ItemSoundboard  *mItemSoundBoard;
 
     /// The track number
     int mTrack = 0;
@@ -51,7 +51,7 @@ public:
     /// Assignment operator
     void operator=(const ItemKey &) = delete;
 
-    ItemKey(ItemSoundBoard *soundboard);
+    ItemKey(ItemSoundboard *soundboard);
 
     /**
      * Set X location of the item

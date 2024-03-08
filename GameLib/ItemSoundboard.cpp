@@ -9,6 +9,7 @@
 #include "ItemSoundboard.h"
 #include "ItemKey.h"
 #include "ItemTrackLine.h"
+#include "Game.h"
 #include <memory>
 
 using namespace std;
@@ -47,7 +48,7 @@ const double KeyRow = 0.85;
  * Constructor
  * @param game The game this item is a member of
  */
-ItemSoundBoard::ItemSoundBoard(Game *game) : Item(game)
+ItemSoundboard::ItemSoundboard(Game *game) : Item(game)
 {
     //initialize Image info here
 
@@ -58,7 +59,7 @@ ItemSoundBoard::ItemSoundBoard(Game *game) : Item(game)
  * Add track to soundboard
  * @param track New track to add
  */
-void ItemSoundBoard::AddTrack(std::shared_ptr<ItemKey> track)
+void ItemSoundboard::AddTrack(std::shared_ptr<ItemKey> track)
 {
     mKeys.push_back(track);
 }
@@ -67,7 +68,7 @@ void ItemSoundBoard::AddTrack(std::shared_ptr<ItemKey> track)
  * Load the attributes for Soundboard node.
  * @param node The Xml node we are loading the declaration from
  */
-void ItemSoundBoard::XmlLoad(wxXmlNode *node)
+void ItemSoundboard::XmlLoad(wxXmlNode *node)
 {
     Item::XmlLoad(node);
     mKeys.clear();
@@ -81,7 +82,7 @@ void ItemSoundBoard::XmlLoad(wxXmlNode *node)
     }
 }
 
-void ItemSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard)
+void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard)
 {
     double WidthSoundBoard = soundboard->GetWidth();
     double HeightSoundBoard = soundboard->GetHeight();

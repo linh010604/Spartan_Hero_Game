@@ -15,19 +15,26 @@
  * Class for a Scoreboard Item
  */
 
-class ItemScoreBoard : public Item
+class ItemScoreboard : public Item
 {
 public:
     /// Default constructor (disabled)
-    ItemScoreBoard() = delete;
+    ItemScoreboard() = delete;
 
     /// Copy constructor (disabled)
-    ItemScoreBoard(const ItemScoreBoard &) = delete;
+    ItemScoreboard(const ItemScoreboard &) = delete;
 
     /// Assignment operator
-    void operator=(const ItemScoreBoard &) = delete;
+    void operator=(const ItemScoreboard &) = delete;
 
-    ItemScoreBoard(Game *game);
+    ItemScoreboard(Game *game);
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitItemScoreboard(this); }
+
 
 
 private:

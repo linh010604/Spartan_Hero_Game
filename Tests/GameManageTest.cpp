@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "GameStateManager.h"
-#include "Game.h"
+#include <GameStateManager.h>
+#include <Game.h>
 
 
 class GameStateManagerTest : public ::testing::Test {
@@ -12,7 +12,6 @@ protected:
     }
 };
 
-// Use TEST_F to define tests that use the GameStateManagerTest fixture
 TEST_F(GameStateManagerTest, ScoreUpdate) {
     gameStateManager->UpdateScore(10);
     ASSERT_EQ(10, gameStateManager->GetScore());

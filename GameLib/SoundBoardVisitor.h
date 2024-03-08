@@ -29,7 +29,7 @@ public:
     * @param key The key we are visiting
     */
 
-    //virtual void VisitSoundboard (ItemKey* soundboard) {}
+    virtual void VisitSoundboard (ItemKey* soundboard) {}
 
 };
 

@@ -16,11 +16,13 @@ class GameTest : public ::testing::Test
 {
 protected:
     ma_engine mAudioEngine;
+
 };
 
 TEST_F(GameTest, Construct){
     Game game(&mAudioEngine);
 }
+
 
 TEST_F(GameTest, Load) {
 
@@ -37,4 +39,7 @@ TEST_F(GameTest, Load) {
 
     ASSERT_EQ(game.GetMusicSize(), 30) << L"All notes in music are loaded";
 
+
 }
+
+

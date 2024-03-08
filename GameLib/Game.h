@@ -32,11 +32,11 @@ private:
     /**
     * Represents the width of the virtual playing area.
     */
-    int mVirtualWidth;
+    double mVirtualWidth;
     /**
     * Represents the height of the virtual playing area.
     */
-    int mVirtualHeight;
+    double mVirtualHeight;
 
     /**
     * Represents the scaling factor of the virtual playing area.
@@ -99,6 +99,17 @@ public:
     virtual ~Game() = default;
 
     /**
+     * @return mVirtualWidth
+     */
+    double GetWidth() const {return mVirtualWidth;}
+
+    /**
+    * @return mVirtualHeight
+    */
+    double GetHeight() const {return mVirtualHeight;}
+
+
+    /**
     * Draw the game's graphics onto the window.
     *
     * @param gc A shared pointer to a wxGraphicsContext object used for drawing.
@@ -106,15 +117,6 @@ public:
     * @param height The current height of the window.
      */
     void OnDraw(std::shared_ptr<wxGraphicsContext> gc, int width, int height);
-
-
-    /**
-    * Handle mouse click events within the game window.
-    *
-    * @param x The x-coordinate of the mouse click within the window.
-    * @param y The y-coordinate of the mouse click within the window.
-    */
-    void OnLeftDown(int x, int y);
 
     void Load(const wxString &filename);
 

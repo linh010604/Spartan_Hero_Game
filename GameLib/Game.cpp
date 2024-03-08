@@ -24,19 +24,13 @@ using namespace std;
 const std::wstring ImagesDirectory = L"/images";
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine), mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
-    // Load the background image into the wxBitmap member variable
-
-    mBackgroundBitmap = wxBitmap(L"images/background1.png", wxBITMAP_TYPE_ANY);
-
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     // Width of virtual pixels
-    int virtualWidth = mDeclarations[0]->GetWidth();
+    int virtualWidth = mVirtualWidth;
     // Height of virtual pixels
-    int virtualHeight = mDeclarations[0]->GetHeight();
-
-
+    int virtualHeight = mVirtualHeight;
 
     // Creates Scale for X values
     auto scaleX = double(width) / double(virtualWidth);
@@ -68,9 +62,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         }
 
     }
-
-    // Restores state of graphics
-    graphics->PopState();
 }
 
 
@@ -109,6 +100,11 @@ void Game::Load(const wxString &filename)
     // Traverse the children of the root
     // node of the XML document in memory!!!!
     //
+
+    auto sizeString = root->GetAttribute("size","0,0");
+    sizeString.BeforeFirst(',').ToDouble(&mVirtualWidth);
+    sizeString.AfterFirst(',').ToDouble(&mVirtualHeight);
+
     auto child = root->GetChildren();
     for( ; child; child=child->GetNext())
     {

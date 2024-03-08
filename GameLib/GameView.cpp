@@ -105,13 +105,16 @@ void GameView::OnPaint(wxPaintEvent& event)
         gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
 
         // Calculate positions to center the text
-        int xPos = (rect.GetWidth() - textWidth) / 2;
-        int yPos = (rect.GetHeight() - textHeight) / 2;
+        int xPos = (mGame.GetWidth() - textWidth) / 2;
+        int yPos = (mGame.GetHeight() - textHeight) / 2;
 
         gc->DrawText(noticeText, xPos, yPos);
     } else {
         mDisplayLevelNotice = false;
     }
+
+    // Restores state of graphics
+    gc->PopState();
 
 }
 

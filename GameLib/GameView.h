@@ -38,9 +38,9 @@ private:
     /// The game
     Game mGame;
 
-    bool mDisplayLevelNotice = false;
+    bool mDisplayLevelNotice = true;
     wxStopWatch mLevelNoticeStopWatch;
-    int mCurrentLevel = 0;
+    int mCurrentLevel = 1;
 
 public:
 

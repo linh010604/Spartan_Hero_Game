@@ -47,7 +47,12 @@ set(SOURCE_FILES pch.h
         PuckVisitor.h
         GameStateManager.cpp
         GameStateManager.h
+        ItemVisitor.cpp
+        ItemVisitor.h
+
 
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
+
+# temp comment

@@ -39,6 +39,10 @@ set(SOURCE_FILES pch.h
         DeclarationSoundBoard.h
         DeclarationNote.cpp
         DeclarationNote.h
+        VisitorSoundboard.cpp
+        VisitorSoundboard.h
+        VisitorMeter.cpp
+        VisitorMeter.h
 
 )
 

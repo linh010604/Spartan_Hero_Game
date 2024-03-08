@@ -40,7 +40,7 @@ private:
 
     std::string mText = "Placeholder";
 
-    int mScore;
+    int mScore = 000000;
 
 };
 

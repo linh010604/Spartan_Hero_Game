@@ -26,6 +26,8 @@ void Sound::XmlLoad(wxXmlNode* node)
 {
     node->GetAttribute(L"name", &mName);
     node->GetAttribute(L"audio", &mAudioFile);
+    if (node->GetAttribute(L"long", L"") != L"")
+        mLong = true;
 }
 
 /**

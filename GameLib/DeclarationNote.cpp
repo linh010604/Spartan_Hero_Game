@@ -13,13 +13,10 @@ using namespace std;
 wstring const ImageDir = L"images/";
 
 
-
-
 DeclarationNote::DeclarationNote(Game *game): Declaration(game)
 {
 
 }
-
 
 /**
  * Update the location of puck in time

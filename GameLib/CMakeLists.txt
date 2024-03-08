@@ -17,6 +17,8 @@ set(SOURCE_FILES pch.h
         Item.h
         Level.cpp
         Level.h
+        ItemTrackLine.cpp
+        ItemTrackLine.h
         ItemSoundboard.cpp
         ItemSoundboard.h
         ItemMeter.cpp
@@ -39,8 +41,8 @@ set(SOURCE_FILES pch.h
         VisitorSoundboard.h
         VisitorMeter.cpp
         VisitorMeter.h
-        GameStateManager.cpp
-        GameStateManager.h
+        Music.cpp
+        Music.h
 
 )
 

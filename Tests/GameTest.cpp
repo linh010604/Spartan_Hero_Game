@@ -24,7 +24,7 @@ TEST_F(GameTest, Construct){
 }
 
 
-TEST_F(GameTest, Load) {
+TEST_F(GameTest, LoadLevelZero) {
 
     // Create a game
     Game game(&mAudioEngine);
@@ -39,5 +39,54 @@ TEST_F(GameTest, Load) {
 
     ASSERT_EQ(game.GetMusicSize(), 30) << L"All notes in music are loaded";
 
+}
 
+TEST_F(GameTest, LoadLevelOne) {
+
+    // Create a game
+    Game game( &mAudioEngine);
+
+    wxString level = L"levels/level1.xml";
+
+    game.Load(level);
+
+    ASSERT_EQ(game.GetItemSize(), 6) << L"All items are loaded";
+
+    ASSERT_EQ(game.GetDeclarationSize(), 14) << L"All declarations are loaded";
+
+    ASSERT_EQ(game.GetMusicSize(), 262) << L"All notes in music are loaded";
+
+}
+
+TEST_F(GameTest, LoadLevelTwo) {
+
+    // Create a game
+    Game game( &mAudioEngine);
+
+    wxString level = L"levels/level2.xml";
+
+    game.Load(level);
+
+    ASSERT_EQ(game.GetItemSize(), 6) << L"All items are loaded";
+
+    ASSERT_EQ(game.GetDeclarationSize(), 16) << L"All declarations are loaded";
+
+    ASSERT_EQ(game.GetMusicSize(), 308) << L"All notes in msuic are loaded";
+
+}
+
+TEST_F(GameTest, LoadLevelThree) {
+
+    // Create a game
+    Game game( &mAudioEngine);
+
+    wxString level = L"levels/level3.xml";
+
+    game.Load(level);
+
+    ASSERT_EQ(game.GetItemSize(), 4) << L"All items are loaded";
+
+    ASSERT_EQ(game.GetDeclarationSize(), 12) << L"All declarations are loaded";
+
+    ASSERT_EQ(game.GetMusicSize(), 262) << L"All notes in msuic are loaded";
 }

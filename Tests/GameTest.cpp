@@ -37,5 +37,7 @@ TEST_F(GameTest, Load) {
 
     ASSERT_EQ(game.GetDeclarationSize(), 12) << L"All declarations are loaded";
 
+    ASSERT_EQ(game.GetMusicSize(), 30) << L"All notes in music are loaded";
+
 
 }

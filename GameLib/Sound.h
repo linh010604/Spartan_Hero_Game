@@ -12,11 +12,19 @@
 #include <miniaudio.h>
 
 /**
+ * Allows access to Game without creating a circular dependency.
+ */
+class Game;
+
+/**
  * Class for playing sound in game.
  */
 class Sound
 {
 private:
+    /// The game this sound is contained in
+    Game   *mGame;
+
     /// Name of the sound
     wxString mName;
 
@@ -38,6 +46,17 @@ private:
 public:
 
     ~Sound();
+
+    /// Default constructor (disabled)
+    Sound() = delete;
+
+    /// Copy constructor (disabled)
+    Sound(const Sound &) = delete;
+
+    /// Assignment operator
+    void operator=(const Sound &) = delete;
+
+    Sound(Game *game);
 
     void PlaySound();
 

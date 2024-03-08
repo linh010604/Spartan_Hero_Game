@@ -15,6 +15,8 @@
 #include "ItemMeter.h"
 #include "ItemSoundboard.h"
 #include "ItemScoreboard.h"
+#include "Music.h"
+#include "Sound.h"
 #include <memory>
 
 using namespace std;
@@ -73,6 +75,7 @@ void Game::Clear()
 {
     mItems.clear();
     mDeclarations.clear();
+    mMusic.clear();
 }
 
 /**
@@ -118,6 +121,17 @@ void Game::Load(const wxString &filename)
             auto node = child->GetChildren();
             XmlItems(node);
         }
+        else if (name == L"music")
+        {
+            auto node = child->GetChildren();
+            XmlMusic(node);
+        }
+        else if (name == L"audio")
+        {
+            auto node = child->GetChildren();
+            XmlAudio(node);
+        }
+
     }
 }
 
@@ -230,5 +244,33 @@ void Game::XmlItems(wxXmlNode *node)
             item->XmlLoad(node);
             AddItem(item);
         }
+    }
+}
+
+/**
+ * Handle a node of type music.
+ * @param node XML node
+ */
+void Game::XmlMusic(wxXmlNode *node)
+{
+    for( *node ; node; node=node->GetNext())
+    {
+        shared_ptr<Music> music = make_shared<Music>(this);
+        music->XmlLoad(node);
+        mMusic.push_back(music);
+    }
+}
+
+/**
+ * Handle a node of type audio.
+ * @param node XML node
+ */
+void Game::XmlAudio(wxXmlNode *node)
+{
+    for( *node ; node; node=node->GetNext())
+    {
+        shared_ptr<Sound> sound = make_shared<Sound>(this);
+        sound->XmlLoad(node);
+        mAudio.push_back(sound);
     }
 }

@@ -34,7 +34,7 @@ private:
     /// The bitmap we can display for this soundboard
     std::unique_ptr<wxBitmap> mKeyBitmap;
 
-    wxString  mKey = "";  ///< Key of the track
+    wxString  mKey = "";  ///< ItemTrackLine of the track
     double mWidth = 0;  ///< Width of the key
     double mHeight = 0; ///< Length of the key
     // Item location in the game

@@ -37,14 +37,14 @@ set(SOURCE_FILES pch.h
         DeclarationSoundBoard.h
         DeclarationNote.cpp
         DeclarationNote.h
-        VisitorSoundboard.cpp
-        VisitorSoundboard.h
-        VisitorMeter.cpp
-        VisitorMeter.h
         Music.cpp
         Music.h
         PuckVisitor.cpp
         PuckVisitor.h
+        MeterVisitor.cpp
+        MeterVisitor.h
+        SoundBoardVisitor.cpp
+        SoundBoardVisitor.h
 
 )
 

@@ -27,6 +27,30 @@ protected:
 public:
     virtual ~ItemVisitor() {}
 
+    /**
+   * Visit a ItemSoundboard object
+   * @param soundboard Soundboard we are visiting
+   */
+    virtual void VisitItemSoundboard(ItemSoundboard* soundboard) {}
+
+    /**
+     * Visit a ItemScoreboard object
+     * @param scoreboard Soundboard we are visiting
+     */
+    virtual void VisitItemScoreboard(ItemScoreboard* scoreboard) {}
+
+    /**
+     * Visit a ItemSoundboard object
+     * @param soundboard Soundboard we are visiting
+     */
+    virtual void VisitItemImage(ItemImage* image) {}
+
+    /**
+     * Visit a ItemSoundboard object
+     * @param soundboard Soundboard we are visiting
+     */
+    virtual void VisitItemMeter(ItemMeter* image) {}
+
 
 
 };

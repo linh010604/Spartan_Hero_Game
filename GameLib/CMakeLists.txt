@@ -47,6 +47,8 @@ set(SOURCE_FILES pch.h
         PuckVisitor.h
         GameStateManager.cpp
         GameStateManager.h
+        ItemVisitor.cpp
+        ItemVisitor.h
 
 
 )

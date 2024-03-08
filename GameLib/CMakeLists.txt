@@ -43,6 +43,7 @@ set(SOURCE_FILES pch.h
         VisitorMeter.h
         Music.cpp
         Music.h
+        GameStateManager.cpp
 
 )
 

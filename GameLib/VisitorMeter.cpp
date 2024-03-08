@@ -4,6 +4,7 @@
  * Class for Visitor Meter
  */
 
+#include "pch.h"
 #include "VisitorMeter.h"
 
 

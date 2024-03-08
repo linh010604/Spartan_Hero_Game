@@ -39,6 +39,8 @@ TEST_F(GameTest, LoadLevelZero) {
 
     ASSERT_EQ(game.GetMusicSize(), 30) << L"All notes in music are loaded";
 
+    ASSERT_EQ(game.GetAudioSize(), 39) << L"All audio is loaded";
+
 
 }
 
@@ -57,6 +59,7 @@ TEST_F(GameTest, LoadLevelOne) {
 
     ASSERT_EQ(game.GetMusicSize(), 262) << L"All notes in music are loaded";
 
+    ASSERT_EQ(game.GetAudioSize(), 39) << L"All audio is loaded";
 
 }
 
@@ -75,6 +78,8 @@ TEST_F(GameTest, LoadLevelTwo) {
 
     ASSERT_EQ(game.GetMusicSize(), 308) << L"All notes in music are loaded";
 
+    ASSERT_EQ(game.GetAudioSize(), 34) << L"All audio is loaded";
+
 }
 
 TEST_F(GameTest, LoadLevelThree) {
@@ -92,5 +97,6 @@ TEST_F(GameTest, LoadLevelThree) {
 
     ASSERT_EQ(game.GetMusicSize(), 262) << L"All notes in music are loaded";
 
+    ASSERT_EQ(game.GetAudioSize(), 39) << L"All audio is loaded";
 
 }

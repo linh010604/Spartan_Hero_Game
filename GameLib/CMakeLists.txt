@@ -17,8 +17,6 @@ set(SOURCE_FILES pch.h
         Item.h
         Level.cpp
         Level.h
-        Key.cpp
-        Key.h
         ItemSoundboard.cpp
         ItemSoundboard.h
         ItemMeter.cpp

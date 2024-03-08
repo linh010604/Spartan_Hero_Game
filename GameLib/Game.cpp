@@ -64,7 +64,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     }
 }
 
-
 /**
  * Clear the game data.
  *
@@ -121,6 +120,18 @@ void Game::Load(const wxString &filename)
         }
     }
 }
+
+/**  Handle updates for animation
+* @param elapsed The time since the last update
+*/
+void Game::Update(double elapsed)
+{
+    for (auto declaration : mDeclarations)
+    {
+        declaration->Update(elapsed);
+    }
+}
+
 
 /**
  * Add an item to the game

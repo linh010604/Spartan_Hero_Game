@@ -5,8 +5,8 @@ set(SOURCE_FILES pch.h
         ItemScoreboard.h
         Sound.cpp
         Sound.h
-        Track.cpp
-        Track.h
+        ItemKey.cpp
+        ItemKey.h
         GameView.cpp
         GameView.h
         Game.cpp

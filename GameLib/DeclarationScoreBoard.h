@@ -39,7 +39,6 @@ private:
 
     std::string mText = "Placeholder";
 
-
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONSCOREBOARD_H

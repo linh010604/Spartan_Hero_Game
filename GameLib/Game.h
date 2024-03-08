@@ -130,6 +130,8 @@ public:
 
     void XmlItems(wxXmlNode *node);
 
+    void Update(double elapsed);
+
     /**
      *
      * @return mAudioEngine

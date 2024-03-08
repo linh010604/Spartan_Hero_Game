@@ -50,4 +50,13 @@ void DeclarationMeter:: Draw(std::shared_ptr <wxGraphicsContext> gp, double x, d
                    int(x -this->GetWidth() / 2),
                    int(y -this->GetHeight() / 2),
                    this->GetWidth(), this->GetHeight());
-                }
+}
+
+/**
+ * Update the location of metter in time
+ * @param elapsed Elapsed time in seconds
+ */
+void DeclarationMeter::Update(double elapsed)
+{
+    Declaration::Update(elapsed);
+}

@@ -87,6 +87,7 @@ void GameView::OnPaint(wxPaintEvent& event)
     // Compute the time that has elapsed
     // since the last call to OnPaint.
     auto newTime = mStopWatch.Time();
+    auto elapsed = (double)(newTime - mTime) * 0.01;
     mTime = newTime;
     // Create a graphics context
     auto gc = std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
@@ -94,6 +95,7 @@ void GameView::OnPaint(wxPaintEvent& event)
     // Tell the game class to draw
     wxRect rect = GetRect();
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
+    mGame.Update(elapsed);
 
     if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
         wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);

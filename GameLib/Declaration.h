@@ -81,6 +81,11 @@ public:
      * @param y Y location
      */
     virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
+
+    ///  Handle updates for animation
+    /// @param elapsed The time since the last update
+    virtual void Update(double elapsed) {}
+
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATION_H

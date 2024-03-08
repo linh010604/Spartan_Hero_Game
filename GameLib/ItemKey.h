@@ -1,8 +1,8 @@
 /**
- * @file Track.h
+ * @file ItemKey.h
  * @author Naod Ghebredngl
  *
- * File for Track class
+ * File for ItemKey class
  */
 
 #ifndef PROJECT1_TRACK_H
@@ -20,9 +20,9 @@ class ItemSoundBoard;
 
 
 /**
- * Class for Track that derives from Item
+ * Class for ItemKey that derives from Item
  */
-class Track {
+class ItemKey {
 private:
 
     // The soundboard this track is contained in
@@ -43,15 +43,15 @@ private:
 
 public:
     /// Default constructor (disabled)
-    Track() = delete;
+    ItemKey() = delete;
 
     /// Copy constructor (disabled)
-    Track(const Track &) = delete;
+    ItemKey(const ItemKey &) = delete;
 
     /// Assignment operator
-    void operator=(const Track &) = delete;
+    void operator=(const ItemKey &) = delete;
 
-    Track(ItemSoundBoard *soundboard);
+    ItemKey(ItemSoundBoard *soundboard);
 
     /**
      * Set X location of the item

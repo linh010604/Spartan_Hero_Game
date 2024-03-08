@@ -1,11 +1,11 @@
 /**
- * @file Track.cpp
+ * @file ItemKey.cpp
  * @author Naod Ghebredngl
  *
  */
 
 #include "pch.h"
-#include "Track.h"
+#include "ItemKey.h"
 #include "Game.h"
 
 using namespace std;
@@ -18,7 +18,7 @@ wstring const ImageDir = L"images/";
  * Constructor
  * @param soundboard The soundboard this track is a member of
  */
-Track::Track(ItemSoundBoard *soundboard) : mItemSoundBoard(soundboard)
+ItemKey::ItemKey(ItemSoundBoard *soundboard) : mItemSoundBoard(soundboard)
 {
 
 }
@@ -32,7 +32,7 @@ Track::Track(ItemSoundBoard *soundboard) : mItemSoundBoard(soundboard)
  *
  * @param node The Xml node we are loading the item from
  */
-void Track::XmlLoad(wxXmlNode *node)
+void ItemKey::XmlLoad(wxXmlNode *node)
 {
     auto size = node->GetAttribute("key-size","0,0");
     size.BeforeFirst(',').ToDouble(&mWidth);
@@ -49,7 +49,7 @@ void Track::XmlLoad(wxXmlNode *node)
  * @param x X position
  * @param y Y position
  */
-void Track::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
+void ItemKey::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
     gp->DrawBitmap(*mKeyBitmap,
                    int(x - mWidth / 2),
                    int(y - mHeight / 2),

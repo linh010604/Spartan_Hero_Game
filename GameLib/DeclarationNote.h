@@ -22,6 +22,8 @@ public:
 
     DeclarationNote(Game *game);
 
+    void Update(double elapsed) override;
+
 };
 
 

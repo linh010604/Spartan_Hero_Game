@@ -38,6 +38,8 @@ public:
     void XmlLoad(wxXmlNode *node) override;
 
     void Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y) override;
+
+    void Update(double elapsed) override;
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONMETER_H

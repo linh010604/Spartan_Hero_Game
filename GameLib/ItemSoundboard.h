@@ -12,9 +12,9 @@
 #include "Item.h"
 
 /**
- * Allows access to Track without creating circular dependency.
+ * Allows access to ItemKey without creating circular dependency.
  */
-class Track;
+class ItemKey;
 
 /**
  * Class for a Soundboard Item
@@ -24,7 +24,7 @@ class ItemSoundBoard : public Item
 private:
 
     /// All of the tracks to populate our soundboard
-    std::vector<std::shared_ptr<Track>> mTracks;
+    std::vector<std::shared_ptr<ItemKey>> mTracks;
 
 public:
     /// Default constructor (disabled)
@@ -38,7 +38,7 @@ public:
 
     ItemSoundBoard(Game *game);
 
-    void AddTrack(std::shared_ptr<Track> track);
+    void AddTrack(std::shared_ptr<ItemKey> track);
 
     void XmlLoad(wxXmlNode *node) override;
 

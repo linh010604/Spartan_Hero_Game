@@ -7,7 +7,7 @@
 
 #include "pch.h"
 #include "ItemSoundboard.h"
-#include "Track.h"
+#include "ItemKey.h"
 #include <memory>
 
 using namespace std;
@@ -57,7 +57,7 @@ ItemSoundBoard::ItemSoundBoard(Game *game) : Item(game)
  * Add track to soundboard
  * @param track New track to add
  */
-void ItemSoundBoard::AddTrack(std::shared_ptr<Track> track)
+void ItemSoundBoard::AddTrack(std::shared_ptr<ItemKey> track)
 {
     mTracks.push_back(track);
 }
@@ -73,7 +73,7 @@ void ItemSoundBoard::XmlLoad(wxXmlNode *node)
     auto soundnode = node-> GetChildren();
     for(*soundnode ; soundnode; soundnode=soundnode->GetNext())
     {
-        shared_ptr<Track> track = make_shared<Track>(this);
+        shared_ptr<ItemKey> track = make_shared<ItemKey>(this);
         track->XmlLoad(soundnode);
         AddTrack(track);
     }

@@ -50,8 +50,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     wxImage puckImage(L"images/puck-a.png", wxBITMAP_TYPE_ANY); // Adjust path as necessary
     if (puckImage.IsOk()) {
         wxBitmap puckBitmap(puckImage);
-        double puckX = 900; // Example X position
-        double puckY = 900; // Example Y position
+        double puckX = 3000; // Example X position
+        double puckY = 3000; // Example Y position
         graphics->DrawBitmap(puckBitmap, puckX, puckY, puckBitmap.GetWidth(), puckBitmap.GetHeight());
     }
 

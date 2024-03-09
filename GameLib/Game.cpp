@@ -47,6 +47,14 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Creates offset for Y
     mYOffset = (height - virtualHeight * mScale) > 0 ? (height - virtualHeight * mScale) / 2.0 : 0;
 
+    wxImage puckImage(L"images/puck-a.png", wxBITMAP_TYPE_ANY); // Adjust path as necessary
+    if (puckImage.IsOk()) {
+        wxBitmap puckBitmap(puckImage);
+        double puckX = 900; // Example X position
+        double puckY = 900; // Example Y position
+        graphics->DrawBitmap(puckBitmap, puckX, puckY, puckBitmap.GetWidth(), puckBitmap.GetHeight());
+    }
+
     // Saves current state of graphics
     graphics->PushState();
     // Translates the coordinates system using offsets

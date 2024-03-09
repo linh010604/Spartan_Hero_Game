@@ -30,7 +30,7 @@ public:
 
     ItemMeter(Game *game);
 
-    void Accept(ItemVisitor* visitor) override;
+    //void Accept(ItemVisitor* visitor) override;
 
     // Method to update the meter's value
     void UpdateMeter(double value);

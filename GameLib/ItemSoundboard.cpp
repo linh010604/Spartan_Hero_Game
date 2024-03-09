@@ -136,3 +136,60 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
         shiftX2 += x2Space;
     }
 }
+
+void ItemSoundboard::DrawRedLines(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, double PuckX, double PuckY) {
+    double WidthSoundBoard = soundboard->GetWidth();
+    double HeightSoundBoard = soundboard->GetHeight();
+    double TopWidthSoundBoard = soundboard->GetTopWidth();
+    int tracksCount = mKeys.size();
+
+    // Draw red lines
+    wxPen linePen( *wxRED, TrackLineWidth);
+    gp->SetPen(linePen);
+
+    // Find length of soundboard at KeyRow and TopClearance
+    double soundBoardLengthAtX1Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*TopClearance) + TopWidthSoundBoard;
+    double soundBoardLengthAtX2Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*KeyRow) + TopWidthSoundBoard;
+
+    // X1 and X2 for leftmost and rightmost track
+    double x1InitLeftTrack = (GetX()-(soundBoardLengthAtX1Init/2)) + (soundBoardLengthAtX1Init*Border);
+    double x2InitLeftTrack = (GetX()-(soundBoardLengthAtX2Init/2)) + (soundBoardLengthAtX2Init*Border);
+
+    double x1InitRightTrack = (GetX()+(soundBoardLengthAtX1Init/2)) - (soundBoardLengthAtX1Init*Border);
+    double x2InitRightTrack = (GetX()+(soundBoardLengthAtX2Init/2)) - (soundBoardLengthAtX2Init*Border);
+
+    // Y1 and Y2 for all tracks
+    double overlapCorrection = 7; // track is too long otherwise
+    double y1Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*TopClearance) + overlapCorrection;
+    double y2Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*KeyRow);
+
+    // Space between each track
+    double x1Space = (x1InitRightTrack - x1InitLeftTrack)/(MaxTracks - 1);
+    double x2Space = (x2InitRightTrack - x2InitLeftTrack)/(MaxTracks - 1);
+
+    double shiftX1 = 0;
+    double shiftX2 = 0;
+    for (int i = 0; i < tracksCount; ++i) {
+        if (i == tracksCount / 2 && tracksCount == MinTracks) {
+            shiftX1 += 2 * x1Space;
+            shiftX2 += 2 * x2Space;
+        }
+
+        double x1TrackLineEnd = x1InitLeftTrack + shiftX1;
+        double x2TrackLineEnd = x2InitLeftTrack + shiftX2;
+
+        // Calculate the angle and length of the red line
+        double angle = atan2(y2Track - y1Track, x2TrackLineEnd - x1TrackLineEnd);
+        double length = LongDurationLineWidth;
+
+        // Calculate the end coordinates of the red line
+        double x1RedLineEnd = PuckX + length * cos(angle);
+        double y1RedLineEnd = PuckY + length * sin(angle);
+
+        // Draw the red line
+        gp->StrokeLine(x1TrackLineEnd, y1Track, x1RedLineEnd, y1RedLineEnd);
+
+        shiftX1 += x1Space;
+        shiftX2 += x2Space;
+    }
+}

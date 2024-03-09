@@ -123,7 +123,11 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
             shiftX2 += 2*x2Space;
         }
 
-        shared_ptr<ItemTrackLine> trackline = make_shared<ItemTrackLine>(this,x1InitLeftTrack + shiftX1,y1Track, x2InitLeftTrack + shiftX2, y2Track );
+        shared_ptr<ItemTrackLine> trackline = make_shared<ItemTrackLine>(this,
+                                                                         x1InitLeftTrack + shiftX1,
+                                                                         y1Track,
+                                                                         x2InitLeftTrack + shiftX2, y2Track ,
+                                                                         mKeys[i]->GetTrack());
         mTracks.push_back(trackline);
 
         mTracks[i]->Draw(gp);

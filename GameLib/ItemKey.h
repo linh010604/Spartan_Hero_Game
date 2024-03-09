@@ -69,6 +69,12 @@ public:
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
 
+    /**
+     * The Id of the item
+     * @return Id
+     */
+    int GetTrack() const {return mTrack;}
+
 };
 
 

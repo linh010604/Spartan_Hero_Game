@@ -18,6 +18,7 @@ DeclarationNote::DeclarationNote(Game *game): Declaration(game)
 
 }
 
+
 /**
  * Update the location of puck in time
  * @param elapsed Elapsed time in seconds

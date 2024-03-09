@@ -47,7 +47,7 @@ public:
     /// Assignment operator
     void operator=(const ItemTrackLine &) = delete;
 
-    ItemTrackLine(ItemSoundboard *soundboard, double x1, double y1, double x2, double y2);
+    ItemTrackLine(ItemSoundboard *soundboard, double x1, double y1, double x2, double y2, int track);
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp);
 

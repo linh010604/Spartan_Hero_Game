@@ -7,7 +7,6 @@ class GameStateManagerTest : public ::testing::Test {
 protected:
     std::unique_ptr<GameStateManager> gameStateManager;
     void SetUp() override {
-
         gameStateManager = std::make_unique<GameStateManager>(nullptr);
     }
 };

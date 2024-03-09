@@ -8,17 +8,11 @@
 #ifndef PROJECT1_GAMELIB_SOUNDBOARDVISITOR_H
 #define PROJECT1_GAMELIB_SOUNDBOARDVISITOR_H
 
+#include "ItemVisitor.h"
+
 class ItemKey;
 
-class SoundBoardVisitor{
-
-protected:
-    /**
-     * Constructor
-     * Ensures this is an abstract class
-     */
-     SoundBoardVisitor() {}
-
+class SoundBoardVisitor : public ItemVisitor {
 private:
 
 public:
@@ -29,7 +23,7 @@ public:
     * @param key The key we are visiting
     */
 
-    virtual void VisitSoundboard (ItemKey* soundboard) {}
+    void VisitItemSoundboard (ItemSoundboard* soundboard) override;
 
 };
 

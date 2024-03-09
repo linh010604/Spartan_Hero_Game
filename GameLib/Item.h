@@ -6,7 +6,7 @@
 
 #ifndef PROJECT1_ITEM_H
 #define PROJECT1_ITEM_H
-
+#include <wx/xml/xml.h>
 #include "Declaration.h"
 #include "ItemVisitor.h"
 
@@ -55,6 +55,12 @@ public:
     wxString GetId() const { return mId; }
 
     /**
+     * Get the pointer to the Game object
+     * @return Pointer to Game object
+     */
+    Game *GetGame() { return mGame;  }
+
+    /**
      * Set the item location
      * @param x X location in pixels
      * @param y Y location in pixels
@@ -79,6 +85,10 @@ public:
      * @param visitor The visitor we accept
      */
     virtual void Accept(ItemVisitor* visitor) = 0;
+
+    ///  Handle updates for animation
+    /// @param elapsed The time since the last update
+    virtual void Update(double elapsed) {}
 
 };
 

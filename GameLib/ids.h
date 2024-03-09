@@ -8,6 +8,8 @@
 #ifndef PROJECT1_GAMELIB_IDS_H
 #define PROJECT1_GAMELIB_IDS_H
 
+#include <wx/wxprec.h>
+
 /**
  * Menu id values
  */

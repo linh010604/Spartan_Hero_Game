@@ -10,6 +10,8 @@
 
 
 class DeclarationNote : public Declaration{
+private:
+    double mTolerance;
 public:
     /// Default constructor (disabled)
     DeclarationNote() = delete;
@@ -22,7 +24,15 @@ public:
 
     DeclarationNote(Game *game);
 
-    void Update(double elapsed) override;
+    void XmlLoad(wxXmlNode *node) override;
+
+    /**
+     * Draw this item
+     * @param gp Device context to draw on
+     * @param x X location
+     * @param y Y location
+     */
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
 
 };
 

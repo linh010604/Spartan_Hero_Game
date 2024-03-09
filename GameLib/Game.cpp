@@ -22,11 +22,8 @@
 
 using namespace std;
 
-/// Directory containing the project images
-/// relative to the resources directory.
-const std::wstring ImagesDirectory = L"/images";
 
-Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine), mVirtualWidth(1304), mVirtualHeight(900), mScale(1), mXOffset(0), mYOffset(0) {
+Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
 }
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
@@ -61,10 +58,23 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
             if (item->GetId() == declaration->GetId()){
                 declaration->Draw(graphics,item->GetX(), item->GetY());
                 item->Draw(graphics, declaration);
+                break;
             }
         }
 
     }
+
+//    for (auto declaration : mDeclarations)
+//    {
+//        for (auto music : mMusic)
+//        {
+//            if (declaration->GetId() == music->GetId()){
+//                //declaration->Draw(graphics);
+//                int a = 1;
+//            }
+//        }
+//
+//    }
 }
 
 /**
@@ -141,10 +151,7 @@ void Game::Load(const wxString &filename)
 */
 void Game::Update(double elapsed)
 {
-    for (auto declaration : mDeclarations)
-    {
-        declaration->Update(elapsed);
-    }
+
 }
 
 
@@ -155,6 +162,15 @@ void Game::Update(double elapsed)
 void Game::AddItem(std::shared_ptr<Item> item)
 {
     mItems.push_back(item);
+}
+
+/**
+ * Add a music note to the game
+ * @param music New item to add
+ */
+void Game::AddMusic(std::shared_ptr<Music> music)
+{
+    mMusic.push_back(music);
 }
 
 /**
@@ -258,7 +274,7 @@ void Game::XmlMusic(wxXmlNode *node)
     {
         shared_ptr<Music> music = make_shared<Music>(this);
         music->XmlLoad(node);
-        mMusic.push_back(music);
+        AddMusic(music);
     }
 }
 

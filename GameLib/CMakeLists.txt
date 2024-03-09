@@ -15,8 +15,6 @@ set(SOURCE_FILES pch.h
         MainFrame.h
         Item.cpp
         Item.h
-        Level.cpp
-        Level.h
         ItemTrackLine.cpp
         ItemTrackLine.h
         ItemSoundboard.cpp
@@ -53,6 +51,14 @@ set(SOURCE_FILES pch.h
 
 )
 
+set(wxBUILD_PRECOMP OFF)
+
+find_package(wxWidgets COMPONENTS core base xrc html xml REQUIRED)
+
+include(${wxWidgets_USE_FILE})
+
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 
-# temp comment
+target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+
+target_precompile_headers(${PROJECT_NAME} PRIVATE pch.h)

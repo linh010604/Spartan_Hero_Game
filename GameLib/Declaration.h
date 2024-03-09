@@ -64,7 +64,7 @@ public:
      * The top width of the soundboard
      * @return top width of the soundboard
      */
-     virtual double GetTopWidth() {return 0;}
+    virtual double GetTopWidth() {return 0;}
 
     /**
      * Get the pointer to the Game object
@@ -81,11 +81,6 @@ public:
      * @param y Y location
      */
     virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
-
-    ///  Handle updates for animation
-    /// @param elapsed The time since the last update
-    virtual void Update(double elapsed) {}
-
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATION_H

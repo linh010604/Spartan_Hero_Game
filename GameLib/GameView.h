@@ -8,26 +8,19 @@
 #ifndef PROJECT1_GAMELIB_GAMEVIEW_H
 #define PROJECT1_GAMELIB_GAMEVIEW_H
 
-
-#include <wx/wx.h>
-#include <wx/graphics.h>
 #include "Game.h"
+
 /**
  * View class for our game
  */
 class GameView : public wxWindow
 {
 private:
-    /**
-   * Paint event, draws the window.
-   * @param event Paint event object
-   */
-    void OnPaint(wxPaintEvent& event);
-
-    void OnTimer(wxTimerEvent& event);
 
     /// The timer that allows for animation
     wxTimer mTimer;
+
+    ma_engine *mAudioEngine;
 
     /// Stopwatch used to measure elapsed time
     wxStopWatch mStopWatch;
@@ -50,20 +43,27 @@ public:
      */
     GameView(ma_engine *audioEngine);
 
+    /**
+     * Paint event, draws the window.
+     * @param event Paint event object
+     */
+    void OnPaint(wxPaintEvent& event);
+
     void Initialize(wxFrame *mainFrame);
 
-    void OnLevelOption(wxCommandEvent& event);
-
-    void OnKeyDown(wxKeyEvent& event);
-    void OnKeyUp(wxKeyEvent& event);
+    /// Method to display level notice
+    void DisplayLevelNotice(int level);
 
     /**
      * Stop the timer so the window can close
      */
     void Stop() {mTimer.Stop();}
 
-    /// Method to display level notice
-    void DisplayLevelNotice(int level);
+    void OnLevelOption(wxCommandEvent& event);
+
+    void OnKeyDown(wxKeyEvent& event);
+    void OnKeyUp(wxKeyEvent& event);
+    void OnTimer(wxTimerEvent& event);
 
 /**
 * Declares event table

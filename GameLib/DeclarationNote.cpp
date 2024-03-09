@@ -18,12 +18,13 @@ DeclarationNote::DeclarationNote(Game *game): Declaration(game)
 
 }
 
-
-/**
- * Update the location of puck in time
- * @param elapsed Elapsed time in seconds
- */
-void DeclarationNote::Update(double elapsed)
+void DeclarationNote::XmlLoad(wxXmlNode *node)
 {
-    Declaration::Update(elapsed);
+    Declaration::XmlLoad(node);
+
+    node->GetAttribute(L"tolerance", L"0").ToDouble(&mTolerance);
+}
+void DeclarationNote::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y)
+{
+    Declaration::Draw(gp, x, y);
 }

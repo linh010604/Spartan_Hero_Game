@@ -38,9 +38,8 @@ wxBEGIN_EVENT_TABLE(GameView, wxWindow)
         EVT_PAINT(GameView::OnPaint)
 wxEND_EVENT_TABLE()
 
-GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine)
+GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine), mAudioEngine(audioEngine)
 {
-
 }
 
 /**
@@ -62,6 +61,7 @@ void GameView::Initialize(wxFrame *mainFrame) {
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
 
     mGame.Load(L"levels/level1.xml");
+    Refresh();
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
     mainFrame->Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
@@ -154,6 +154,8 @@ void GameView::OnLevelOption(wxCommandEvent& event)
             break;
     }
 
+    mStopWatch.Start();
+    mTime = 0;
     mGame.Load(filename);
     Refresh();
     DisplayLevelNotice(levelNumber);

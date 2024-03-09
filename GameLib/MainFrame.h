@@ -8,7 +8,7 @@
 #ifndef PROJECT1_GAMELIB_MAINFRAME_H
 #define PROJECT1_GAMELIB_MAINFRAME_H
 
-#include <miniaudio.h>
+#include "Game.h"
 
 class GameView;
 

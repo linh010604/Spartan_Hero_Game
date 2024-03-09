@@ -11,7 +11,7 @@
 #include <wx/graphics.h>
 #include <memory>
 #include <wx/dc.h>
-#include <miniaudio.h>
+#include "miniaudio.h"
 #include "Item.h"
 
 /**
@@ -87,6 +87,59 @@ public:
     /// Size of the area we are going to draw on in pixels
     constexpr static double Size = 1000;
 
+    /** Iterator that iterates over the Music notes */
+    class Iter
+    {
+    public:
+        /** Constructor
+         * @param game The game we are iterating over
+         * @param pos Position in the collection
+         */
+        Iter(Game* game, int pos) : mGame(game), mPos(pos){}
+
+        /**
+         * Compare two iterators
+         * @param other The other iterator we are comparing to
+         * @return  true if this position is not equal to the other position
+        */
+        bool operator!=(const Iter& other) const
+        {
+            return mPos != other.mPos;
+        }
+
+        /**
+         * Get value at current position
+         * @return Value at mPos in the collection
+         */
+        std::shared_ptr<Music> operator *() const { return mGame->mMusic[mPos]; }
+
+        /**
+         * Increment the iterator
+         * @return Reference to this iterator */
+        const Iter& operator++()
+        {
+            mPos++;
+            return *this;
+        }
+
+    private:
+        Game* mGame;   ///< Game we are iterating over
+        int mPos;       ///< Position in the collection
+        ma_engine* mAudioEngine; ///< The audio engine for miniaudio
+    };
+
+    /**
+     * Get an iterator for the beginning of the collection
+     * @return Iter object at position 0
+     */
+    Iter begin() { return Iter(this, 0); }
+
+    /**
+     * Get an iterator for the end of the collection
+     * @return Iter object at position past the end
+     */
+    Iter end() { return Iter(this, mMusic.size()); }
+
     /**
      * Get size of mItems
      * @return size of mItems
@@ -149,6 +202,8 @@ public:
     void AddItem(std::shared_ptr<Item> item);
 
     void AddDeclaration(std::shared_ptr<Declaration> declaration);
+
+    void AddMusic(std::shared_ptr<Music> music);
 
     void XmlDeclarations(wxXmlNode *node);
 

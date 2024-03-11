@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "Sound.h"
 #include <miniaudio.h>
+#include <thread>
 
 /// Directory that contains the audio files
 const std::wstring AudioDirectory = L"audio";
@@ -86,11 +87,13 @@ void Sound::PlaySound()
         // Always rewind to the beginning before playing
         ma_sound_seek_to_pcm_frame(&mSound, 0);
 
-        // Seek to the calculated frame count
-        //ma_sound_seek_to_pcm_frame(&mSound, 7.5);
-
         // And play the sound!
          ma_sound_start(&mSound);
+
+        // Sleep for the specified duration
+        //std::this_thread::sleep_for(std::chrono::milliseconds(250));
+
+
     }
 }
 

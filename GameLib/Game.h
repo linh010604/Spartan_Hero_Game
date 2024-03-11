@@ -274,8 +274,6 @@ public:
 
     void AcceptItem(ItemVisitor* visitor);
 
-    void AcceptDeclaration(DeclarationVisitor* visitor);
-
     void MergeDeclarationToNote();
 
     void DrawNote(std::shared_ptr<wxGraphicsContext> gc);

@@ -62,7 +62,7 @@ void Music::Update(double elapsed, double timeOnTrack)
     if (currBeat > noteBeat)
     {
         //set initial location at top of track
-        if (mFirstUpdate == false)
+        if (!mFirstUpdate)
         {
            mX = mKey->GetX1();
            mY = mKey->GetY1();

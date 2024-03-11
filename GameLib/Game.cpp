@@ -344,23 +344,7 @@ void Game::XmlAudio(wxXmlNode *node)
  */
 void Game::PressKey(wxChar key, double elapsed)
 {
-    for (auto note:mMusic){
-        if (note->HitTest(key,elapsed)){
-            auto soundName = note->GetSound();
-            for (auto audio:mAudio){
-                if (soundName == audio->GetName()){
-                    audio->SetVolume(0.5);
-                    audio->LoadSound(mAudioEngine);
 
-                    audio->PlaySound();
-                    //std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
-                    //audio->PlayEnd();
-                    break;
-                }
-            }
-            break;
-        }
-    }
 }
 
 /**
@@ -372,18 +356,6 @@ void Game::AcceptItem(ItemVisitor *visitor)
     for (auto item : mItems)
     {
         item->Accept(visitor);
-    }
-}
-
-/**
- * Accept a visitor for the collection
- * @param visitor The visitor for the collection
- */
-void Game::AcceptDeclaration(DeclarationVisitor *visitor)
-{
-    for (auto declaration : mDeclarations)
-    {
-        declaration->Accept(visitor);
     }
 }
 
@@ -399,6 +371,7 @@ void Game::MergeDeclarationToNote()
         }
     }
 }
+
 void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 {
     for (auto music : mMusic)
@@ -416,6 +389,11 @@ void Game::GameUpdate()
     {
         mState = GameState::Countdown;
     }
+//    else if (wxRound(mAbsoluteBeat) == mMeasure * 4){
+//
+//
+//
+//    }
 
 }
 

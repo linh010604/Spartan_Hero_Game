@@ -176,7 +176,9 @@ void GameView::OnKeyDown(wxKeyEvent& event)
     // since the last call to OnPaint.
     auto newTime = mStopWatch.Time();
     auto elapsed = (double)(newTime - mTime) * 0.001;
+    mTime = newTime;
     mGame.PressKey(key, elapsed);
+    mGame.Update(elapsed);
 
 //    sound.SetVolume(0.5);
 //    sound.LoadSound(mGame.GetAudioEngine());

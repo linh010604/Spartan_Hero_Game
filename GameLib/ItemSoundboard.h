@@ -53,6 +53,8 @@ public:
 
     std::shared_ptr<ItemKey> SearchKey(int track) ;
 
+    void DrawRedLines(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, double puckX, double puckY);
+
     /**
      * Accept a visitor
      * @param visitor The visitor we accept

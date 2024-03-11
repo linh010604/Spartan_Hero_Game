@@ -49,6 +49,8 @@ set(SOURCE_FILES pch.h
         DeclarationVisitor.h
         DeclarationNoteVisitor.cpp
         DeclarationNoteVisitor.h
+        LevelLoader.cpp
+        LevelLoader.h
 
 
 )

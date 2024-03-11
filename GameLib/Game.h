@@ -15,7 +15,6 @@
 #include "miniaudio.h"
 #include "ItemVisitor.h"
 #include "DeclarationVisitor.h"
-//#include "Item.h"
 
 /**
  * Allows access to Declaration without creating a circular dependency.
@@ -37,13 +36,15 @@ class Music;
  */
 class Sound;
 
+class LevelLoader;
+
 /**
  * Class for our game
  */
 class Game
 {
 public:
-    enum class GameState {Ready, Countdown, Playing, Closing};
+    enum class GameState {Ready, Countdown, Playing};
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -105,15 +106,10 @@ private:
     wxString mBacking = L"BACK";
 
     /// how long since this lv start
-    double mTimePLaying = 0;
+    double mTimePlaying = 0;
 
     GameState mState = GameState::Ready;
 
-    double mTimeOnTrack; ///< time on track
-
-    bool mBackPlaying = false;
-
-    bool mAutoPlay = false; ///< Autoplay mode of the game
 public:
 
     /// Size of the area we are going to draw on in pixels
@@ -186,7 +182,7 @@ public:
 
     /**
      * Get size of mMusic
-     * @return size of mMausic
+     * @return size of mMusic
      */
     size_t GetMusicSize() const {return mMusic.size();}
 
@@ -218,19 +214,19 @@ public:
     double GetHeight() const {return mVirtualHeight;}
 
     /**
-    * @return mBeatsPerMinute
+    * @return mVirtualHeight
     */
     double GetBeatsPerMinute() const {return mBeatsPerMinute;}
     /**
-    * @return mBeatsPerMersure
+    * @return mVirtualHeight
     */
     double GetBeatsPerMersure() const {return mBeatsPerMeasure;}
     /**
-    * @return current beat
+    * @return mVirtualHeight
     */
     double GetAbsoluteBeat() const {return mAbsoluteBeat;}
     /**
-    * @return the game measure
+    * @return mVirtualHeight
     */
     double GetMeasure() const {return mMeasure;}
 
@@ -238,11 +234,6 @@ public:
     * @return mState
     */
     GameState GetState() const {return mState;}
-
-    /**
-    * @return mAutoPLay
-    */
-    bool GetAutopPlayState() const {return mAutoPlay;}
 
 
     /**
@@ -253,24 +244,6 @@ public:
     * @param height The current height of the window.
      */
     void OnDraw(std::shared_ptr<wxGraphicsContext> gc, int width, int height);
-
-    void Load(const wxString &filename);
-
-    void Clear();
-
-    void AddItem(std::shared_ptr<Item> item);
-
-    void AddDeclaration(std::shared_ptr<Declaration> declaration);
-
-    void AddMusic(std::shared_ptr<Music> music);
-
-    void XmlDeclarations(wxXmlNode *node);
-
-    void XmlItems(wxXmlNode *node);
-
-    void XmlMusic(wxXmlNode *node);
-
-    void XmlAudio(wxXmlNode *node);
 
     void PressKey(wxChar key, double elapsed);
 
@@ -284,15 +257,16 @@ public:
 
     void AcceptItem(ItemVisitor* visitor);
 
-    void MergeDeclarationToNote();
+    void AcceptDeclaration(DeclarationVisitor* visitor);
 
-    void MergeSoundToNote();
+    void MergeDeclarationToNote();
 
     void DrawNote(std::shared_ptr<wxGraphicsContext> gc);
 
     void GameUpdate();
 
-    void UpdateAutoPlayMode();
+    void SetLevelLoaderData(const LevelLoader& levelLoader);
+
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H

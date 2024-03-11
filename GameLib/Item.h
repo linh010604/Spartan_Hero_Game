@@ -1,7 +1,8 @@
 /**
  * @file Item.h
  * @author Naod Ghebredngl
- * file for the item class
+ *
+ * File for the item class
  */
 
 #ifndef PROJECT1_ITEM_H
@@ -34,6 +35,7 @@ private:
 
 protected:
     Item(Game *game);
+
 public:
     virtual ~Item();
     /**

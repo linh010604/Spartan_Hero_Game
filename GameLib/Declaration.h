@@ -54,7 +54,7 @@ public:
 
     /**
      * The height of the item
-     * @return heught in pixels
+     * @return height in pixels
      */
     double GetHeight() const { return mHeight; }
 
@@ -106,6 +106,7 @@ public:
     ///  Handle updates for animation
     /// @param elapsed The time since the last update
     virtual void Update(double elapsed) {}
+
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATION_H

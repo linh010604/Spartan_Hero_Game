@@ -9,7 +9,7 @@
 #include "GameView.h"
 #include "Sound.h"
 #include "ids.h"
-#include "Game.h"
+#include "LevelLoader.h"
 
 #include <wx/stdpaths.h>
 #include <wx/dcbuffer.h>
@@ -60,9 +60,10 @@ void GameView::Initialize(wxFrame *mainFrame) {
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL1);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL2);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
-    mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnAutoPlayMode, this, IDM_AUTOPLAY);
 
-    mGame.Load(L"levels/level1.xml");
+    LevelLoader levelLoader(&mGame);
+    levelLoader.Load(L"levels/level1.xml");
+    mGame.SetLevelLoaderData(levelLoader);
     Refresh();
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
@@ -118,33 +119,6 @@ void GameView::OnPaint(wxPaintEvent& event)
         mDisplayLevelNotice = false;
     }
 
-    if (mGame.GetState() == Game::GameState::Closing){
-        if (mClosingTime == 0){
-            mClosingTime = mStopWatch.Time();
-        }
-        if ( mStopWatch.Time() - mClosingTime <= 2*1000){
-            wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
-            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-            gc->SetFont(font, LevelNoticeColor);
-
-            // Measure text size
-            double textWidth, textHeight;
-            gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
-
-            // Calculate positions to center the text
-            double xPos = (mGame.GetWidth() - textWidth) / 2;
-            double yPos = (mGame.GetHeight() - textHeight) / 2;
-
-            gc->DrawText(noticeText, xPos, yPos);
-        }
-        else
-        {
-            mCurrentLevel = (mCurrentLevel + 1) % 4;
-            Sequence();
-        }
-
-    }
-
     // Restores state of graphics
     gc->PopState();
 
@@ -187,7 +161,9 @@ void GameView::OnLevelOption(wxCommandEvent& event)
     mStopWatch.Start();
     mTime = 0;
     mGame = Game(mAudioEngine);
-    mGame.Load(filename);
+    LevelLoader levelLoader(&mGame);
+    levelLoader.Load(filename);
+    mGame.SetLevelLoaderData(levelLoader);
     Refresh();
     DisplayLevelNotice(levelNumber);
 
@@ -206,9 +182,7 @@ void GameView::OnKeyDown(wxKeyEvent& event)
     // since the last call to OnPaint.
     auto newTime = mStopWatch.Time();
     auto elapsed = (double)(newTime - mTime) * 0.001;
-    mTime = newTime;
     mGame.PressKey(key, elapsed);
-    mGame.Update(elapsed);
 
 //    sound.SetVolume(0.5);
 //    sound.LoadSound(mGame.GetAudioEngine());
@@ -233,40 +207,4 @@ void GameView::OnKeyUp(wxKeyEvent& event)
 void GameView::OnTimer(wxTimerEvent& event)
 {
     Refresh();
-}
-
-void GameView::Sequence()
-{
-    wxString filename;
-    int levelNumber = 0;
-    switch(mCurrentLevel) {
-        case 0:
-            filename = L"levels/level0.xml";
-            levelNumber = 0;
-            break;
-        case 1:
-            filename = L"levels/level1.xml";
-            levelNumber = 1;
-            break;
-        case 2:
-            filename = L"levels/level2.xml";
-            levelNumber = 2;
-            break;
-        case 3:
-            filename = L"levels/level3.xml";
-            levelNumber = 3;
-            break;
-    }
-
-    mStopWatch.Start();
-    mTime = 0;
-    mGame = Game(mAudioEngine);
-    mGame.Load(filename);
-    Refresh();
-    DisplayLevelNotice(levelNumber);
-
-}
-void GameView::OnAutoPlayMode(wxCommandEvent& event)
-{
-    mGame.UpdateAutoPlayMode();
 }

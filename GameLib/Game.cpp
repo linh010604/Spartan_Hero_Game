@@ -416,8 +416,6 @@ void Game::GameUpdate()
     {
         mState = GameState::Countdown;
     }
-//    else if (mAbsoluteBeat == mBeatsPerMeasure*mMeasure){
-//
-//    }
+
 }
 

@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "Sound.h"
 #include <miniaudio.h>
+#include <thread>
 
 /// Directory that contains the audio files
 const std::wstring AudioDirectory = L"audio";
@@ -36,7 +37,7 @@ void Sound::XmlLoad(wxXmlNode* node)
  */
 void Sound::LoadSound(ma_engine* audioEngine)
 {
-    if(audioEngine != nullptr)
+    if(!mLoaded && audioEngine != nullptr)
     {
         auto audioFile = AudioDirectory + L"/" + mAudioFile;
         auto result = ma_sound_init_from_file(audioEngine, wxString(audioFile), 0, NULL, NULL, &mSound);
@@ -71,7 +72,7 @@ Sound::~Sound()
 }
 
 /**
- * Play the sound
+ * Plays the sound
  */
 void Sound::PlaySound()
 {
@@ -86,16 +87,15 @@ void Sound::PlaySound()
         // Always rewind to the beginning before playing
         ma_sound_seek_to_pcm_frame(&mSound, 0);
 
-        // Seek to the calculated frame count
-        //ma_sound_seek_to_pcm_frame(&mSound, 7.5);
-
         // And play the sound!
-         ma_sound_start(&mSound);
+        ma_sound_start(&mSound);
+
+
     }
 }
 
 /**
- * Stop playing the sound
+ * Stops playing the sound
  */
 void Sound::PlayEnd()
 {

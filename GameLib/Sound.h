@@ -17,7 +17,7 @@
 class Game;
 
 /**
- * Class for playing sound in game.
+ * Class for playing the sound in game.
  */
 class Sound
 {
@@ -57,6 +57,9 @@ public:
     void operator=(const Sound &) = delete;
 
     Sound(Game *game);
+
+    /// Return mLong of the sound
+    bool GetLong(){ return mLong;}
 
     void PlaySound();
 

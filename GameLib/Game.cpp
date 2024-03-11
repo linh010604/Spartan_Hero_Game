@@ -30,7 +30,9 @@ using namespace std;
 bool const BeforeTrack = true;
 bool const AfterTrack = false;
 ///Seconds in a minute
-double SecondsPerMinute = 60;
+double const SecondsPerMinute = 60;
+
+double const StartingBeat = 4;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
     mGameStateManager = make_shared<GameStateManager>(this);
@@ -184,6 +186,8 @@ void Game::Load(const wxString &filename)
 
     MergeDeclarationToNote();
 
+    MergeSoundToNote();
+
 }
 
 /**  Handle updates for animation
@@ -194,12 +198,12 @@ void Game::Update(double elapsed)
     mTimePLaying += elapsed;
     if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
     double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
-    double timeOnTrack = mBeatsPerMeasure/beatsPerSecond;
+    mTimeOnTrack = mBeatsPerMeasure/beatsPerSecond;
 
     GameUpdate();
 
     for (auto music:mMusic){
-        music->Update(elapsed, timeOnTrack);
+        music->Update(elapsed, mTimeOnTrack);
     }
     mGameStateManager->UpdateMeasureAndBeat();
 }
@@ -265,7 +269,7 @@ void Game::XmlDeclarations(wxXmlNode *node)
         }
 
         else if(name == L"note")
-         {
+        {
             declaration = make_shared<DeclarationNote>(this);
             mDeclarationNote.push_back(declaration);
         }
@@ -343,6 +347,7 @@ void Game::XmlAudio(wxXmlNode *node)
         sound->XmlLoad(node);
         mAudio.push_back(sound);
     }
+
 }
 
 /**
@@ -351,23 +356,7 @@ void Game::XmlAudio(wxXmlNode *node)
  */
 void Game::PressKey(wxChar key, double elapsed)
 {
-    for (auto note:mMusic){
-        if (note->HitTest(key,elapsed)){
-            auto soundName = note->GetSound();
-            for (auto audio:mAudio){
-                if (soundName == audio->GetName()){
-                    audio->SetVolume(0.5);
-                    audio->LoadSound(mAudioEngine);
 
-                    audio->PlaySound();
-                    //std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
-                    //audio->PlayEnd();
-                    break;
-                }
-            }
-            break;
-        }
-    }
 }
 
 /**
@@ -379,18 +368,6 @@ void Game::AcceptItem(ItemVisitor *visitor)
     for (auto item : mItems)
     {
         item->Accept(visitor);
-    }
-}
-
-/**
- * Accept a visitor for the collection
- * @param visitor The visitor for the collection
- */
-void Game::AcceptDeclaration(DeclarationVisitor *visitor)
-{
-    for (auto declaration : mDeclarations)
-    {
-        declaration->Accept(visitor);
     }
 }
 
@@ -406,6 +383,7 @@ void Game::MergeDeclarationToNote()
         }
     }
 }
+
 void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 {
     for (auto music : mMusic)
@@ -415,14 +393,42 @@ void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 }
 void Game::GameUpdate()
 {
-    if (wxRound(4-mAbsoluteBeat) <= 0)
+    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+1) * 4){
+        mState = GameState::Closing;
+        mTimePLaying = 0;
+        mAudio[0]->PlayEnd();
+    }
+    else if (wxRound(4-mAbsoluteBeat) < 0 && mState != GameState::Playing)
     {
         mState = GameState::Playing;
     }
-    else if (mTimePLaying > 2.0)
+    else if (mTimePLaying > 2.0 && mState == GameState::Ready)
     {
         mState = GameState::Countdown;
     }
+    else if (mState == GameState::Countdown && mAbsoluteBeat >= StartingBeat && !mBackPlaying)
+    {
+        mAudio[0]->LoadSound(mAudioEngine);
+        mAudio[0]->PlaySound();
+        mBackPlaying =! mBackPlaying;
+    }
 
+
+}
+void Game::MergeSoundToNote()
+{
+    for (auto musicNote : mMusic)
+    {
+        for (auto audio : mAudio)
+        {
+            if (audio->GetName() == musicNote->GetSound()) {
+                musicNote->AddSound(audio);
+            }
+        }
+    }
+}
+void Game::UpdateAutoPlayMode()
+{
+    mAutoPlay = !mAutoPlay;
 }
 

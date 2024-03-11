@@ -17,10 +17,6 @@ using namespace std;
 /// drawn a wxBLACK.
 const int TrackLineWidth = 5;
 
-/// Width of the long duration lines. These
-/// lines are drawn as wxRED
-const int LongDurationLineWidth = 12;
-
 /// The maximum number of tracks
 const int MaxTracks = 10;
 

@@ -2,7 +2,7 @@
  * @file DeclarationImage.h
  * @author thaol
  *
- *
+ * File for Image Declaration class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATIONIMAGE_H

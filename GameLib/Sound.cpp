@@ -37,7 +37,7 @@ void Sound::XmlLoad(wxXmlNode* node)
  */
 void Sound::LoadSound(ma_engine* audioEngine)
 {
-    if(audioEngine != nullptr)
+    if(!mLoaded && audioEngine != nullptr)
     {
         auto audioFile = AudioDirectory + L"/" + mAudioFile;
         auto result = ma_sound_init_from_file(audioEngine, wxString(audioFile), 0, NULL, NULL, &mSound);
@@ -88,10 +88,7 @@ void Sound::PlaySound()
         ma_sound_seek_to_pcm_frame(&mSound, 0);
 
         // And play the sound!
-         ma_sound_start(&mSound);
-
-        // Sleep for the specified duration
-        //std::this_thread::sleep_for(std::chrono::milliseconds(250));
+        ma_sound_start(&mSound);
 
 
     }

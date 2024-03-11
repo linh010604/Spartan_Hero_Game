@@ -30,7 +30,9 @@ using namespace std;
 bool const BeforeTrack = true;
 bool const AfterTrack = false;
 ///Seconds in a minute
-double SecondsPerMinute = 60;
+double const SecondsPerMinute = 60;
+
+double const StartingBeat = 4;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
 }
@@ -178,6 +180,8 @@ void Game::Load(const wxString &filename)
 
     MergeDeclarationToNote();
 
+    MergeSoundToNote();
+
 }
 
 /**  Handle updates for animation
@@ -188,12 +192,12 @@ void Game::Update(double elapsed)
     mTimePLaying += elapsed;
     if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
     double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
-    double timeOnTrack = mBeatsPerMeasure/beatsPerSecond;
+    mTimeOnTrack = mBeatsPerMeasure/beatsPerSecond;
 
     GameUpdate();
 
     for (auto music:mMusic){
-        music->Update(elapsed, timeOnTrack);
+        music->Update(elapsed, mTimeOnTrack);
     }
 }
 
@@ -336,6 +340,7 @@ void Game::XmlAudio(wxXmlNode *node)
         sound->XmlLoad(node);
         mAudio.push_back(sound);
     }
+
 }
 
 /**
@@ -381,19 +386,42 @@ void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 }
 void Game::GameUpdate()
 {
-    if (wxRound(4-mAbsoluteBeat) <= 0)
+    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+1) * 4){
+        mState = GameState::Closing;
+        mTimePLaying = 0;
+        mAudio[0]->PlayEnd();
+    }
+    else if (wxRound(4-mAbsoluteBeat) < 0 && mState != GameState::Playing)
     {
         mState = GameState::Playing;
     }
-    else if (mTimePLaying > 2.0)
+    else if (mTimePLaying > 2.0 && mState == GameState::Ready)
     {
         mState = GameState::Countdown;
     }
-//    else if (wxRound(mAbsoluteBeat) == mMeasure * 4){
-//
-//
-//
-//    }
+    else if (mState == GameState::Countdown && mAbsoluteBeat >= StartingBeat && !mBackPlaying)
+    {
+        mAudio[0]->LoadSound(mAudioEngine);
+        mAudio[0]->PlaySound();
+        mBackPlaying =! mBackPlaying;
+    }
 
+
+}
+void Game::MergeSoundToNote()
+{
+    for (auto musicNote : mMusic)
+    {
+        for (auto audio : mAudio)
+        {
+            if (audio->GetName() == musicNote->GetSound()) {
+                musicNote->AddSound(audio);
+            }
+        }
+    }
+}
+void Game::UpdateAutoPlayMode()
+{
+    mAutoPlay = !mAutoPlay;
 }
 

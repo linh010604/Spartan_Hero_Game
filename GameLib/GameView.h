@@ -28,6 +28,8 @@ private:
     /// The last stopwatch time
     long mTime = 0;
 
+    long mClosingTime = 0 ;
+
     /// The game
     Game mGame;
 
@@ -64,6 +66,8 @@ public:
     void OnKeyDown(wxKeyEvent& event);
     void OnKeyUp(wxKeyEvent& event);
     void OnTimer(wxTimerEvent& event);
+    void Sequence();
+    void OnAutoPlayMode(wxCommandEvent& event);
 
 /**
 * Declares event table

@@ -48,7 +48,7 @@ void Item::XmlLoad(wxXmlNode *node)
  * @param gp Device context to draw on
  * @param declaration The corresponding declaration
  */
-void Item::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration)
+void Item::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration, bool beforeSoundboard)
 {
 
 }

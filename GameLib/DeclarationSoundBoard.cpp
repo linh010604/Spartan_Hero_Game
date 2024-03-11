@@ -37,10 +37,11 @@ void DeclarationSoundBoard::XmlLoad(wxXmlNode *node)
     Declaration::XmlLoad(node);
 }
 
-void DeclarationSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
-    Declaration::Draw(gp, x, y);
-
-    gp->DrawBitmap(*mCoverBitmap,
+void DeclarationSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) {
+    if (before)
+        Declaration::Draw(gp, x, y, before);
+    else
+        gp->DrawBitmap(*mCoverBitmap,
                    int(x - this->GetWidth() / 2),
                    int(y - this->GetHeight() / 2),
                    this->GetWidth() , this->GetHeight());

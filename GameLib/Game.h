@@ -10,9 +10,17 @@
 
 #include <wx/graphics.h>
 #include <memory>
+#include <wx/xml/xml.h>
 #include <wx/dc.h>
 #include "miniaudio.h"
-#include "Item.h"
+#include "ItemVisitor.h"
+#include "DeclarationVisitor.h"
+//#include "Item.h"
+
+/**
+ * Allows access to Declaration without creating a circular dependency.
+ */
+class Item;
 
 /**
  * Allows access to Declaration without creating a circular dependency.
@@ -34,6 +42,8 @@ class Sound;
  */
 class Game
 {
+public:
+    enum class GameState {Ready, Countdown, Playing};
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -62,11 +72,6 @@ private:
     /// Directory containing the system images
     std::wstring mImagesDirectory;
 
-    /**
-    * Represents the bitmap background of the virtual playing area.
-    */
-    wxBitmap mBackgroundBitmap; /// Member variable for the background image
-
     /// The audio engine for miniaudio
     ma_engine* mAudioEngine;
 
@@ -76,11 +81,33 @@ private:
     /// All of the declarations to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarations;
 
+    std::vector<std::shared_ptr<Declaration>> mDeclarationNote;
+
     /// All of music to use our game
     std::vector<std::shared_ptr<Music>> mMusic;
 
     /// All of audio to use our game
     std::vector<std::shared_ptr<Sound>> mAudio;
+
+    /// beats per measure in this level
+    double mBeatsPerMeasure = 0;
+
+    /// beats per minutes in this level
+    double mBeatsPerMinute = 0;
+
+    /// Current beat (absolute) in song
+    double mAbsoluteBeat = 0;
+
+    /// Total measure in this level
+    double mMeasure = 0;
+
+    /// backing music in this level
+    wxString mBacking = L"BACK";
+
+    /// how long since this lv start
+    double mTimePLaying = 0;
+
+    GameState mState = GameState::Ready;
 
 public:
 
@@ -144,7 +171,7 @@ public:
      * Get size of mItems
      * @return size of mItems
      */
-     size_t GetItemSize() const {return mItems.size();}
+    size_t GetItemSize() const {return mItems.size();}
 
     /**
      * Get size of mAudio
@@ -185,6 +212,28 @@ public:
     */
     double GetHeight() const {return mVirtualHeight;}
 
+    /**
+    * @return mVirtualHeight
+    */
+    double GetBeatsPerMinute() const {return mBeatsPerMinute;}
+    /**
+    * @return mVirtualHeight
+    */
+    double GetBeatsPerMersure() const {return mBeatsPerMeasure;}
+    /**
+    * @return mVirtualHeight
+    */
+    double GetAbsoluteBeat() const {return mAbsoluteBeat;}
+    /**
+    * @return mVirtualHeight
+    */
+    double GetMeasure() const {return mMeasure;}
+
+    /**
+    * @return mState
+    */
+    GameState GetState() const {return mState;}
+
 
     /**
     * Draw the game's graphics onto the window.
@@ -213,7 +262,7 @@ public:
 
     void XmlAudio(wxXmlNode *node);
 
-    void PressKey(wxChar key);
+    void PressKey(wxChar key, double elapsed);
 
     void Update(double elapsed);
 
@@ -223,8 +272,15 @@ public:
      */
     ma_engine* GetAudioEngine() {return mAudioEngine;}
 
-    void Accept(ItemVisitor* visitor);
+    void AcceptItem(ItemVisitor* visitor);
 
+    void AcceptDeclaration(DeclarationVisitor* visitor);
+
+    void MergeDeclarationToNote();
+
+    void DrawNote(std::shared_ptr<wxGraphicsContext> gc);
+
+    void GameUpdate();
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H

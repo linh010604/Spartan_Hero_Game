@@ -18,10 +18,19 @@
 #include "Music.h"
 #include "Sound.h"
 #include "ItemVisitor.h"
+#include "ItemSoundBoardVisitor.h"
+#include "DeclarationVisitor.h"
+#include "DeclarationNoteVisitor.h"
 #include <memory>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
+bool const BeforeTrack = true;
+bool const AfterTrack = false;
+///Seconds in a minute
+double SecondsPerMinute = 60;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
 }
@@ -64,25 +73,17 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         for (auto declaration : mDeclarations)
         {
             if (item->GetId() == declaration->GetId()){
-                declaration->Draw(graphics,item->GetX(), item->GetY());
-                item->Draw(graphics, declaration);
+                declaration->Draw(graphics,item->GetX(), item->GetY(),BeforeTrack);
+                item->Draw(graphics, declaration,BeforeTrack);
+                declaration->Draw(graphics,item->GetX(), item->GetY(),AfterTrack);
+                item->Draw(graphics, declaration,AfterTrack);
                 break;
             }
         }
 
     }
 
-//    for (auto declaration : mDeclarations)
-//    {
-//        for (auto music : mMusic)
-//        {
-//            if (declaration->GetId() == music->GetId()){
-//                //declaration->Draw(graphics);
-//                int a = 1;
-//            }
-//        }
-//
-//    }
+
 }
 
 /**
@@ -95,6 +96,8 @@ void Game::Clear()
     mItems.clear();
     mDeclarations.clear();
     mMusic.clear();
+    mDeclarationNote.clear();
+    mAudio.clear();
 }
 
 /**
@@ -142,6 +145,10 @@ void Game::Load(const wxString &filename)
         }
         else if (name == L"music")
         {
+            child->GetAttribute("beats-per-minute","0").ToDouble(&mBeatsPerMinute);
+            child->GetAttribute("beats-per-measure","0").ToDouble(&mBeatsPerMeasure);
+            child->GetAttribute("measures","0").ToDouble(&mMeasure);
+            mBacking = child->GetAttribute("backing","").ToStdWstring();
             auto node = child->GetChildren();
             XmlMusic(node);
         }
@@ -152,6 +159,25 @@ void Game::Load(const wxString &filename)
         }
 
     }
+
+    for (auto declaration: mDeclarationNote)
+    {
+        DeclarationNoteVisitor declarationVisitor;
+        declaration->Accept(&declarationVisitor);
+        int track = declarationVisitor.GetTrack();
+
+        ItemSoundBoardVisitor visitor(track);
+        AcceptItem(&visitor);
+        std::shared_ptr<ItemKey> key = visitor.GetKey();
+        for (auto note: mMusic){
+            if (declaration->GetId() == note->GetId()){
+                note->AddKey(key);
+            }
+        }
+    }
+
+    MergeDeclarationToNote();
+
 }
 
 /**  Handle updates for animation
@@ -159,8 +185,19 @@ void Game::Load(const wxString &filename)
 */
 void Game::Update(double elapsed)
 {
+    mTimePLaying += elapsed;
+    if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
+    double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
+    double timeOnTrack = mBeatsPerMeasure/beatsPerSecond;
 
+    GameUpdate();
+
+    for (auto music:mMusic){
+        music->Update(elapsed, timeOnTrack);
+    }
 }
+
+
 
 
 /**
@@ -221,8 +258,9 @@ void Game::XmlDeclarations(wxXmlNode *node)
         }
 
         else if(name == L"note")
-        {
+         {
             declaration = make_shared<DeclarationNote>(this);
+            mDeclarationNote.push_back(declaration);
         }
 
         if (declaration != nullptr)
@@ -304,19 +342,82 @@ void Game::XmlAudio(wxXmlNode *node)
  * Handle a key press event
  * @param key The key was pressed
  */
-void Game::PressKey(wxChar key)
+void Game::PressKey(wxChar key, double elapsed)
 {
+    for (auto note:mMusic){
+        if (note->HitTest(key,elapsed)){
+            auto soundName = note->GetSound();
+            for (auto audio:mAudio){
+                if (soundName == audio->GetName()){
+                    audio->SetVolume(0.5);
+                    audio->LoadSound(mAudioEngine);
 
+                    audio->PlaySound();
+                    //std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
+                    //audio->PlayEnd();
+                    break;
+                }
+            }
+            break;
+        }
+    }
 }
 
 /**
  * Accept a visitor for the collection
  * @param visitor The visitor for the collection
  */
-void Game::Accept(ItemVisitor *visitor)
+void Game::AcceptItem(ItemVisitor *visitor)
 {
     for (auto item : mItems)
     {
         item->Accept(visitor);
     }
 }
+
+/**
+ * Accept a visitor for the collection
+ * @param visitor The visitor for the collection
+ */
+void Game::AcceptDeclaration(DeclarationVisitor *visitor)
+{
+    for (auto declaration : mDeclarations)
+    {
+        declaration->Accept(visitor);
+    }
+}
+
+void Game::MergeDeclarationToNote()
+{
+    for (auto musicNote : mMusic)
+    {
+        for (auto declarationNote : mDeclarationNote)
+        {
+            if (declarationNote->GetId() == musicNote->GetId()) {
+                musicNote->AddDeclaration(declarationNote);
+            }
+        }
+    }
+}
+void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
+{
+    for (auto music : mMusic)
+    {
+        music->Draw(gc);
+    }
+}
+void Game::GameUpdate()
+{
+    if (wxRound(4-mAbsoluteBeat) <= 0)
+    {
+        mState = GameState::Playing;
+    }
+    else if (mTimePLaying > 2.0)
+    {
+        mState = GameState::Countdown;
+    }
+//    else if (mAbsoluteBeat == mBeatsPerMeasure*mMeasure){
+//
+//    }
+}
+

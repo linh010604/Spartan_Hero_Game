@@ -34,7 +34,13 @@ public:
      * Draw this item
      * @param dc Device context to draw on
      */
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationScoreBoard(this); }
 private:
     std::unique_ptr<wxBitmap> mCoverBitmap;
 

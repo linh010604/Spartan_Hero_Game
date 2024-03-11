@@ -26,6 +26,12 @@ public:
 
     DeclarationImage(Game *game);
 
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationImage(this); }
+
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONIMAGE_H

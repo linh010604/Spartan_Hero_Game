@@ -86,6 +86,9 @@ void Sound::PlaySound()
         // Always rewind to the beginning before playing
         ma_sound_seek_to_pcm_frame(&mSound, 0);
 
+        // Seek to the calculated frame count
+        //ma_sound_seek_to_pcm_frame(&mSound, 7.5);
+
         // And play the sound!
          ma_sound_start(&mSound);
     }

@@ -52,9 +52,9 @@ void Declaration::XmlLoad(wxXmlNode *node)
     sizeString.AfterFirst(',').ToDouble(&mHeight);
 }
 
-void Declaration::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
+void Declaration::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) {
     gp->DrawBitmap(*mDeclarationBitmap,
-                   int(x - mWidth / 2),
-                   int(y - mHeight / 2),
-                   mWidth, mHeight);
+                   int(x - mWidth*mScale / 2),
+                   int(y - mHeight*mScale / 2),
+                   mWidth*mScale, mHeight*mScale);
 }

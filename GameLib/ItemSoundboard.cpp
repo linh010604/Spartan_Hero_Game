@@ -8,7 +8,6 @@
 #include "pch.h"
 #include "ItemSoundboard.h"
 #include "ItemKey.h"
-#include "ItemTrackLine.h"
 #include "Game.h"
 #include <memory>
 
@@ -72,7 +71,6 @@ void ItemSoundboard::XmlLoad(wxXmlNode *node)
 {
     Item::XmlLoad(node);
     mKeys.clear();
-    mTracks.clear();
     auto soundnode = node-> GetChildren();
     for(*soundnode ; soundnode; soundnode=soundnode->GetNext())
     {
@@ -82,57 +80,89 @@ void ItemSoundboard::XmlLoad(wxXmlNode *node)
     }
 }
 
-void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard)
+void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard)
 {
-    double WidthSoundBoard = soundboard->GetWidth();
-    double HeightSoundBoard = soundboard->GetHeight();
-    double TopWidthSoundBoard = soundboard->GetTopWidth();
     int tracksCount = mKeys.size();
+    if (beforeSoundboard) {
+        double WidthSoundBoard = soundboard->GetWidth();
+        double HeightSoundBoard = soundboard->GetHeight();
+        double TopWidthSoundBoard = soundboard->GetTopWidth();
 
-    // Draw tracks
-    wxPen linePen(*wxBLACK, TrackLineWidth);
-    gp->SetPen(linePen);
+        // Draw tracks
+        wxPen linePen(*wxBLACK, TrackLineWidth);
+        gp->SetPen(linePen);
 
-    // Find length of soundboard at KeyRow and TopClearance
-    double soundBoardLengthAtX1Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*TopClearance) + TopWidthSoundBoard;
-    double soundBoardLengthAtX2Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*KeyRow) + TopWidthSoundBoard;
+        // Find length of soundboard at KeyRow and TopClearance
+        double soundBoardLengthAtX1Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*TopClearance) + TopWidthSoundBoard;
+        double soundBoardLengthAtX2Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*KeyRow) + TopWidthSoundBoard;
 
-    // X1 and X2 for leftmost and rightmost track
-    double x1InitLeftTrack = (GetX()-(soundBoardLengthAtX1Init/2)) + (soundBoardLengthAtX1Init*Border);
-    double x2InitLeftTrack = (GetX()-(soundBoardLengthAtX2Init/2)) + (soundBoardLengthAtX2Init*Border);
+        // X1 and X2 for leftmost and rightmost track
+        double x1InitLeftTrack = (GetX()-(soundBoardLengthAtX1Init/2)) + (soundBoardLengthAtX1Init*Border);
+        double x2InitLeftTrack = (GetX()-(soundBoardLengthAtX2Init/2)) + (soundBoardLengthAtX2Init*Border);
 
-    double x1InitRightTrack = (GetX()+(soundBoardLengthAtX1Init/2)) - (soundBoardLengthAtX1Init*Border);
-    double x2InitRightTrack = (GetX()+(soundBoardLengthAtX2Init/2)) - (soundBoardLengthAtX2Init*Border);
+        double x1InitRightTrack = (GetX()+(soundBoardLengthAtX1Init/2)) - (soundBoardLengthAtX1Init*Border);
+        double x2InitRightTrack = (GetX()+(soundBoardLengthAtX2Init/2)) - (soundBoardLengthAtX2Init*Border);
 
-    // Y1 and Y2 for all tracks
-    double overlapCorrection = 7; // track is too long otherwise
-    double y1Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*TopClearance) + overlapCorrection;
-    double y2Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*KeyRow);
+        // Y1 and Y2 for all tracks
+        double overlapCorrection = 7; // track is too long otherwise
+        double y1Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*TopClearance) + overlapCorrection;
+        double y2Track = (GetY()-(HeightSoundBoard/2)) + (HeightSoundBoard*KeyRow);
 
-    // Space between each track
-    double x1Space = (x1InitRightTrack - x1InitLeftTrack)/(MaxTracks - 1);
-    double x2Space = (x2InitRightTrack - x2InitLeftTrack)/(MaxTracks - 1);
+        // Space between each track
+        double x1Space = (x1InitRightTrack - x1InitLeftTrack)/(MaxTracks - 1);
+        double x2Space = (x2InitRightTrack - x2InitLeftTrack)/(MaxTracks - 1);
 
-    double shiftX1 = 0;
-    double shiftX2 = 0;
-    for (int i = 0; i < tracksCount; ++i)
-    {
-        if(i == tracksCount/2 && tracksCount == MinTracks)
+        double shiftX1 = 0;
+        double shiftX2 = 0;
+        for (int i = 0; i < tracksCount; ++i)
         {
-            shiftX1 += 2*x1Space;
-            shiftX2 += 2*x2Space;
+            if(i == tracksCount/2 && tracksCount == MinTracks)
+            {
+                shiftX1 += 2*x1Space;
+                shiftX2 += 2*x2Space;
+            }
+
+            gp->StrokeLine(x1InitLeftTrack + shiftX1,
+                           y1Track,
+                           x2InitLeftTrack + shiftX2,
+                           y2Track);
+
+            mKeys[i]->SetLocation(x1InitLeftTrack + shiftX1,x2InitLeftTrack + shiftX2,y1Track, y2Track);
+            this->GetGame()->DrawNote(gp);
+            //mKeys[i]->Draw(gp);
+            shiftX1 += x1Space;
+            shiftX2 += x2Space;
+
         }
-
-        shared_ptr<ItemTrackLine> trackline = make_shared<ItemTrackLine>(this,
-                                                                         x1InitLeftTrack + shiftX1,
-                                                                         y1Track,
-                                                                         x2InitLeftTrack + shiftX2, y2Track ,
-                                                                         mKeys[i]->GetTrack());
-        mTracks.push_back(trackline);
-
-        mTracks[i]->Draw(gp);
-        mKeys[i]->Draw(gp, x2InitLeftTrack + shiftX2, y2Track);
-        shiftX1 += x1Space;
-        shiftX2 += x2Space;
     }
+    else{
+        for (int i = 0; i < tracksCount; ++i)
+        {
+
+            mKeys[i]->Draw(gp);
+
+        }
+    }
+
+}
+
+std::shared_ptr<ItemKey> ItemSoundboard::SearchKey(int track)
+{
+    for (auto key : mKeys)
+    {
+        if (key->GetTrack() == track)
+        {
+            return key;
+        }
+    }
+
+    return nullptr;
+//    for (auto line : mTracks)
+//    {
+//
+//        if (line->GetTrack() == note->GetTrack())
+//        {
+//            note->SetLocation(line->GetX1(), line->GetX2(), line->GetY1(), line->GetY2());
+//        }
+//    }
 }

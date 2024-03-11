@@ -10,6 +10,7 @@
 #define PROJECT1_SOUNDBOARD_H
 
 #include "Item.h"
+#include "DeclarationNote.h"
 
 /**
  * Allows access to ItemKey without creating circular dependency.
@@ -31,8 +32,6 @@ private:
     /// All of the keys to populate our soundboard
     std::vector<std::shared_ptr<ItemKey>> mKeys;
 
-    /// All of the tracks to populate our soundboard
-    std::vector<std::shared_ptr<ItemTrackLine>> mTracks;
 
 public:
     /// Default constructor (disabled)
@@ -50,7 +49,9 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard) override;
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard) override;
+
+    std::shared_ptr<ItemKey> SearchKey(int track) ;
 
     /**
      * Accept a visitor

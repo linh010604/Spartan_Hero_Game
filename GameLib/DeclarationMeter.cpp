@@ -37,9 +37,9 @@ void DeclarationMeter::XmlLoad(wxXmlNode *node)
     Declaration::XmlLoad(node);
 }
 
-void DeclarationMeter:: Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y)
+void DeclarationMeter:: Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y, bool before)
 {
-    Declaration::Draw(gp, x, y);
+    Declaration::Draw(gp, x, y, before);
 
     gp->DrawBitmap(*mNeedleBitmap,
                    int(x -this->GetWidth() / 2),

@@ -7,11 +7,12 @@
 
 #include "Declaration.h"
 #include "Game.h"
-
+#include "ItemKey.h"
 
 class DeclarationNote : public Declaration{
 private:
-    double mTolerance;
+    int mTrack = 0;
+    double mTolerance; ///< Tolerance of the note
 public:
     /// Default constructor (disabled)
     DeclarationNote() = delete;
@@ -26,13 +27,25 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
+    int GetTrack() const {return mTrack;}
+
     /**
      * Draw this item
      * @param gp Device context to draw on
      * @param x X location
      * @param y Y location
      */
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationNote(this); }
+
+    ///  Handle updates for animation
+    /// @param elapsed The time since the last update
+    void Update(double elapsed) override;
 
 };
 

@@ -38,8 +38,10 @@ private:
     double mWidth = 0;  ///< Width of the key
     double mHeight = 0; ///< Length of the key
     // Item location in the game
-    double  mX = 0;     ///< X location for the center of the item
-    double  mY = 0;     ///< Y location for the center of the item
+    double  mX2 = 0;     ///< X location for the center of the item
+    double  mY2 = 0;     ///< Y location for the center of the item
+    double  mX1 = 0;
+    double  mY1 = 0;
 
 public:
     /// Default constructor (disabled)
@@ -54,26 +56,46 @@ public:
     ItemKey(ItemSoundboard *soundboard);
 
     /**
-     * Set X location of the item
-     * @param x X position
+     * @return key item
      */
-    void SetX(double x) { mX = x; }
+    wxString GetKey() { return mKey; }
+
 
     /**
-     * Set Y location of the item
-     * @param y Y position
+     * The X1 location of the item
+     * @return X1 location in pixels
      */
-    void SetY(double y) { mY = y; }
+    double GetX1() const { return mX1; }
+
+    /**
+     * The Y1 location of the item
+     * @return Y1 location in pixels
+     */
+    double GetY1() const { return mY1; }
+
+    /**
+     * The X2 location of the item
+     * @return X2 location in pixels
+     */
+    double GetX2() const { return mX2; }
+
+    /**
+     * The Y2 location of the item
+     * @return Y2 location in pixels
+     */
+    double GetY2() const { return mY2; }
 
     void XmlLoad(wxXmlNode *node);
 
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y);
+    void Draw(std::shared_ptr<wxGraphicsContext> gp);
 
     /**
      * The Id of the item
      * @return Id
      */
     int GetTrack() const {return mTrack;}
+
+    void SetLocation(double x1, double x2, double y1,double y2);
 
 };
 

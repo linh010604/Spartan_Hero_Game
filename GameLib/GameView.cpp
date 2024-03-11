@@ -87,7 +87,7 @@ void GameView::OnPaint(wxPaintEvent& event)
     // Compute the time that has elapsed
     // since the last call to OnPaint.
     auto newTime = mStopWatch.Time();
-    auto elapsed = (double)(newTime - mTime) * 0.01;
+    auto elapsed = (double)(newTime - mTime) * 0.001;
     mTime = newTime;
     // Create a graphics context
     auto gc = std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
@@ -156,6 +156,7 @@ void GameView::OnLevelOption(wxCommandEvent& event)
 
     mStopWatch.Start();
     mTime = 0;
+    mGame = Game(mAudioEngine);
     mGame.Load(filename);
     Refresh();
     DisplayLevelNotice(levelNumber);
@@ -171,42 +172,12 @@ void GameView::OnKeyDown(wxKeyEvent& event)
     wxChar key = event.GetKeyCode();
     // A = 65, S = 83, D = 68, F = 70
     // J = 74, K = 75, L = 76, ; = 59
-    mGame.PressKey(key);
-//    Sound sound;
-//
-//    switch(key)
-//    {
-//        case(wxChar(65)):
-//            sound.SetAudioFile(L"trumpet/C4.wav");
-//            break;
-//        case(wxChar(83)):
-//            sound.SetAudioFile(L"trumpet/Db4.wav");
-//            break;
-//        case(wxChar(68)):
-//            sound.SetAudioFile(L"trumpet/Eb4.wav");
-//            break;
-//        case(wxChar(70)):
-//            sound.SetAudioFile(L"trumpet/E4.wav");
-//            break;
-//
-//        case(wxChar(74)):
-//            sound.SetAudioFile(L"trumpet/C5.wav");
-//            break;
-//        case(wxChar(75)):
-//            sound.SetAudioFile(L"trumpet/Db5.wav");
-//            break;
-//        case(wxChar(76)):
-//            sound.SetAudioFile(L"trumpet/Eb5.wav");
-//            break;
-//        case(wxChar(59)):
-//            sound.SetAudioFile(L"trumpet/E5.wav");
-//            break;
-//
-//        default:
-//            sound.SetAudioFile(L"trumpet/B4.wav");
-//            std::cout << "Not a key" << std::endl;
-//            break;
-//    }
+    // Compute the time that has elapsed
+    // since the last call to OnPaint.
+    auto newTime = mStopWatch.Time();
+    auto elapsed = (double)(newTime - mTime) * 0.001;
+    mGame.PressKey(key, elapsed);
+
 //    sound.SetVolume(0.5);
 //    sound.LoadSound(mGame.GetAudioEngine());
 //

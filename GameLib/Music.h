@@ -8,6 +8,8 @@
 #ifndef PROJECT1_GAMELIB_MUSIC_H
 #define PROJECT1_GAMELIB_MUSIC_H
 
+#include "Declaration.h"
+#include "ItemKey.h"
 /**
  * Allows access to Game without creating a circular dependency.
  */
@@ -19,7 +21,8 @@ class Game;
 class Music
 {
 private:
-
+    std::shared_ptr<Declaration> mDeclaration;
+    std::shared_ptr<ItemKey> mKey;
 
     /// The game this item is contained in
     Game   *mGame;
@@ -31,11 +34,19 @@ private:
     wxString  mId = L"";  ///< Id of the sound
     wxString  mSound = L"";  ///< Sound name of the sound
     int mMeasure = 0 ;///<Measure of the sound
-    int mBeat = 0 ;///<Measure of the sound
+    double mBeat = 0 ;///<Measure of the sound
     double mDuration = 0 ;///<Measure of the sound
+    bool mFirstUpdate = false ;///<Check if this is time for note to appear
 
 public:
     ~Music();
+
+    /**
+     * Get the pointer to the Level object
+     * @return Pointer to Level object
+     */
+    Game *GetGame() { return mGame;}
+
     /**
      * The X location of the item
      * @return X location in pixels
@@ -53,6 +64,31 @@ public:
      * @return Id
      */
     wxString GetId() const { return mId; }
+
+    /**
+     * @return beat
+     */
+    double GetBeat() { return mBeat; }
+
+    /**
+     * @return measure
+     */
+    double GetMeasure() { return mMeasure; }
+
+    /**
+     * @return sound name
+     */
+    wxString GetSound() {return mSound;}
+
+    /**
+     * @return key item
+     */
+    std::shared_ptr<ItemKey> GetKey() { return mKey; }
+
+    /**
+     * @return duration
+     */
+    double GetDuration() { return mDuration; }
 
     /**
      * Set the item location
@@ -74,6 +110,15 @@ public:
 
     void XmlLoad(wxXmlNode *node);
 
+    void AddDeclaration(const std::shared_ptr<Declaration>& declaration) {mDeclaration = declaration;}
+
+    void AddKey(const std::shared_ptr<ItemKey>& key) {mKey = key;}
+
+    void Draw(std::shared_ptr<wxGraphicsContext> gp);
+
+    void Update(double elapsed, double timeOnTrack);
+
+    bool HitTest(wxString key, double elapsed);
 
 };
 

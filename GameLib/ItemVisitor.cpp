@@ -9,9 +9,3 @@
 #include "ItemVisitor.h"
 #include "ItemMeter.h"
 #include <iostream>
-
-void ItemVisitor::VisitItemMeter(ItemMeter* meter)
-{
-    double hitNotes = CalculateHitNotes();
-    meter->UpdateMeter(hitNotesRatio);
-}

@@ -78,6 +78,8 @@ public:
      */
     void SetVolume(double volume) {mVolume = volume;};
 
+    wxString GetName() {return mName;}
+
 };
 
 #endif //PROJECT1_GAMELIB_SOUND_H

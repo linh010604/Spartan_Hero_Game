@@ -51,7 +51,13 @@ public:
      * @param x X location
      * @param y Y location
      */
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) override;
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationSoundBoard(this); }
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONSOUNDBOARD_H

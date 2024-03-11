@@ -49,9 +49,18 @@ void ItemKey::XmlLoad(wxXmlNode *node)
  * @param x X position
  * @param y Y position
  */
-void ItemKey::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y) {
+void ItemKey::Draw(std::shared_ptr<wxGraphicsContext> gp) {
+
     gp->DrawBitmap(*mKeyBitmap,
-                   int(x - mWidth / 2),
-                   int(y - mHeight / 2),
+                   int(mX2 - mWidth / 2),
+                   int(mY2 - mHeight / 2),
                    mWidth, mHeight);
+}
+
+void ItemKey::SetLocation(double x1, double x2, double y1, double y2)
+{
+    mX1 = x1;
+    mX2 = x2;
+    mY1 = y1;
+    mY2 = y2;
 }

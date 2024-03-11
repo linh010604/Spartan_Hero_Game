@@ -181,7 +181,7 @@ public:
 
     /**
      * Get size of mMusic
-     * @return size of mMusic
+     * @return size of mMausic
      */
     size_t GetMusicSize() const {return mMusic.size();}
 

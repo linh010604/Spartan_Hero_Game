@@ -15,8 +15,6 @@
 #include "miniaudio.h"
 #include "ItemVisitor.h"
 #include "DeclarationVisitor.h"
-#include "GameStateManager.h"
-//#include "Item.h"
 
 /**
  * Allows access to Declaration without creating a circular dependency.
@@ -44,9 +42,7 @@ class Sound;
 class Game
 {
 public:
-    enum class GameState {Ready, Countdown, Playing};
-    std::shared_ptr<GameStateManager> GetGameStateManager();
-
+    enum class GameState {Ready, Countdown, Playing, Closing};
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -112,8 +108,11 @@ private:
 
     GameState mState = GameState::Ready;
 
-    std::shared_ptr<GameStateManager> mGameStateManager;
+    double mTimeOnTrack; ///< time on track
 
+    bool mBackPlaying = false;
+
+    bool mAutoPlay = false; ///< Autoplay mode of the game
 public:
 
     /// Size of the area we are going to draw on in pixels
@@ -186,7 +185,7 @@ public:
 
     /**
      * Get size of mMusic
-     * @return size of mMusic
+     * @return size of mMausic
      */
     size_t GetMusicSize() const {return mMusic.size();}
 
@@ -218,19 +217,19 @@ public:
     double GetHeight() const {return mVirtualHeight;}
 
     /**
-    * @return mVirtualHeight
+    * @return mBeatsPerMinute
     */
     double GetBeatsPerMinute() const {return mBeatsPerMinute;}
     /**
-    * @return mVirtualHeight
+    * @return mBeatsPerMersure
     */
     double GetBeatsPerMersure() const {return mBeatsPerMeasure;}
     /**
-    * @return mVirtualHeight
+    * @return current beat
     */
     double GetAbsoluteBeat() const {return mAbsoluteBeat;}
     /**
-    * @return mVirtualHeight
+    * @return the game measure
     */
     double GetMeasure() const {return mMeasure;}
 
@@ -238,6 +237,11 @@ public:
     * @return mState
     */
     GameState GetState() const {return mState;}
+
+    /**
+    * @return mAutoPLay
+    */
+    bool GetAutopPlayState() const {return mAutoPlay;}
 
 
     /**
@@ -279,13 +283,16 @@ public:
 
     void AcceptItem(ItemVisitor* visitor);
 
-    void AcceptDeclaration(DeclarationVisitor* visitor);
-
     void MergeDeclarationToNote();
+
+    void MergeSoundToNote();
 
     void DrawNote(std::shared_ptr<wxGraphicsContext> gc);
 
     void GameUpdate();
+
+    void UpdateAutoPlayMode();
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H
+

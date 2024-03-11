@@ -29,9 +29,12 @@ private:
     /// The game this item is contained in
     Game   *mGame;
 
-    // Item location in the game
+    // Note location in the game
     double  mX = 0;     ///< X location for the center of the note
     double  mY = 0;     ///< Y location for the center of the note
+    // Note red line location in the game
+    double  mLongX = 0;     ///< X long red line location from the center of the note
+    double  mLongY = 0;     ///< Y long red line location from the center of the note
 
     wxString  mId = L"";  ///< Id of the sound
     wxString  mSound = L"";  ///< Sound name of the sound
@@ -41,6 +44,7 @@ private:
     bool mFirstUpdate = false ;///<Check if this is time for note to appear
     bool mPLayMusic = false; ///<Check if this note has been played or not
     double mBeatPLay = 0; ///< Beat which the note are played
+    bool mContinueDurationLine = false; ///<check if we still need to draw red line
 
 public:
     ~Music();

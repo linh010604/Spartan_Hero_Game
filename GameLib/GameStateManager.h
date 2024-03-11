@@ -30,6 +30,7 @@ public:
     int GetScore() const;
     std::pair<int, int> GetCurrentMeasureAndBeat() const;
 
+    void UpdateScoreboard(bool soundPlayed, float durationHeld, float totalDuration);
 };
 
 #endif //PROJECT1_GAMELIB_GAMESTATEMANAGER_H

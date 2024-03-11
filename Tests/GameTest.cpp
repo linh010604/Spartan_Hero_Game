@@ -6,6 +6,8 @@
 #include <pch.h>
 #include "gtest/gtest.h"
 #include <Game.h>
+#include <memory>
+#include <Music.h>
 
 #define MINIAUDIO_IMPLEMENTATION
 #include "miniaudio.h"

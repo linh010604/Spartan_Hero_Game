@@ -59,10 +59,10 @@ void Music::Update(double elapsed, double timeOnTrack)
     double currBeat = mGame->GetAbsoluteBeat();
     double noteBeat = (mMeasure-1) * mGame->GetBeatsPerMersure() + (mBeat-1);
 
-    if (currBeat > noteBeat)
+    if (currBeat >= noteBeat)
     {
         //set initial location at top of track
-        if (mFirstUpdate == false)
+        if (!mFirstUpdate)
         {
            mX = mKey->GetX1();
            mY = mKey->GetY1();
@@ -76,7 +76,17 @@ void Music::Update(double elapsed, double timeOnTrack)
             mX = newPosX;
             mY = newPosY;
         }
+        if (mY >= mKey->GetY2() && !mPLayMusic && mGame->GetAutopPlayState()){
+            mPLayMusic = true;
+            mBeatPLay = currBeat;
+            mAudio->LoadSound(mGame->GetAudioEngine());
+            mAudio->PlaySound();
+        }
+        else if(mPLayMusic && currBeat - mDuration > mBeatPLay){
+            mAudio->PlayEnd();
+        }
     }
+
 }
 
 bool Music::HitTest(wxString key, double elapsed)
@@ -86,3 +96,4 @@ bool Music::HitTest(wxString key, double elapsed)
     }
     return false;
 }
+

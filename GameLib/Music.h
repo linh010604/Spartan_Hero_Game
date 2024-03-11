@@ -10,6 +10,7 @@
 
 #include "Declaration.h"
 #include "ItemKey.h"
+#include "Sound.h"
 /**
  * Allows access to Game without creating a circular dependency.
  */
@@ -23,6 +24,7 @@ class Music
 private:
     std::shared_ptr<Declaration> mDeclaration;
     std::shared_ptr<ItemKey> mKey;
+    std::shared_ptr<Sound> mAudio;
 
     /// The game this item is contained in
     Game   *mGame;
@@ -37,6 +39,8 @@ private:
     double mBeat = 0 ;///<Measure of the sound
     double mDuration = 0 ;///<Measure of the sound
     bool mFirstUpdate = false ;///<Check if this is time for note to appear
+    bool mPLayMusic = false; ///<Check if this note has been played or not
+    double mBeatPLay = 0; ///< Beat which the note are played
 
 public:
     ~Music();
@@ -112,6 +116,8 @@ public:
 
     void AddDeclaration(const std::shared_ptr<Declaration>& declaration) {mDeclaration = declaration;}
 
+    void AddSound(const std::shared_ptr<Sound>& sound) {mAudio = sound;}
+
     void AddKey(const std::shared_ptr<ItemKey>& key) {mKey = key;}
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp);
@@ -119,6 +125,8 @@ public:
     void Update(double elapsed, double timeOnTrack);
 
     bool HitTest(wxString key, double elapsed);
+
+    void PlayMusic();
 
 };
 

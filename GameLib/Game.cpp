@@ -21,6 +21,7 @@
 #include "ItemSoundBoardVisitor.h"
 #include "DeclarationVisitor.h"
 #include "DeclarationNoteVisitor.h"
+#include "LevelLoader.h"
 #include <memory>
 #include <thread>
 #include <chrono>
@@ -82,102 +83,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         }
 
     }
-
-
-}
-
-/**
- * Clear the game data.
- *
- * Deletes all known items in the game level.
- */
-void Game::Clear()
-{
-    mItems.clear();
-    mDeclarations.clear();
-    mMusic.clear();
-    mDeclarationNote.clear();
-    mAudio.clear();
-}
-
-/**
- * Load the game level from a .level XML file.
- *
- * Opens the XML file and reads the nodes, creating items as appropriate.
- *
- * @param filename The filename of the file to load the game from.
- */
-void Game::Load(const wxString &filename)
-{
-    wxXmlDocument xmlDoc;
-    if(!xmlDoc.Load(filename))
-    {
-        wxMessageBox("Unable to load Game file");
-        return;
-    }
-
-    Clear();
-
-    // Get the XML document root node
-    auto root = xmlDoc.GetRoot();
-    //
-    // Traverse the children of the root
-    // node of the XML document in memory!!!!
-    //
-
-    auto sizeString = root->GetAttribute("size","0,0");
-    sizeString.BeforeFirst(',').ToDouble(&mVirtualWidth);
-    sizeString.AfterFirst(',').ToDouble(&mVirtualHeight);
-
-    auto child = root->GetChildren();
-    for( ; child; child=child->GetNext())
-    {
-        auto name = child->GetName();
-        if(name == L"declarations")
-        {
-            auto node = child->GetChildren();
-            XmlDeclarations(node);
-        }
-        else if (name == L"items")
-        {
-            auto node = child->GetChildren();
-            XmlItems(node);
-        }
-        else if (name == L"music")
-        {
-            child->GetAttribute("beats-per-minute","0").ToDouble(&mBeatsPerMinute);
-            child->GetAttribute("beats-per-measure","0").ToDouble(&mBeatsPerMeasure);
-            child->GetAttribute("measures","0").ToDouble(&mMeasure);
-            mBacking = child->GetAttribute("backing","").ToStdWstring();
-            auto node = child->GetChildren();
-            XmlMusic(node);
-        }
-        else if (name == L"audio")
-        {
-            auto node = child->GetChildren();
-            XmlAudio(node);
-        }
-
-    }
-
-    for (auto declaration: mDeclarationNote)
-    {
-        DeclarationNoteVisitor declarationVisitor;
-        declaration->Accept(&declarationVisitor);
-        int track = declarationVisitor.GetTrack();
-
-        ItemSoundBoardVisitor visitor(track);
-        AcceptItem(&visitor);
-        std::shared_ptr<ItemKey> key = visitor.GetKey();
-        for (auto note: mMusic){
-            if (declaration->GetId() == note->GetId()){
-                note->AddKey(key);
-            }
-        }
-    }
-
-    MergeDeclarationToNote();
-
 }
 
 /**  Handle updates for animation
@@ -185,8 +90,8 @@ void Game::Load(const wxString &filename)
 */
 void Game::Update(double elapsed)
 {
-    mTimePLaying += elapsed;
-    if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
+    mTimePlaying += elapsed;
+    if (mTimePlaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
     double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
     double timeOnTrack = mBeatsPerMeasure/beatsPerSecond;
 
@@ -194,147 +99,6 @@ void Game::Update(double elapsed)
 
     for (auto music:mMusic){
         music->Update(elapsed, timeOnTrack);
-    }
-}
-
-
-
-
-/**
- * Add an item to the game
- * @param item New item to add
- */
-void Game::AddItem(std::shared_ptr<Item> item)
-{
-    mItems.push_back(item);
-}
-
-/**
- * Add a music note to the game
- * @param music New item to add
- */
-void Game::AddMusic(std::shared_ptr<Music> music)
-{
-    mMusic.push_back(music);
-}
-
-/**
- * Add a declaration to the game
- * @param declaration New declaration to add
- */
-void Game::AddDeclaration(std::shared_ptr<Declaration> declaration)
-{
-    mDeclarations.push_back(declaration);
-}
-
-/**
- * Handle a node of type item.
- * @param node XML node
- */
-void Game::XmlDeclarations(wxXmlNode *node)
-{
-    // A pointer for the item we are loading
-
-    // auto child = node->GetChildren();
-    for( *node ; node; node=node->GetNext())
-    {
-        shared_ptr<Declaration> declaration;
-        auto name = node->GetName();
-        if(name == L"image")
-        {
-            declaration = make_shared<DeclarationImage>(this);
-        }
-        else if(name == L"meter")
-        {
-            declaration = make_shared<DeclarationMeter>(this);
-        }
-        else if(name == L"sound-board")
-        {
-            declaration = make_shared<DeclarationSoundBoard>(this);
-        }
-        else if(name == L"score-board")
-        {
-            declaration = make_shared<DeclarationScoreBoard>(this);
-        }
-
-        else if(name == L"note")
-         {
-            declaration = make_shared<DeclarationNote>(this);
-            mDeclarationNote.push_back(declaration);
-        }
-
-        if (declaration != nullptr)
-        {
-            declaration->XmlLoad(node);
-            AddDeclaration(declaration);
-        }
-    }
-}
-
-/**
- * Handle a node of type item.
- * @param node XML node
- */
-void Game::XmlItems(wxXmlNode *node)
-{
-    // A pointer for the item we are loading
-
-    // auto child = node->GetChildren();
-    for( *node ; node; node=node->GetNext())
-    {
-        shared_ptr<Item> item;
-        auto name = node->GetName();
-        if(name == L"image")
-        {
-            int a = 1;
-            item = make_shared<ItemImage>(this);
-        }
-        else if(name == L"meter")
-        {
-            item = make_shared<ItemMeter>(this);
-        }
-        else if(name == L"sound-board")
-        {
-            item = make_shared<ItemSoundboard>(this);
-        }
-        else if(name == L"score-board")
-        {
-            item = make_shared<ItemScoreboard>(this);
-        }
-
-        if (item != nullptr)
-        {
-            item->XmlLoad(node);
-            AddItem(item);
-        }
-    }
-}
-
-/**
- * Handle a node of type music.
- * @param node XML node
- */
-void Game::XmlMusic(wxXmlNode *node)
-{
-    for( *node ; node; node=node->GetNext())
-    {
-        shared_ptr<Music> music = make_shared<Music>(this);
-        music->XmlLoad(node);
-        AddMusic(music);
-    }
-}
-
-/**
- * Handle a node of type audio.
- * @param node XML node
- */
-void Game::XmlAudio(wxXmlNode *node)
-{
-    for( *node ; node; node=node->GetNext())
-    {
-        shared_ptr<Sound> sound = make_shared<Sound>(this);
-        sound->XmlLoad(node);
-        mAudio.push_back(sound);
     }
 }
 
@@ -367,18 +131,6 @@ void Game::PressKey(wxChar key, double elapsed)
  * Accept a visitor for the collection
  * @param visitor The visitor for the collection
  */
-void Game::AcceptItem(ItemVisitor *visitor)
-{
-    for (auto item : mItems)
-    {
-        item->Accept(visitor);
-    }
-}
-
-/**
- * Accept a visitor for the collection
- * @param visitor The visitor for the collection
- */
 void Game::AcceptDeclaration(DeclarationVisitor *visitor)
 {
     for (auto declaration : mDeclarations)
@@ -387,18 +139,6 @@ void Game::AcceptDeclaration(DeclarationVisitor *visitor)
     }
 }
 
-void Game::MergeDeclarationToNote()
-{
-    for (auto musicNote : mMusic)
-    {
-        for (auto declarationNote : mDeclarationNote)
-        {
-            if (declarationNote->GetId() == musicNote->GetId()) {
-                musicNote->AddDeclaration(declarationNote);
-            }
-        }
-    }
-}
 void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 {
     for (auto music : mMusic)
@@ -412,7 +152,7 @@ void Game::GameUpdate()
     {
         mState = GameState::Playing;
     }
-    else if (mTimePLaying > 2.0)
+    else if (mTimePlaying > 2.0)
     {
         mState = GameState::Countdown;
     }
@@ -421,3 +161,25 @@ void Game::GameUpdate()
 //    }
 }
 
+void Game::SetLevelLoaderData(const LevelLoader &levelLoader)
+{
+    // Set member variables from LevelLoader using setters
+    mVirtualWidth = levelLoader.GetVirtualWidth();
+    mVirtualHeight = levelLoader.GetVirtualHeight();
+    mScale = levelLoader.GetScale();
+    mXOffset = levelLoader.GetXOffset();
+    mYOffset = levelLoader.GetYOffset();
+    mImagesDirectory = levelLoader.GetImagesDirectory();
+    mAudioEngine = levelLoader.GetAudioEngine();
+    mBeatsPerMeasure = levelLoader.GetBeatsPerMeasure();
+    mBeatsPerMinute = levelLoader.GetBeatsPerMinute();
+    mAbsoluteBeat = levelLoader.GetAbsoluteBeat();
+    mMeasure = levelLoader.GetMeasure();
+    mBacking = levelLoader.GetBacking();
+    mTimePlaying = levelLoader.GetTimePlaying();
+    mItems = levelLoader.GetItems();
+    mDeclarations = levelLoader.GetDeclarations();
+    mDeclarationNote = levelLoader.GetDeclarationNote();
+    mMusic = levelLoader.GetMusic();
+    mAudio = levelLoader.GetAudio();
+}

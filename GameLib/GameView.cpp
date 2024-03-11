@@ -9,6 +9,7 @@
 #include "GameView.h"
 #include "Sound.h"
 #include "ids.h"
+#include "LevelLoader.h"
 
 #include <wx/stdpaths.h>
 #include <wx/dcbuffer.h>
@@ -60,7 +61,9 @@ void GameView::Initialize(wxFrame *mainFrame) {
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL2);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
 
-    mGame.Load(L"levels/level1.xml");
+    LevelLoader levelLoader(&mGame);
+    levelLoader.Load(L"levels/level1.xml");
+    mGame.SetLevelLoaderData(levelLoader);
     Refresh();
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
@@ -157,7 +160,9 @@ void GameView::OnLevelOption(wxCommandEvent& event)
     mStopWatch.Start();
     mTime = 0;
     mGame = Game(mAudioEngine);
-    mGame.Load(filename);
+    LevelLoader levelLoader(&mGame);
+    levelLoader.Load(filename);
+    mGame.SetLevelLoaderData(levelLoader);
     Refresh();
     DisplayLevelNotice(levelNumber);
 

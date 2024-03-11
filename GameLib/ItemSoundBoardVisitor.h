@@ -10,7 +10,7 @@
 
 #include "ItemVisitor.h"
 #include "ItemKey.h"
-#include "ItemSoundBoard.h"
+#include "ItemSoundboard.h"
 
 class ItemSoundBoardVisitor : public ItemVisitor {
 private:

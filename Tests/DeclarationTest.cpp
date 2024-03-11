@@ -24,7 +24,7 @@ public:
 
 class DeclarationTest : public ::testing::Test {
 protected:
-    void TestLoad(wxString xmlString, int expectedItemsSizeWidth, int expectedItemsSizeHeight, wxString id, wxString imageName) {
+    void TestLoad(wxString xmlString, int expectedItemsSizeWidth, int expectedItemsSizeHeight, wxString id) {
         Game game(nullptr);
         DeclarationMock declaration(&game);
 
@@ -59,8 +59,8 @@ TEST_F(DeclarationTest, XmlLoad) {
 
 
     // Testing XmlLoad function with the different nodes
-    TestLoad(xmlString1, 1304, 900, L"i600", L"background1.png");
-    TestLoad(xmlString2, 835, 627, L"i622", L"sound-board.png");
-    TestLoad(xmlString3, 60, 60, L"t3", L"puck-d.png");
+    TestLoad(xmlString1, 1304, 900, L"i600");
+    TestLoad(xmlString2, 835, 627, L"i622");
+    TestLoad(xmlString3, 60, 60, L"t3");
 
 }

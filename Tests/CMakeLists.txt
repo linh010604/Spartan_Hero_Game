@@ -5,6 +5,7 @@ set(TEST_FILES
         GameTest.cpp
         GameManageTest.cpp
         DeclarationTest.cpp
+        ItemTest.cpp
 )
 # Get Google Tests
 include(FetchContent)

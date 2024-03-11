@@ -17,7 +17,7 @@
 class Game;
 
 /**
- * Class for playing sound in game.
+ * Class for playing the sound in game.
  */
 class Sound
 {

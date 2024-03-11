@@ -72,7 +72,7 @@ Sound::~Sound()
 }
 
 /**
- * Play the sound
+ * Plays the sound
  */
 void Sound::PlaySound()
 {
@@ -95,7 +95,7 @@ void Sound::PlaySound()
 }
 
 /**
- * Stop playing the sound
+ * Stops playing the sound
  */
 void Sound::PlayEnd()
 {

@@ -113,6 +113,7 @@ void GameView::OnPaint(wxPaintEvent& event)
         double yPos = (mGame.GetHeight() - textHeight) / 2;
 
         gc->DrawText(noticeText, xPos, yPos);
+
     } else {
         mDisplayLevelNotice = false;
     }

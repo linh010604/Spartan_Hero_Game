@@ -93,7 +93,7 @@
 		<note id="t7" sound="C4" measure="3" beat="2.0" duration="0.5"/>
 		<note id="t3" sound="A3-long" measure="3" beat="2.5" duration="1.0"/>
 		<note id="t4" sound="B3" measure="3" beat="3.5" duration="0.5"/>
-		<note id="t3" sound="A3" measure="3" beat="4.0" duration="0.5"/>
+		<note id="t3" sound="A3-long" measure="3" beat="4.0" duration="0.5"/>
 		<note id="t2" sound="Ab3" measure="3" beat="4.5" duration="0.5"/>
 		<note id="t1" sound="G3" measure="3" beat="5.0" duration="0.5"/>
 		<note id="t9" sound="G4" measure="4" beat="3.0" duration="0.5"/>

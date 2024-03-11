@@ -36,15 +36,13 @@ class Music;
  */
 class Sound;
 
-class LevelLoader;
-
 /**
  * Class for our game
  */
 class Game
 {
 public:
-    enum class GameState {Ready, Countdown, Playing};
+    enum class GameState {Ready, Countdown, Playing, Closing};
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -106,10 +104,15 @@ private:
     wxString mBacking = L"BACK";
 
     /// how long since this lv start
-    double mTimePlaying = 0;
+    double mTimePLaying = 0;
 
     GameState mState = GameState::Ready;
 
+    double mTimeOnTrack; ///< time on track
+
+    bool mBackPlaying = false;
+
+    bool mAutoPlay = false; ///< Autoplay mode of the game
 public:
 
     /// Size of the area we are going to draw on in pixels
@@ -182,7 +185,7 @@ public:
 
     /**
      * Get size of mMusic
-     * @return size of mMusic
+     * @return size of mMausic
      */
     size_t GetMusicSize() const {return mMusic.size();}
 
@@ -214,19 +217,19 @@ public:
     double GetHeight() const {return mVirtualHeight;}
 
     /**
-    * @return mVirtualHeight
+    * @return mBeatsPerMinute
     */
     double GetBeatsPerMinute() const {return mBeatsPerMinute;}
     /**
-    * @return mVirtualHeight
+    * @return mBeatsPerMersure
     */
     double GetBeatsPerMersure() const {return mBeatsPerMeasure;}
     /**
-    * @return mVirtualHeight
+    * @return current beat
     */
     double GetAbsoluteBeat() const {return mAbsoluteBeat;}
     /**
-    * @return mVirtualHeight
+    * @return the game measure
     */
     double GetMeasure() const {return mMeasure;}
 
@@ -234,6 +237,11 @@ public:
     * @return mState
     */
     GameState GetState() const {return mState;}
+
+    /**
+    * @return mAutoPLay
+    */
+    bool GetAutopPlayState() const {return mAutoPlay;}
 
 
     /**
@@ -244,6 +252,24 @@ public:
     * @param height The current height of the window.
      */
     void OnDraw(std::shared_ptr<wxGraphicsContext> gc, int width, int height);
+
+    void Load(const wxString &filename);
+
+    void Clear();
+
+    void AddItem(std::shared_ptr<Item> item);
+
+    void AddDeclaration(std::shared_ptr<Declaration> declaration);
+
+    void AddMusic(std::shared_ptr<Music> music);
+
+    void XmlDeclarations(wxXmlNode *node);
+
+    void XmlItems(wxXmlNode *node);
+
+    void XmlMusic(wxXmlNode *node);
+
+    void XmlAudio(wxXmlNode *node);
 
     void PressKey(wxChar key, double elapsed);
 
@@ -257,16 +283,16 @@ public:
 
     void AcceptItem(ItemVisitor* visitor);
 
-    void AcceptDeclaration(DeclarationVisitor* visitor);
-
     void MergeDeclarationToNote();
+
+    void MergeSoundToNote();
 
     void DrawNote(std::shared_ptr<wxGraphicsContext> gc);
 
     void GameUpdate();
 
-    void SetLevelLoaderData(const LevelLoader& levelLoader);
-
+    void UpdateAutoPlayMode();
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H
+

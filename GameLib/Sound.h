@@ -58,6 +58,9 @@ public:
 
     Sound(Game *game);
 
+    /// Return mLong of the sound
+    bool GetLong(){ return mLong;}
+
     void PlaySound();
 
     void PlayEnd();

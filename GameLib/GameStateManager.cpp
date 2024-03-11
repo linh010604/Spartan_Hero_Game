@@ -4,7 +4,7 @@
  */
 
 #include "GameStateManager.h"
-//#include "Game.h"
+#include "Game.h"
 
 /// The maximum bonus we can get for
 /// holding for the duration for a long sound
@@ -23,10 +23,11 @@ void GameStateManager::UpdateScore(int points)
     mScore += points;
 }
 
-void GameStateManager::UpdateMeasureAndBeat(int measure, int beat)
+void GameStateManager::UpdateMeasureAndBeat()
 {
-    mCurrentMeasure = measure;
-    mCurrentBeat = beat;
+    mCurrentMeasure = wxRound(mGame->GetAbsoluteBeat())/mGame->GetBeatsPerMersure();
+    mCurrentBeat = wxRound(mGame->GetAbsoluteBeat()) - mCurrentMeasure * mGame->GetBeatsPerMersure()+1;
+
 }
 
 void GameStateManager::SetDurationBonus(float duration)
@@ -35,7 +36,7 @@ void GameStateManager::SetDurationBonus(float duration)
     mScore += bonus;
 }
 
-int GameStateManager::GetScore() const
+int GameStateManager::GetScore()
 {
     return mScore;
 }
@@ -60,3 +61,10 @@ void GameStateManager::UpdateScoreboard(bool soundPlayed, float durationHeld, fl
         }
     }
 }
+GameStateManager::~GameStateManager()
+{
+
+}
+
+
+

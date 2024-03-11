@@ -33,7 +33,13 @@ bool const AfterTrack = false;
 double SecondsPerMinute = 60;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
+    mGameStateManager = make_shared<GameStateManager>(this);
 }
+
+std::shared_ptr<GameStateManager> Game::GetGameStateManager() {
+    return mGameStateManager;
+}
+
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     // Width of virtual pixels
@@ -195,6 +201,7 @@ void Game::Update(double elapsed)
     for (auto music:mMusic){
         music->Update(elapsed, timeOnTrack);
     }
+    mGameStateManager->UpdateMeasureAndBeat();
 }
 
 

@@ -15,6 +15,7 @@
 #include "miniaudio.h"
 #include "ItemVisitor.h"
 #include "DeclarationVisitor.h"
+#include "GameStateManager.h"
 //#include "Item.h"
 
 /**
@@ -44,6 +45,8 @@ class Game
 {
 public:
     enum class GameState {Ready, Countdown, Playing};
+    std::shared_ptr<GameStateManager> GetGameStateManager();
+
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -108,6 +111,8 @@ private:
     double mTimePLaying = 0;
 
     GameState mState = GameState::Ready;
+
+    std::shared_ptr<GameStateManager> mGameStateManager;
 
 public:
 

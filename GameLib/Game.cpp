@@ -21,6 +21,7 @@
 #include "ItemSoundBoardVisitor.h"
 #include "DeclarationVisitor.h"
 #include "DeclarationNoteVisitor.h"
+
 #include <memory>
 #include <thread>
 #include <chrono>

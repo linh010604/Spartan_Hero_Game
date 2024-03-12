@@ -21,6 +21,7 @@
 #include "ItemSoundBoardVisitor.h"
 #include "DeclarationVisitor.h"
 #include "DeclarationNoteVisitor.h"
+
 #include <memory>
 #include <thread>
 #include <chrono>
@@ -35,7 +36,13 @@ double const SecondsPerMinute = 60;
 double const StartingBeat = 4;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
+    mGameStateManager = make_shared<GameStateManager>(this);
 }
+
+std::shared_ptr<GameStateManager> Game::GetGameStateManager() {
+    return mGameStateManager;
+}
+
 
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     // Width of virtual pixels
@@ -199,6 +206,7 @@ void Game::Update(double elapsed)
     for (auto music:mMusic){
         music->Update(elapsed, mTimeOnTrack);
     }
+    mGameStateManager->UpdateMeasureAndBeat();
 }
 
 

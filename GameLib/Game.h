@@ -15,6 +15,8 @@
 #include "miniaudio.h"
 #include "ItemVisitor.h"
 #include "DeclarationVisitor.h"
+#include "GameStateManager.h"
+//#include "Item.h"
 
 /**
  * Allows access to Declaration without creating a circular dependency.
@@ -43,6 +45,8 @@ class Game
 {
 public:
     enum class GameState {Ready, Countdown, Playing, Closing};
+    std::shared_ptr<GameStateManager> GetGameStateManager();
+
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -113,6 +117,9 @@ private:
     bool mBackPlaying = false;
 
     bool mAutoPlay = false; ///< Autoplay mode of the game
+
+    std::shared_ptr<GameStateManager> mGameStateManager;
+
 public:
 
     /// Size of the area we are going to draw on in pixels

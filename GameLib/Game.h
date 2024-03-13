@@ -16,25 +16,12 @@
 #include "ItemVisitor.h"
 #include "DeclarationVisitor.h"
 
-/**
- * Allows access to Declaration without creating a circular dependency.
- */
+// Forward References
 class Item;
-
-/**
- * Allows access to Declaration without creating a circular dependency.
- */
 class Declaration;
-
-/**
- * Allows access to Music without creating a circular dependency.
- */
 class Music;
-
-/**
- * Allows access to Audio without creating a circular dependency.
- */
 class Sound;
+class LevelLoader;
 
 /**
  * Class for our game
@@ -113,6 +100,7 @@ private:
     bool mBackPlaying = false;
 
     bool mAutoPlay = false; ///< Autoplay mode of the game
+
 public:
 
     /// Size of the area we are going to draw on in pixels
@@ -243,7 +231,6 @@ public:
     */
     bool GetAutopPlayState() const {return mAutoPlay;}
 
-
     /**
     * Draw the game's graphics onto the window.
     *
@@ -292,6 +279,21 @@ public:
     void GameUpdate();
 
     void UpdateAutoPlayMode();
+
+    void SetVirtualWidth(double width) { mVirtualWidth = width; }
+    void SetVirtualHeight(double height) { mVirtualHeight = height; }
+    void SetBeatsPerMinute(double bpm) { mBeatsPerMinute = bpm; }
+    void SetBeatsPerMeasure(double bpm) { mBeatsPerMeasure = bpm; }
+    void SetAbsoluteBeat(double beat) { mAbsoluteBeat = beat; }
+    void SetMeasure(double measure) { mMeasure = measure; }
+    void SetBacking(const wxString& backing) { mBacking = backing; }
+    void SetTimePlaying(double time) { mTimePLaying = time; }
+    void SetItems(const std::vector<std::shared_ptr<Item>>& items) { mItems = items; }
+    void SetDeclarations(const std::vector<std::shared_ptr<Declaration>>& declarations) { mDeclarations = declarations; }
+    void SetDeclarationNote(const std::vector<std::shared_ptr<Declaration>>& declarationNote) { mDeclarationNote = declarationNote; }
+    void SetAudio(const std::vector<std::shared_ptr<Sound>>& audio) { mAudio = audio; }
+    void SetMusic(const std::vector<std::shared_ptr<Music>>& music) { mMusic = music; }
+
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H

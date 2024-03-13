@@ -27,7 +27,7 @@ Music::~Music()
  * Constructor
  * @param game The game this item is a member of
  */
-Music::Music(Game *game) : mGame(game)
+Music::Music(Game *game, const std::shared_ptr<Sound> &audio) : mGame(game), mAudio(audio)
 {
 }
 
@@ -97,7 +97,7 @@ void Music::Update(double elapsed, double timeOnTrack)
         }
 
 
-        if (mAudio->GetLong() ){
+        if (mAudio->GetLong()){
             double longDurationLengthY = mDuration/4 * (mKey->GetY2()-mKey->GetY1());
             double longDurationLengthX = mDuration/4 * (mKey->GetX2()-mKey->GetX1());
             if (mY - longDurationLengthY > mKey->GetY1()){
@@ -148,4 +148,3 @@ bool Music::HitTest(wxString key, double elapsed)
     }
     return false;
 }
-

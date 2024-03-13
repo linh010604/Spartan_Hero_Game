@@ -10,6 +10,7 @@
 #include "Sound.h"
 #include "ids.h"
 #include "Game.h"
+#include "LevelLoader.h"
 
 #include <wx/stdpaths.h>
 #include <wx/dcbuffer.h>
@@ -62,7 +63,8 @@ void GameView::Initialize(wxFrame *mainFrame) {
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnAutoPlayMode, this, IDM_AUTOPLAY);
 
-    mGame.Load(L"levels/level1.xml");
+    mLevelLoader = new LevelLoader(&mGame);
+    mLevelLoader->Load(L"levels/level1.xml");
     Refresh();
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
@@ -186,7 +188,7 @@ void GameView::OnLevelOption(wxCommandEvent& event)
     mStopWatch.Start();
     mTime = 0;
     mGame = Game(mAudioEngine);
-    mGame.Load(filename);
+    mLevelLoader->Load(filename);
     Refresh();
     DisplayLevelNotice(levelNumber);
 
@@ -260,7 +262,7 @@ void GameView::Sequence()
     mStopWatch.Start();
     mTime = 0;
     mGame = Game(mAudioEngine);
-    mGame.Load(filename);
+    mLevelLoader->Load(filename);
     Refresh();
     DisplayLevelNotice(levelNumber);
 
@@ -269,4 +271,3 @@ void GameView::OnAutoPlayMode(wxCommandEvent& event)
 {
     mGame.UpdateAutoPlayMode();
 }
-

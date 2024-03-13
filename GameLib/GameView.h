@@ -16,6 +16,8 @@
 class GameView : public wxWindow
 {
 private:
+    /// Level Loader class for our Game
+    LevelLoader *mLevelLoader;
 
     /// The timer that allows for animation
     wxTimer mTimer;
@@ -77,5 +79,3 @@ wxDECLARE_EVENT_TABLE();
 };
 
 #endif //PROJECT1_GAMELIB_GAMEVIEW_H
-
-

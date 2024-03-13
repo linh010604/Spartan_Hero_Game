@@ -9,6 +9,8 @@
 #define PROJECT1_GAMELIB_GAMEVIEW_H
 
 #include "Game.h"
+#include <wx/wx.h>
+#include <set>
 
 /**
  * View class for our game
@@ -38,6 +40,7 @@ private:
     bool mDisplayLevelNotice = true;
     wxStopWatch mLevelNoticeStopWatch;
     int mCurrentLevel = 1;
+    std::set<int> activeKeys;
 
 public:
 
@@ -70,6 +73,7 @@ public:
     void OnTimer(wxTimerEvent& event);
     void Sequence();
     void OnAutoPlayMode(wxCommandEvent& event);
+    void UpdateTime();
 
 /**
 * Declares event table

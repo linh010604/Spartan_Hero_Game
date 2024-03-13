@@ -203,23 +203,13 @@ void GameView::OnLevelOption(wxCommandEvent& event)
  */
 void GameView::OnKeyDown(wxKeyEvent& event)
 {
-    wxChar key = event.GetKeyCode();
-    // A = 65, S = 83, D = 68, F = 70
-    // J = 74, K = 75, L = 76, ; = 59
-    // Compute the time that has elapsed
-    // since the last call to OnPaint.
-    auto newTime = mStopWatch.Time();
-    auto elapsed = (double)(newTime - mTime) * 0.001;
-    mTime = newTime;
-    mGame.PressKey(key, elapsed);
-    mGame.Update(elapsed);
+    UpdateTime();
+    int key = event.GetKeyCode();
+    if (activeKeys.find(key) == activeKeys.end()) {
+        activeKeys.insert(key);
+    }
+    event.Skip();
 
-//    sound.SetVolume(0.5);
-//    sound.LoadSound(mGame.GetAudioEngine());
-//
-//    sound.PlaySound();
-//    std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
-//    sound.PlayEnd();
 }
 
 /**
@@ -228,6 +218,23 @@ void GameView::OnKeyDown(wxKeyEvent& event)
  */
 void GameView::OnKeyUp(wxKeyEvent& event)
 {
+    UpdateTime();
+    int key = event.GetKeyCode();
+    activeKeys.erase(key);
+    event.Skip();
+
+}
+
+/**
+ * Update the time since the last call to UpdateTime
+ * and call update on the game.
+ */
+void GameView::UpdateTime()
+{
+    auto newTime = mStopWatch.Time();
+    auto elapsed = (double)(newTime - mTime) * 0.001;
+    mTime = newTime;
+    mGame.Update(elapsed);
 }
 
 /**
@@ -237,6 +244,7 @@ void GameView::OnKeyUp(wxKeyEvent& event)
 void GameView::OnTimer(wxTimerEvent& event)
 {
     Refresh();
+
 }
 
 void GameView::Sequence()

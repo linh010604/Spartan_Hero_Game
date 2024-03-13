@@ -17,6 +17,7 @@
 #include "ItemImage.h"
 #include "ItemMeter.h"
 #include "ItemScoreboard.h"
+#include "GameStateManager.h"
 
 using namespace std;
 
@@ -99,7 +100,7 @@ void LevelLoader::Load(const wxString &filename)
         }
 
     }
-
+    GameStateManager* gameStateManager = new GameStateManager(mGame);
     for (auto declaration: declarationNote)
     {
         DeclarationNoteVisitor declarationVisitor;
@@ -130,6 +131,7 @@ void LevelLoader::Load(const wxString &filename)
     mGame->SetDeclarationNote(declarationNote);
     mGame->SetAudio(audio);
     mGame->SetMusic(music);
+    mGame->SetGameStateManager(gameStateManager);
 }
 
 /**

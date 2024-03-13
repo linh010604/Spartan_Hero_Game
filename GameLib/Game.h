@@ -311,6 +311,7 @@ public:
     void SetDeclarationNote(const std::vector<std::shared_ptr<Declaration>>& declarationNote) { mDeclarationNote = declarationNote; }
     void SetAudio(const std::vector<std::shared_ptr<Sound>>& audio) { mAudio = audio; }
     void SetMusic(const std::vector<std::shared_ptr<Music>>& music) { mMusic = music; }
+    void SetGameStateManager(GameStateManager* gameStateManager) { mGameStateManager.reset(gameStateManager); }
 
 };
 

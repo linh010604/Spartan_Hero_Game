@@ -11,6 +11,7 @@ using namespace std;
 
 /// All images directory
 wstring const ImageDir = L"images/";
+//wstring const ExtraImageDir = L"ExtraImages/";
 
 /**
  * Destructor

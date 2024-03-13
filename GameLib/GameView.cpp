@@ -99,6 +99,8 @@ void GameView::OnPaint(wxPaintEvent& event)
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
     mGame.Update(elapsed);
 
+
+
     if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
         wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
         wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);

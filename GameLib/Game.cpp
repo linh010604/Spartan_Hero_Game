@@ -36,7 +36,7 @@ double const SecondsPerMinute = 60;
 double const StartingBeat = 4;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
-    mGameStateManager = make_shared<GameStateManager>(this);
+
 }
 
 std::shared_ptr<GameStateManager> Game::GetGameStateManager() {
@@ -168,7 +168,7 @@ void Game::Load(const wxString &filename)
         }
 
     }
-
+    mGameStateManager = make_shared<GameStateManager>(this);
     for (auto declaration: mDeclarationNote)
     {
         DeclarationNoteVisitor declarationVisitor;

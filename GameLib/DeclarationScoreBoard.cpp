@@ -43,20 +43,15 @@ DeclarationScoreBoard::DeclarationScoreBoard(Game *game): Declaration(game)
 
 void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before)
 {
-   Declaration::Draw(gp, x, y,before);
+    Declaration::Draw(gp, x, y,before);
 
     if(gp == nullptr) return;
 
 
-//    // Set the font for drawing the "Get Ready" text
-//    wxFont font(20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-//    gp->SetFont(font, *wxBLACK);
+    std::shared_ptr<GameStateManager> gameStateManager = this->GetGame()->GetGameStateManager();
+    int score = gameStateManager->GetScore();
+    auto [measure, beat] = gameStateManager->GetCurrentMeasureAndBeat();
 
-    // Measure the text size
-//    gp->GetTextExtent(mText, &textWidth, &textHeight, nullptr, nullptr);
-
-    // Draw the "Get Ready" text on the scoreboard
-    //gp->DrawText(mText, textX, textY);
     if (this->GetGame()->GetState() == Game::GameState::Ready)
     {
         wxFont readyFont(wxSize(0,ReadySize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
@@ -76,23 +71,22 @@ void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x
 
         wxFont scoreFont(wxSize(0,BeatsSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
         gp->SetFont(scoreFont, *wxBLACK);
-        wxString scoreText = wxString::Format("%06d", 0);
+        wxString scoreText = wxString::Format("%06d", score);
         gp->GetTextExtent(scoreText, &textWidth, &textHeight);
         gp->DrawText(scoreText, x - textWidth / 2, y - textHeight / 2 + ScoreY);
     }
-    else if (this->GetGame()->GetState() == Game::GameState::Playing){
+    else if (this->GetGame()->GetState() == Game::GameState::Playing)
+    {
         wxFont beatFont(wxSize(0,BeatsSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
         gp->SetFont(beatFont, *wxBLACK);
         double textWidth, textHeight;
-        int measure = wxRound(GetGame()->GetAbsoluteBeat())/GetGame()->GetBeatsPerMersure();
-        int currbeat = wxRound(GetGame()->GetAbsoluteBeat()) - measure * GetGame()->GetBeatsPerMersure()+1;
-        wxString countText = wxString::Format("%d:%d", measure,currbeat);
+        wxString countText = wxString::Format("%d:%d", measure, beat);
         gp->GetTextExtent(countText, &textWidth, &textHeight);
         gp->DrawText(countText, x - textWidth / 2, y - textHeight / 2 + BeatY);
 
         wxFont scoreFont(wxSize(0,BeatsSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
         gp->SetFont(scoreFont, *wxBLACK);
-        wxString scoreText = wxString::Format("%06d", 0);
+        wxString scoreText = wxString::Format("%06d", score);
         gp->GetTextExtent(scoreText, &textWidth, &textHeight);
         gp->DrawText(scoreText, x - textWidth / 2, y - textHeight / 2 + ScoreY);
     }

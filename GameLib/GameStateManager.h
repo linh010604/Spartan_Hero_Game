@@ -16,21 +16,24 @@ class GameStateManager
 {
 private:
     Game* mGame;
-    int mScore;
+    int mScore=0;
     int mCurrentMeasure;
     int mCurrentBeat;
 
 public:
     GameStateManager(Game* game);
 
+    ~GameStateManager();
+
+
     void UpdateScore(int points);
-    void UpdateMeasureAndBeat(int measure, int beat);
     void SetDurationBonus(float duration);
 
-    int GetScore() const;
+    int GetScore();
     std::pair<int, int> GetCurrentMeasureAndBeat() const;
 
     void UpdateScoreboard(bool soundPlayed, float durationHeld, float totalDuration);
+    void UpdateMeasureAndBeat();
 };
 
 #endif //PROJECT1_GAMELIB_GAMESTATEMANAGER_H

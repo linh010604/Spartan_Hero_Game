@@ -40,6 +40,7 @@
 		<image id="i600" size="1500,1035" image="background1.png" />
 		<image id="i601" size="230,230" image="guitar-guy-1.png" />
 		<image id="i603" size="247,409" image="guitar-guy-2.png" />
+
 		<sound-board id="i622" size="835,627" size-beats="4" top-width="345" image="sound-board.png" cover="sound-board-cover.png" />
 		<score-board id="i871" size="288,195" image="score-board.png" />
 		<meter id="i921" size="288,195" image="meter-back.png" needle="meter-needle.png" cover="meter-cover.png" />
@@ -58,6 +59,7 @@
 		<image id="i600" p="750,517"/>
 		<image id="i601" p="247,753"/>
 		<image id="i603" p="1230,656"/>
+
 		<sound-board id="i622" p="750,535">
 			<track track="1" key-image="key-a.png" key-size="88,66" key="A" />
 			<track track="2" key-image="key-s.png" key-size="88,66" key="S" />

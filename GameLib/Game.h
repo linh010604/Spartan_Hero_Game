@@ -116,6 +116,11 @@ private:
 
     bool mAutoPlay = false; ///< Autoplay mode of the game
 
+    int mNumberOfPlayedNote = 0; ///<The number of note have been played
+
+    int mTotalNote = 0 ;///< Total notes have been pass
+
+
     std::shared_ptr<GameStateManager> mGameStateManager;
 
 public:
@@ -206,6 +211,8 @@ public:
      */
     Game(ma_engine *PEngine);
 
+
+
     /**
      * Destructor
     */
@@ -242,6 +249,11 @@ public:
     * @return mState
     */
     GameState GetState() const {return mState;}
+
+    int GetPlayedNote() const {return mNumberOfPlayedNote ; }
+
+    int GetTotalNote() const {return mTotalNote ;}
+
 
     /**
     * @return mAutoPLay

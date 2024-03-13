@@ -91,6 +91,10 @@ void GameView::OnPaint(wxPaintEvent& event)
     dc.SetBackground(background);
     dc.Clear();
 
+
+
+
+
     // Compute the time that has elapsed
     // since the last call to OnPaint.
     auto newTime = mStopWatch.Time();

@@ -43,7 +43,7 @@
 	</audio>
 	<declarations>
 		<image id="i600" size="1304,900" image="background1.png" />
-		<image id="starImage" size="100,100" image="star.png" />
+
 		<sound-board id="i622" size="726,545" size-beats="4" top-width="300" image="sound-board.png" cover="sound-board-cover.png" />
 		<score-board id="i871" size="200,136" image="score-board.png" />
 		<meter id="i921" size="200,136" image="meter-back.png" needle="meter-needle.png" cover="meter-cover.png" />

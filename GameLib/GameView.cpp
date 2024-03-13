@@ -63,6 +63,9 @@ void GameView::Initialize(wxFrame *mainFrame) {
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnAutoPlayMode, this, IDM_AUTOPLAY);
 
+    Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
+    Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
+
     mLevelLoader = new LevelLoader(&mGame);
     mLevelLoader->Load(L"levels/level1.xml");
     Refresh();

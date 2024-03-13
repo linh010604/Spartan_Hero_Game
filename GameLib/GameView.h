@@ -12,6 +12,8 @@
 #include <wx/wx.h>
 #include <set>
 
+class LevelLoader;
+
 /**
  * View class for our game
  */

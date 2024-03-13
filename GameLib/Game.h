@@ -44,6 +44,7 @@ class Game
 {
 public:
     enum class GameState {Ready, Countdown, Playing, Closing};
+    std::shared_ptr<GameStateManager> GetGameStateManager();
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -296,6 +297,21 @@ public:
     void GameUpdate();
 
     void UpdateAutoPlayMode();
+
+    void SetVirtualWidth(double width) { mVirtualWidth = width; }
+    void SetVirtualHeight(double height) { mVirtualHeight = height; }
+    void SetBeatsPerMinute(double bpm) { mBeatsPerMinute = bpm; }
+    void SetBeatsPerMeasure(double bpm) { mBeatsPerMeasure = bpm; }
+    void SetAbsoluteBeat(double beat) { mAbsoluteBeat = beat; }
+    void SetMeasure(double measure) { mMeasure = measure; }
+    void SetBacking(const wxString& backing) { mBacking = backing; }
+    void SetTimePlaying(double time) { mTimePLaying = time; }
+    void SetItems(const std::vector<std::shared_ptr<Item>>& items) { mItems = items; }
+    void SetDeclarations(const std::vector<std::shared_ptr<Declaration>>& declarations) { mDeclarations = declarations; }
+    void SetDeclarationNote(const std::vector<std::shared_ptr<Declaration>>& declarationNote) { mDeclarationNote = declarationNote; }
+    void SetAudio(const std::vector<std::shared_ptr<Sound>>& audio) { mAudio = audio; }
+    void SetMusic(const std::vector<std::shared_ptr<Music>>& music) { mMusic = music; }
+
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H

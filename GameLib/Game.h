@@ -16,7 +16,6 @@
 #include "ItemVisitor.h"
 #include "DeclarationVisitor.h"
 #include "GameStateManager.h"
-//#include "Item.h"
 
 /**
  * Allows access to Declaration without creating a circular dependency.
@@ -46,7 +45,6 @@ class Game
 public:
     enum class GameState {Ready, Countdown, Playing, Closing};
     std::shared_ptr<GameStateManager> GetGameStateManager();
-
 private:
     /**
     * Represents the width of the virtual playing area.
@@ -93,7 +91,7 @@ private:
     std::vector<std::shared_ptr<Sound>> mAudio;
 
     /// beats per measure in this level
-    int mBeatsPerMeasure = 0;
+    double mBeatsPerMeasure = 0;
 
     /// beats per minutes in this level
     double mBeatsPerMinute = 0;
@@ -114,13 +112,14 @@ private:
 
     double mTimeOnTrack; ///< time on track
 
-    bool mBackPlaying = false; ///< Check if the background is played or not
+    bool mBackPlaying = false;
 
     bool mAutoPlay = false; ///< Autoplay mode of the game
 
     int mNumberOfPlayedNote = 0; ///<The number of note have been played
 
     int mTotalNote = 0 ;///< Total notes have been pass
+
 
     std::shared_ptr<GameStateManager> mGameStateManager;
 
@@ -206,15 +205,13 @@ public:
      */
     size_t GetDeclarationSize() const {return mDeclarations.size();}
 
-    int GetPlayedNote() const {return mNumberOfPlayedNote ; }
-
-    int GetTotalNote() const {return mTotalNote ;}
-
     /**
      * Game Constructor
      * @param PEngine The audio engine for miniaudio
      */
     Game(ma_engine *PEngine);
+
+
 
     /**
      * Destructor
@@ -253,6 +250,11 @@ public:
     */
     GameState GetState() const {return mState;}
 
+    int GetPlayedNote() const {return mNumberOfPlayedNote ; }
+
+    int GetTotalNote() const {return mTotalNote ;}
+
+
     /**
     * @return mAutoPLay
     */
@@ -290,6 +292,7 @@ public:
 
     void KeyUp(wxChar key);
 
+
     void Update(double elapsed);
 
     /**
@@ -315,6 +318,22 @@ public:
     void UpdateTotalNote(){mTotalNote+=1;}
 
     void AutoplayMusic();
+
+    void SetVirtualWidth(double width) { mVirtualWidth = width; }
+    void SetVirtualHeight(double height) { mVirtualHeight = height; }
+    void SetBeatsPerMinute(double bpm) { mBeatsPerMinute = bpm; }
+    void SetBeatsPerMeasure(double bpm) { mBeatsPerMeasure = bpm; }
+    void SetAbsoluteBeat(double beat) { mAbsoluteBeat = beat; }
+    void SetMeasure(double measure) { mMeasure = measure; }
+    void SetBacking(const wxString& backing) { mBacking = backing; }
+    void SetTimePlaying(double time) { mTimePLaying = time; }
+    void SetItems(const std::vector<std::shared_ptr<Item>>& items) { mItems = items; }
+    void SetDeclarations(const std::vector<std::shared_ptr<Declaration>>& declarations) { mDeclarations = declarations; }
+    void SetDeclarationNote(const std::vector<std::shared_ptr<Declaration>>& declarationNote) { mDeclarationNote = declarationNote; }
+    void SetAudio(const std::vector<std::shared_ptr<Sound>>& audio) { mAudio = audio; }
+    void SetMusic(const std::vector<std::shared_ptr<Music>>& music) { mMusic = music; }
+    void SetGameStateManager(GameStateManager* gameStateManager) { mGameStateManager.reset(gameStateManager); }
+
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H

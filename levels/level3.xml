@@ -42,7 +42,8 @@
 		<sound name="C6-long" audio="trumpet/C6-long.wav" long="true" />
 	</audio>
 	<declarations>
-		<image id="i600" size="1304,900" image="background1.png" />
+		<image id="i600" size="1304,900" image="background2.png" />
+
 		<sound-board id="i622" size="726,545" size-beats="4" top-width="300" image="sound-board.png" cover="sound-board-cover.png" />
 		<score-board id="i871" size="200,136" image="score-board.png" />
 		<meter id="i921" size="200,136" image="meter-back.png" needle="meter-needle.png" cover="meter-cover.png" />

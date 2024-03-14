@@ -9,6 +9,10 @@
 #define PROJECT1_GAMELIB_GAMEVIEW_H
 
 #include "Game.h"
+#include <wx/wx.h>
+#include <set>
+
+class LevelLoader;
 
 /**
  * View class for our game
@@ -16,6 +20,8 @@
 class GameView : public wxWindow
 {
 private:
+    /// Level Loader class for our Game
+    LevelLoader *mLevelLoader;
 
     /// The timer that allows for animation
     wxTimer mTimer;
@@ -33,9 +39,13 @@ private:
     /// The game
     Game mGame;
 
+
     bool mDisplayLevelNotice = true;
     wxStopWatch mLevelNoticeStopWatch;
     int mCurrentLevel = 1;
+    std::set<int> activeKeys;
+
+    bool mAutoPlay = false;
 
     bool mDisplayCountDown = false;
 
@@ -72,6 +82,7 @@ public:
     void OnTimer(wxTimerEvent& event);
     void Sequence();
     void OnAutoPlayMode(wxCommandEvent& event);
+    void UpdateTime();
 
 /**
 * Declares event table
@@ -81,5 +92,3 @@ wxDECLARE_EVENT_TABLE();
 };
 
 #endif //PROJECT1_GAMELIB_GAMEVIEW_H
-
-

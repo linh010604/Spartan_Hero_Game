@@ -61,6 +61,7 @@
 		<image id="i600" p="652,450"/>
 		<image id="i603" p="215,570"/>
 		<image id="i601" p="1010,640"/>
+		<image id="i601" p="1010,640"/>
 		<sound-board id="i622" p="652,465">
 			<track track="1" key-image="key-a.png" key-size="88,66" key="A" />
 			<track track="2" key-image="key-s.png" key-size="88,66" key="S" />

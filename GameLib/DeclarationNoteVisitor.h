@@ -24,10 +24,11 @@ public:
     int GetTrack() const { return mTrack; }
 
     /**
-     * Get track of the note
-     * @return track of the note
-     */
+ * Get track of the note
+ * @return track of the note
+ */
     double GetTolerance() const { return mTolerance; }
+
 
     /**
     * Visit key
@@ -38,7 +39,6 @@ public:
         mTrack = note->GetTrack();
         mTolerance = note->GetTolerance();
     }
-
 
 };
 

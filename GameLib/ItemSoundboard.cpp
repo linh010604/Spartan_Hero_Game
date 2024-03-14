@@ -84,6 +84,10 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
         double HeightSoundBoard = soundboard->GetHeight();
         double TopWidthSoundBoard = soundboard->GetTopWidth();
 
+        // Draw tracks
+        wxPen linePen(*wxBLACK, TrackLineWidth);
+        gp->SetPen(linePen);
+
         // Find length of soundboard at KeyRow and TopClearance
         double soundBoardLengthAtX1Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*TopClearance) + TopWidthSoundBoard;
         double soundBoardLengthAtX2Init = ((WidthSoundBoard-TopWidthSoundBoard)/HeightSoundBoard)*(HeightSoundBoard*KeyRow) + TopWidthSoundBoard;
@@ -114,8 +118,6 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
                 shiftX2 += 2*x2Space;
             }
 
-            // Draw tracks
-            wxPen linePen(*wxBLACK, TrackLineWidth);
             gp->SetPen(linePen);
 
             gp->StrokeLine(x1InitLeftTrack + shiftX1,
@@ -124,13 +126,14 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
                            y2Track);
 
             mKeys[i]->SetLocation(x1InitLeftTrack + shiftX1,x2InitLeftTrack + shiftX2,y1Track, y2Track);
+            this->GetGame()->DrawNote(gp);
+            //mKeys[i]->Draw(gp);
             shiftX1 += x1Space;
             shiftX2 += x2Space;
 
         }
     }
     else{
-        this->GetGame()->DrawNote(gp);
         for (int i = 0; i < tracksCount; ++i)
         {
 

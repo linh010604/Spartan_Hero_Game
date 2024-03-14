@@ -30,7 +30,7 @@ Music::~Music()
  * Constructor
  * @param game The game this item is a member of
  */
-Music::Music(Game *game) : mGame(game)
+Music::Music(Game *game, const std::shared_ptr<Sound> &audio) : mGame(game), mAudio(audio)
 {
 }
 
@@ -64,7 +64,6 @@ void Music::Draw(std::shared_ptr<wxGraphicsContext> gp)
         else{
             gp->StrokeLine(mLongX, mLongY, mKey->GetX2(), mKey->GetY2());
         }
-
     }
 
     if (mFirstUpdate && mY < mKey->GetY2()){
@@ -73,7 +72,6 @@ void Music::Draw(std::shared_ptr<wxGraphicsContext> gp)
     }
 
 }
-
 void Music::Update(double elapsed, double timeOnTrack)
 {
     if (mGame->GetAutopPlayState()){
@@ -133,7 +131,7 @@ void Music::Update(double elapsed, double timeOnTrack)
     else if (mContinueDurationLine && mAudio->GetLong()){
         if(mLongY - mKey->GetY2() > 0){
             mContinueDurationLine = false;
-//          note->GetGame()->AddScore(MaxDurationBonus);
+            //note->GetGame()->AddScore(MaxDurationBonus);
         }
         else //stop drawing line once top of line gets to key
         {
@@ -142,6 +140,7 @@ void Music::Update(double elapsed, double timeOnTrack)
             mLongY = mLongY + ((mKey->GetY2() - mKey->GetY1())/timeOnTrack)*elapsed;
 
         }
+
     }
 
     DeclarationNoteVisitor declarationVisitor;
@@ -153,20 +152,21 @@ void Music::Update(double elapsed, double timeOnTrack)
         mGame->UpdateTotalNote();
     }
 
-}
 
+
+}
 
 void Music::PlayAutoMusic()
 {
     /// Auto play music (add to different function)
     if (mY!= 0 && mY >= mKey->GetY2() && !mPlayMusic){
-//        if (mStopAtKey){
-            mPlayMusic = true;
-            mBeatPLay = mGame->GetAbsoluteBeat();
-            mAudio->LoadSound(mGame->GetAudioEngine());
-            mAudio->PlaySound();
-            mGame->UpdatePlayedNote();
-            mGame->GetGameStateManager()->UpdateScore(FullPoint);
+        //if (mStopAtKey){
+        mPlayMusic = true;
+        mBeatPLay = mGame->GetAbsoluteBeat();
+        mAudio->LoadSound(mGame->GetAudioEngine());
+        mAudio->PlaySound();
+        mGame->UpdatePlayedNote();
+        mGame->GetGameStateManager()->UpdateScore(FullPoint);
 //        }
 
     }

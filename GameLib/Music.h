@@ -46,6 +46,7 @@ private:
     double mBeatPLay = 0; ///< Beat which the note are played
     bool mContinueDurationLine = false; ///<check if we still need to draw red line
     bool mStopAtKey = false; ///< check if note hit the key
+
 public:
     ~Music();
 
@@ -105,7 +106,7 @@ public:
      */
     void SetLocation(double x, double y) { mX = x; mY = y; }
 
-    Music(Game *game);
+    Music(Game *game, const std::shared_ptr<Sound> &audio);
 
     /// Default constructor (disabled)
     Music() = delete;

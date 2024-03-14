@@ -47,9 +47,10 @@ void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x
 
     if(gp == nullptr) return;
 
-
     std::shared_ptr<GameStateManager> gameStateManager = this->GetGame()->GetGameStateManager();
+
     int score = gameStateManager->GetScore();
+
     auto [measure, beat] = gameStateManager->GetCurrentMeasureAndBeat();
 
     if (this->GetGame()->GetState() == Game::GameState::Ready)

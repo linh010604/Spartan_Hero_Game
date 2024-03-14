@@ -25,6 +25,8 @@ public:
 
     DeclarationNote(Game *game);
 
+    double GetTolerance() const {return mTolerance;}
+
     void XmlLoad(wxXmlNode *node) override;
 
     int GetTrack() const {return mTrack;}

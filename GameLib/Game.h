@@ -308,7 +308,13 @@ public:
 
     void GameUpdate();
 
-    void UpdateAutoPlayMode();
+    void UpdateAutoPlayMode(bool autoplay);
+
+    void UpdatePlayedNote(){mNumberOfPlayedNote+=1;}
+
+    void UpdateTotalNote(){mTotalNote+=1;}
+
+    void AutoplayMusic();
 
     void SetVirtualWidth(double width) { mVirtualWidth = width; }
     void SetVirtualHeight(double height) { mVirtualHeight = height; }

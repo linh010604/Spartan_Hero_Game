@@ -145,8 +145,16 @@ void Game::GameUpdate()
 
 }
 
-void Game::UpdateAutoPlayMode()
+void Game::UpdateAutoPlayMode(bool autoplay)
 {
-    mAutoPlay = !mAutoPlay;
+    mAutoPlay = autoplay;
+}
+
+void Game::AutoplayMusic()
+{
+    if (mAutoPlay)
+        for (auto music:mMusic){
+            music->PlayAutoMusic();
+        }
 }
 

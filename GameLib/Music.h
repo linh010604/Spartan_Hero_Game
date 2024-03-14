@@ -42,9 +42,10 @@ private:
     double mBeat = 0 ;///<Measure of the sound
     double mDuration = 0 ;///<Measure of the sound
     bool mFirstUpdate = false ;///<Check if this is time for note to appear
-    bool mPLayMusic = false; ///<Check if this note has been played or not
+    bool mPlayMusic = false; ///<Check if this note has been played or not
     double mBeatPLay = 0; ///< Beat which the note are played
     bool mContinueDurationLine = false; ///<check if we still need to draw red line
+    bool mStopAtKey = false; ///< check if note hit the key
 
 public:
     ~Music();
@@ -128,9 +129,11 @@ public:
 
     void Update(double elapsed, double timeOnTrack);
 
-    bool HitTest(wxString key, double elapsed);
+    bool KeyUp();
 
-    void PlayMusic();
+    void PlayAutoMusic();
+
+    bool PlayMannualMusic();
 
 };
 

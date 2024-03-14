@@ -44,6 +44,8 @@ private:
     int mCurrentLevel = 1;
     std::set<int> activeKeys;
 
+    bool mAutoPlay = false;
+
 public:
 
     /**

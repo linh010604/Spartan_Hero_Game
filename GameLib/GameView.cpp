@@ -284,5 +284,6 @@ void GameView::Sequence()
 }
 void GameView::OnAutoPlayMode(wxCommandEvent& event)
 {
-    mGame.UpdateAutoPlayMode();
+    mAutoPlay = !mAutoPlay;
+    mGame.UpdateAutoPlayMode(mAutoPlay);
 }

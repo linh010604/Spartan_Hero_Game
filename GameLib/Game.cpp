@@ -108,9 +108,16 @@ void Game::Update(double elapsed)
  * Handle a key press event
  * @param key The key was pressed
  */
-void Game::PressKey(wxChar key, double elapsed)
+void Game::PressKey(wxChar key)
 {
-
+    if (!mAutoPlay){
+        for (auto note: mMusic){
+            if (note->GetKey()->GetKey() == key){
+                if(!note->PlayMannualMusic())
+                    break;
+            }
+        }
+    }
 }
 
 void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
@@ -156,5 +163,9 @@ void Game::AutoplayMusic()
         for (auto music:mMusic){
             music->PlayAutoMusic();
         }
+}
+
+void Game::KeyUp(wxChar key) {
+
 }
 

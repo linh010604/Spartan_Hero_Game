@@ -207,12 +207,12 @@ void GameView::OnLevelOption(wxCommandEvent& event)
  */
 void GameView::OnKeyDown(wxKeyEvent& event)
 {
-    UpdateTime();
-    int key = event.GetKeyCode();
-    if (activeKeys.find(key) == activeKeys.end()) {
-        activeKeys.insert(key);
-    }
-    event.Skip();
+    wxChar key = event.GetKeyCode();
+    // A = 65, S = 83, D = 68, F = 70
+    // J = 74, K = 75, L = 76, ; = 59
+    // Compute the time that has elapsed
+    // since the last call to OnPaint.
+    mGame.PressKey(key);
 
 }
 
@@ -222,10 +222,12 @@ void GameView::OnKeyDown(wxKeyEvent& event)
  */
 void GameView::OnKeyUp(wxKeyEvent& event)
 {
-    UpdateTime();
-    int key = event.GetKeyCode();
-    activeKeys.erase(key);
-    event.Skip();
+    wxChar key = event.GetKeyCode();
+    // A = 65, S = 83, D = 68, F = 70
+    // J = 74, K = 75, L = 76, ; = 59
+    // Compute the time that has elapsed
+    // since the last call to OnPaint.
+    mGame.KeyUp(key);
 
 }
 

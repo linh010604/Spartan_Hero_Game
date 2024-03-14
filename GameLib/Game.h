@@ -288,7 +288,10 @@ public:
 
     void XmlAudio(wxXmlNode *node);
 
-    void PressKey(wxChar key, double elapsed);
+    void PressKey(wxChar key);
+
+    void KeyUp(wxChar key);
+
 
     void Update(double elapsed);
 

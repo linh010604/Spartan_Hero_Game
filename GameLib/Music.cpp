@@ -130,6 +130,16 @@ void Music::Update(double elapsed, double timeOnTrack)
             mLongY = mLongY + ((mKey->GetY2() - mKey->GetY1())/timeOnTrack)*elapsed;
 
         }
+
+    }
+
+    DeclarationNoteVisitor declarationVisitor;
+    mDeclaration->Accept(&declarationVisitor);
+    double tolerance = declarationVisitor.GetTolerance();
+
+    if (mY > mKey->GetY2() + tolerance && !mPlayMusic && !mGame->GetAutopPlayState()){
+        mPlayMusic = true;
+        mGame->UpdateTotalNote();
     }
 
 

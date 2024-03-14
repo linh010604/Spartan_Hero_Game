@@ -151,6 +151,8 @@ void GameView::OnPaint(wxPaintEvent& event)
             Sequence();
         }
 
+        {}
+
     }
 
     // Restores state of graphics

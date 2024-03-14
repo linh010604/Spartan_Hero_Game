@@ -14,6 +14,7 @@
 class DeclarationNoteVisitor : public DeclarationVisitor {
 private:
     int mTrack = 0;
+    double mTolerance = 0;
 public:
 
     /**
@@ -23,12 +24,20 @@ public:
     int GetTrack() const { return mTrack; }
 
     /**
+ * Get track of the note
+ * @return track of the note
+ */
+    double GetTolerance() const { return mTolerance; }
+
+
+    /**
     * Visit key
     * @param key The key we are visiting
     */
     void VisitDeclarationNote (DeclarationNote* note) override
     {
         mTrack = note->GetTrack();
+        mTolerance = note->GetTolerance();
     }
 
 };

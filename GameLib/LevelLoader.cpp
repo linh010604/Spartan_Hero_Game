@@ -118,6 +118,8 @@ void LevelLoader::Load(const wxString &filename)
     }
     MergeDeclarationToNote(music, declarationNote);
 
+    MergeSoundToNote(music, audio);
+
     mGame->SetVirtualWidth(virtualWidth);
     mGame->SetVirtualHeight(virtualHeight);
     mGame->SetBeatsPerMinute(beatsPerMinute);
@@ -297,6 +299,20 @@ void LevelLoader::MergeDeclarationToNote(std::vector<std::shared_ptr<Music>> &mu
         {
             if (declarationNote->GetId() == musicNote->GetId()) {
                 musicNote->AddDeclaration(declarationNote);
+            }
+        }
+    }
+}
+
+void LevelLoader::MergeSoundToNote(std::vector<std::shared_ptr<Music>> &music,
+                                   std::vector<std::shared_ptr<Sound>> &audio)
+{
+    for (auto musicNote : music)
+    {
+        for (auto audio : audio)
+        {
+            if (audio->GetName() == musicNote->GetSound()) {
+                musicNote->AddSound(audio);
             }
         }
     }

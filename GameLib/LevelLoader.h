@@ -62,6 +62,8 @@ public:
     void MergeDeclarationToNote(std::vector<std::shared_ptr<Music>> &music,
                                 std::vector<std::shared_ptr<Declaration>> &declarationNote);
 
+    void MergeSoundToNote(std::vector<std::shared_ptr<Music>> &music, std::vector<std::shared_ptr<Sound>> &audio);
+
 };
 
 #endif //PROJECT1_GAMELIB_LEVELLOADER_H

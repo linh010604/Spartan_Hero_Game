@@ -30,7 +30,7 @@ const auto LevelNoticeColor = wxColour(192, 252, 207);
 
 
 /// Frame duration in milliseconds
-const int FrameDuration = 30;
+const int FrameDuration = 20;
 
 /**
 * The event table that connects window events
@@ -66,7 +66,7 @@ void GameView::Initialize(wxFrame *mainFrame) {
     Refresh();
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
-    mainFrame->Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
+    Bind(wxEVT_KEY_UP, &GameView::OnKeyUp, this);
 
     mTimer.SetOwner(this);
     mTimer.Start(FrameDuration);
@@ -96,32 +96,16 @@ void GameView::OnPaint(wxPaintEvent& event)
 
     // Tell the game class to draw
     wxRect rect = GetRect();
+
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
+
     mGame.Update(elapsed);
-
-    if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
-        wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
-        wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-        gc->SetFont(font, LevelNoticeColor);
-
-        // Measure text size
-        double textWidth, textHeight;
-        gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
-
-        // Calculate positions to center the text
-        double xPos = (mGame.GetWidth() - textWidth) / 2;
-        double yPos = (mGame.GetHeight() - textHeight) / 2;
-
-        gc->DrawText(noticeText, xPos, yPos);
-    } else {
-        mDisplayLevelNotice = false;
-    }
 
     if (mGame.GetState() == Game::GameState::Closing){
         if (mClosingTime == 0){
             mClosingTime = mStopWatch.Time();
         }
-        if ( mStopWatch.Time() - mClosingTime <= 2*1000){
+        if ( mStopWatch.Time() - mClosingTime <= LevelNoticeDuration*1000){
             wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
             wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
             gc->SetFont(font, LevelNoticeColor);
@@ -142,6 +126,25 @@ void GameView::OnPaint(wxPaintEvent& event)
             Sequence();
         }
 
+    }
+    else if (mGame.GetState() == Game::GameState::Ready){
+        if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
+            wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
+            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+            gc->SetFont(font, LevelNoticeColor);
+
+            // Measure text size
+            double textWidth, textHeight;
+            gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+            // Calculate positions to center the text
+            double xPos = (mGame.GetWidth() - textWidth) / 2;
+            double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+            gc->DrawText(noticeText, xPos, yPos);
+        } else if (mDisplayLevelNotice){
+            mDisplayLevelNotice = false;
+        }
     }
 
     // Restores state of graphics
@@ -187,6 +190,7 @@ void GameView::OnLevelOption(wxCommandEvent& event)
     mTime = 0;
     mGame = Game(mAudioEngine);
     mGame.Load(filename);
+    mGame.UpdateAutoPlayMode(mAutoPlay);
     Refresh();
     DisplayLevelNotice(levelNumber);
 
@@ -203,18 +207,8 @@ void GameView::OnKeyDown(wxKeyEvent& event)
     // J = 74, K = 75, L = 76, ; = 59
     // Compute the time that has elapsed
     // since the last call to OnPaint.
-    auto newTime = mStopWatch.Time();
-    auto elapsed = (double)(newTime - mTime) * 0.001;
-    mTime = newTime;
-    mGame.PressKey(key, elapsed);
-    mGame.Update(elapsed);
+    mGame.PressKey(key);
 
-//    sound.SetVolume(0.5);
-//    sound.LoadSound(mGame.GetAudioEngine());
-//
-//    sound.PlaySound();
-//    std::this_thread::sleep_for(std::chrono::seconds(1)); //pauses for 1 seconds
-//    sound.PlayEnd();
 }
 
 /**
@@ -223,6 +217,12 @@ void GameView::OnKeyDown(wxKeyEvent& event)
  */
 void GameView::OnKeyUp(wxKeyEvent& event)
 {
+    wxChar key = event.GetKeyCode();
+    // A = 65, S = 83, D = 68, F = 70
+    // J = 74, K = 75, L = 76, ; = 59
+    // Compute the time that has elapsed
+    // since the last call to OnPaint.
+    mGame.KeyUp(key);
 }
 
 /**
@@ -263,10 +263,12 @@ void GameView::Sequence()
     mGame.Load(filename);
     Refresh();
     DisplayLevelNotice(levelNumber);
+    mGame.UpdateAutoPlayMode(mAutoPlay);
 
 }
 void GameView::OnAutoPlayMode(wxCommandEvent& event)
 {
-    mGame.UpdateAutoPlayMode();
+    mAutoPlay = !mAutoPlay;
+    mGame.UpdateAutoPlayMode(mAutoPlay);
 }
 

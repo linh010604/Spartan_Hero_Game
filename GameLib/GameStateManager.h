@@ -17,8 +17,8 @@ class GameStateManager
 private:
     Game* mGame;
     int mScore=0;
-    int mCurrentMeasure;
-    int mCurrentBeat;
+    int mCurrentMeasure = 0 ;
+    int mCurrentBeat = 0;
 
 public:
     GameStateManager(Game* game);

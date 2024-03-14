@@ -29,6 +29,8 @@ public:
 
     int GetTrack() const {return mTrack;}
 
+    double GetTolerance() const {return mTolerance;}
+
     /**
      * Draw this item
      * @param gp Device context to draw on

@@ -27,7 +27,6 @@ void GameStateManager::UpdateMeasureAndBeat()
 {
     mCurrentMeasure = wxRound(mGame->GetAbsoluteBeat())/mGame->GetBeatsPerMersure();
     mCurrentBeat = wxRound(mGame->GetAbsoluteBeat()) - mCurrentMeasure * mGame->GetBeatsPerMersure()+1;
-
 }
 
 void GameStateManager::SetDurationBonus(float duration)

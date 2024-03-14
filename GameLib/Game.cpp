@@ -19,12 +19,10 @@
 #include "Sound.h"
 #include "ItemVisitor.h"
 #include "ItemSoundBoardVisitor.h"
-#include "DeclarationVisitor.h"
+#include "LevelLoader.h"
 #include "DeclarationNoteVisitor.h"
 
 #include <memory>
-#include <thread>
-#include <chrono>
 
 using namespace std;
 
@@ -36,7 +34,6 @@ double const SecondsPerMinute = 60;
 double const StartingBeat = 4;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
-    mGameStateManager = make_shared<GameStateManager>(this);
 }
 
 std::shared_ptr<GameStateManager> Game::GetGameStateManager() {
@@ -61,14 +58,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     mXOffset = (width - virtualWidth * mScale) / 2.0;
     // Creates offset for Y
     mYOffset = (height - virtualHeight * mScale) > 0 ? (height - virtualHeight * mScale) / 2.0 : 0;
-
-    wxImage puckImage(L"images/puck-a.png", wxBITMAP_TYPE_ANY); // Adjust path as necessary
-    if (puckImage.IsOk()) {
-        wxBitmap puckBitmap(puckImage);
-        double puckX = 3000; // Example X position
-        double puckY = 3000; // Example Y position
-        graphics->DrawBitmap(puckBitmap, puckX, puckY, puckBitmap.GetWidth(), puckBitmap.GetHeight());
-    }
 
     // Saves current state of graphics
     graphics->PushState();
@@ -155,7 +144,7 @@ void Game::Load(const wxString &filename)
         else if (name == L"music")
         {
             child->GetAttribute("beats-per-minute","0").ToDouble(&mBeatsPerMinute);
-            child->GetAttribute("beats-per-measure","0").ToDouble(&mBeatsPerMeasure);
+            child->GetAttribute("beats-per-measure","0").ToInt(&mBeatsPerMeasure);
             child->GetAttribute("measures","0").ToDouble(&mMeasure);
             mBacking = child->GetAttribute("backing","").ToStdWstring();
             auto node = child->GetChildren();
@@ -168,6 +157,8 @@ void Game::Load(const wxString &filename)
         }
 
     }
+
+    mGameStateManager = make_shared<GameStateManager>(this);
 
     for (auto declaration: mDeclarationNote)
     {
@@ -200,16 +191,13 @@ void Game::Update(double elapsed)
     if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
     double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
     mTimeOnTrack = mBeatsPerMeasure/beatsPerSecond;
-
+    mGameStateManager->UpdateMeasureAndBeat();
     GameUpdate();
 
     for (auto music:mMusic){
         music->Update(elapsed, mTimeOnTrack);
     }
-    mGameStateManager->UpdateMeasureAndBeat();
 }
-
-
 
 
 /**
@@ -355,9 +343,16 @@ void Game::XmlAudio(wxXmlNode *node)
  * Handle a key press event
  * @param key The key was pressed
  */
-void Game::PressKey(wxChar key, double elapsed)
+void Game::PressKey(wxChar key)
 {
-
+    if (!mAutoPlay){
+        for (auto note: mMusic){
+            if (note->GetKey()->GetKey() == key){
+                if(!note->PlayMannualMusic())
+                    break;
+            }
+        }
+    }
 }
 
 /**
@@ -392,9 +387,10 @@ void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
         music->Draw(gc);
     }
 }
+
 void Game::GameUpdate()
 {
-    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+1) * 4){
+    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+1) * mBeatsPerMeasure){
         mState = GameState::Closing;
         mTimePLaying = 0;
         mAudio[0]->PlayEnd();
@@ -428,8 +424,29 @@ void Game::MergeSoundToNote()
         }
     }
 }
-void Game::UpdateAutoPlayMode()
+
+void Game::UpdateAutoPlayMode(bool autoplay)
 {
-    mAutoPlay = !mAutoPlay;
+    mAutoPlay = autoplay;
+}
+
+void Game::KeyUp(wxChar key)
+{
+    if (!mAutoPlay){
+        for (auto note: mMusic){
+            if (note->GetKey()->GetKey() == key){
+                if(!note->KeyUp())
+                    break;
+            }
+        }
+    }
+}
+
+void Game::AutoplayMusic()
+{
+    if (mAutoPlay)
+        for (auto music:mMusic){
+            music->PlayAutoMusic();
+        }
 }
 

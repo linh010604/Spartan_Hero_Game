@@ -37,6 +37,10 @@ private:
     wxStopWatch mLevelNoticeStopWatch;
     int mCurrentLevel = 1;
 
+    bool mDisplayCountDown = false;
+
+    bool mAutoPlay = false; ///< Autoplay mode of the game
+
 public:
 
     /**

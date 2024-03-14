@@ -93,7 +93,7 @@ private:
     std::vector<std::shared_ptr<Sound>> mAudio;
 
     /// beats per measure in this level
-    double mBeatsPerMeasure = 0;
+    int mBeatsPerMeasure = 0;
 
     /// beats per minutes in this level
     double mBeatsPerMinute = 0;
@@ -114,9 +114,13 @@ private:
 
     double mTimeOnTrack; ///< time on track
 
-    bool mBackPlaying = false;
+    bool mBackPlaying = false; ///< Check if the background is played or not
 
     bool mAutoPlay = false; ///< Autoplay mode of the game
+
+    int mNumberOfPlayedNote = 0; ///<The number of note have been played
+
+    int mTotalNote = 0 ;///< Total notes have been pass
 
     std::shared_ptr<GameStateManager> mGameStateManager;
 
@@ -202,6 +206,10 @@ public:
      */
     size_t GetDeclarationSize() const {return mDeclarations.size();}
 
+    int GetPlayedNote() const {return mNumberOfPlayedNote ; }
+
+    int GetTotalNote() const {return mTotalNote ;}
+
     /**
      * Game Constructor
      * @param PEngine The audio engine for miniaudio
@@ -278,7 +286,9 @@ public:
 
     void XmlAudio(wxXmlNode *node);
 
-    void PressKey(wxChar key, double elapsed);
+    void PressKey(wxChar key);
+
+    void KeyUp(wxChar key);
 
     void Update(double elapsed);
 
@@ -298,7 +308,13 @@ public:
 
     void GameUpdate();
 
-    void UpdateAutoPlayMode();
+    void UpdateAutoPlayMode(bool autoplay);
+
+    void UpdatePlayedNote(){mNumberOfPlayedNote+=1;}
+
+    void UpdateTotalNote(){mTotalNote+=1;}
+
+    void AutoplayMusic();
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H

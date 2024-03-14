@@ -118,6 +118,8 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
                 shiftX2 += 2*x2Space;
             }
 
+            gp->SetPen(linePen);
+
             gp->StrokeLine(x1InitLeftTrack + shiftX1,
                            y1Track,
                            x2InitLeftTrack + shiftX2,

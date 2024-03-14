@@ -55,6 +55,16 @@ void Music::XmlLoad(wxXmlNode *node)
 
 void Music::Draw(std::shared_ptr<wxGraphicsContext> gp)
 {
+    if (mFirstUpdate && mAudio->GetLong() &&  mLongY < mKey->GetY2() ){
+        wxPen longDurationPen(*wxRED, LongDurationLineWidth);
+        gp->SetPen(longDurationPen);
+        if( mY < mKey->GetY2()){
+            gp->StrokeLine(mLongX, mLongY, mX, mY);
+        }
+        else{
+            gp->StrokeLine(mLongX, mLongY, mKey->GetX2(), mKey->GetY2());
+        }
+    }
 
     if (mFirstUpdate && mY < mKey->GetY2()){
         mDeclaration->Update(mY/mKey->GetY2());
@@ -121,7 +131,7 @@ void Music::Update(double elapsed, double timeOnTrack)
     else if (mContinueDurationLine && mAudio->GetLong()){
         if(mLongY - mKey->GetY2() > 0){
             mContinueDurationLine = false;
-//          note->GetGame()->AddScore(MaxDurationBonus);
+            //note->GetGame()->AddScore(MaxDurationBonus);
         }
         else //stop drawing line once top of line gets to key
         {
@@ -150,7 +160,7 @@ void Music::PlayAutoMusic()
 {
     /// Auto play music (add to different function)
     if (mY!= 0 && mY >= mKey->GetY2() && !mPlayMusic){
-//        if (mStopAtKey){
+        //if (mStopAtKey){
         mPlayMusic = true;
         mBeatPLay = mGame->GetAbsoluteBeat();
         mAudio->LoadSound(mGame->GetAudioEngine());

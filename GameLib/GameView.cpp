@@ -280,6 +280,7 @@ void GameView::Sequence()
     mLevelLoader->Load(filename);
     Refresh();
     DisplayLevelNotice(levelNumber);
+    mGame.UpdateAutoPlayMode(mAutoPlay);
 
 }
 void GameView::OnAutoPlayMode(wxCommandEvent& event)

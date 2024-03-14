@@ -39,6 +39,7 @@ private:
     /// The game
     Game mGame;
 
+
     bool mDisplayLevelNotice = true;
     wxStopWatch mLevelNoticeStopWatch;
     int mCurrentLevel = 1;

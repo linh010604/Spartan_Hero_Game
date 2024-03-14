@@ -106,7 +106,7 @@ public:
      */
     void SetLocation(double x, double y) { mX = x; mY = y; }
 
-    Music(Game *game, const std::shared_ptr<Sound> &audio);
+    Music(Game *game);
 
     /// Default constructor (disabled)
     Music() = delete;

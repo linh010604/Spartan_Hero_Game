@@ -16,7 +16,6 @@ class Item;
 class Declaration;
 class Music;
 class Sound;
-class ItemVisitor;
 
 /**
  * Base class for LevelLoader.
@@ -41,28 +40,13 @@ public:
 
     void Load(const wxString &filename);
 
-    void AddItem(std::shared_ptr<Item> item, std::vector<std::shared_ptr<Item>> &items);
+    void XmlDeclarations(wxXmlNode *node);
 
-    void AddDeclaration(std::shared_ptr<Declaration> declaration,std::vector<std::shared_ptr<Declaration>> &declarations);
+    void XmlItems(wxXmlNode *node);
 
-    void AddMusic(std::shared_ptr<Music> music, std::vector<std::shared_ptr<Music>> &passedMusic);
+    void XmlMusic(wxXmlNode *node);
 
-    void XmlDeclarations(wxXmlNode *node, std::vector<std::shared_ptr<Declaration>> &declarations,
-                         std::vector<std::shared_ptr<Declaration>> &declarationNote);
-
-    void XmlItems(wxXmlNode *node, std::vector<std::shared_ptr<Item>> &items);
-
-    void XmlMusic(wxXmlNode *node, std::vector<std::shared_ptr<Sound>> &audio,
-                  std::vector<std::shared_ptr<Music>> &passedMusic);
-
-    void XmlAudio(wxXmlNode *node, std::vector<std::shared_ptr<Sound>> &audio);
-
-    void AcceptItem(ItemVisitor* visitor, std::vector<std::shared_ptr<Item>> &items);
-
-    void MergeDeclarationToNote(std::vector<std::shared_ptr<Music>> &music,
-                                std::vector<std::shared_ptr<Declaration>> &declarationNote);
-
-    void MergeSoundToNote(std::vector<std::shared_ptr<Music>> &music, std::vector<std::shared_ptr<Sound>> &audio);
+    void XmlAudio(wxXmlNode *node);
 
 };
 

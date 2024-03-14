@@ -30,7 +30,7 @@ Music::~Music()
  * Constructor
  * @param game The game this item is a member of
  */
-Music::Music(Game *game, const std::shared_ptr<Sound> &audio) : mGame(game), mAudio(audio)
+Music::Music(Game *game) : mGame(game)
 {
 }
 

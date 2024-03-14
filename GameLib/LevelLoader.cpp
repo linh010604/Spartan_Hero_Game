@@ -5,8 +5,6 @@
 
 #include "pch.h"
 #include "LevelLoader.h"
-#include "ItemSoundBoardVisitor.h"
-#include "DeclarationNoteVisitor.h"
 #include "Music.h"
 #include "Sound.h"
 #include "DeclarationImage.h"
@@ -17,7 +15,7 @@
 #include "ItemImage.h"
 #include "ItemMeter.h"
 #include "ItemScoreboard.h"
-#include "GameStateManager.h"
+#include "ItemSoundBoard.h"
 
 using namespace std;
 
@@ -33,18 +31,10 @@ void LevelLoader::Load(const wxString &filename)
 {
     double virtualHeight;
     double virtualWidth;
-    std::wstring imagesDirectory;
     double beatsPerMeasure = 0;
     double beatsPerMinute = 0;
-    double absoluteBeat = 0;
     double measure = 0;
     wxString backing = L"BACK";
-    double timePLaying = 0;
-    std::vector<std::shared_ptr<Item>> items;
-    std::vector<std::shared_ptr<Declaration>> declarations;
-    std::vector<std::shared_ptr<Declaration>> declarationNote;
-    std::vector<std::shared_ptr<Music>> music;
-    std::vector<std::shared_ptr<Sound>> audio;
 
     wxXmlDocument xmlDoc;
     if(!xmlDoc.Load(filename))
@@ -53,11 +43,7 @@ void LevelLoader::Load(const wxString &filename)
         return;
     }
 
-    items.clear();
-    declarations.clear();
-    music.clear();
-    declarationNote.clear();
-    audio.clear();
+    mGame->Clear();
 
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
@@ -77,12 +63,12 @@ void LevelLoader::Load(const wxString &filename)
         if(name == L"declarations")
         {
             auto node = child->GetChildren();
-            XmlDeclarations(node, declarations, declarationNote);
+            XmlDeclarations(node);
         }
         else if (name == L"items")
         {
             auto node = child->GetChildren();
-            XmlItems(node, items);
+            XmlItems(node);
         }
         else if (name == L"music")
         {
@@ -91,84 +77,29 @@ void LevelLoader::Load(const wxString &filename)
             child->GetAttribute("measures","0").ToDouble(&measure);
             backing = child->GetAttribute("backing","").ToStdWstring();
             auto node = child->GetChildren();
-            XmlMusic(node, audio, music);
+            XmlMusic(node);
         }
         else if (name == L"audio")
         {
             auto node = child->GetChildren();
-            XmlAudio(node, audio);
+            XmlAudio(node);
         }
 
     }
-    GameStateManager* gameStateManager = new GameStateManager(mGame);
-    for (auto declaration: declarationNote)
-    {
-        DeclarationNoteVisitor declarationVisitor;
-        declaration->Accept(&declarationVisitor);
-        int track = declarationVisitor.GetTrack();
-
-        ItemSoundBoardVisitor visitor(track);
-        AcceptItem(&visitor, items);
-        std::shared_ptr<ItemKey> key = visitor.GetKey();
-        for (auto note: music){
-            if (declaration->GetId() == note->GetId()){
-                note->AddKey(key);
-            }
-        }
-    }
-    MergeDeclarationToNote(music, declarationNote);
-
-    MergeSoundToNote(music, audio);
 
     mGame->SetVirtualWidth(virtualWidth);
     mGame->SetVirtualHeight(virtualHeight);
     mGame->SetBeatsPerMinute(beatsPerMinute);
     mGame->SetBeatsPerMeasure(beatsPerMeasure);
-    mGame->SetAbsoluteBeat(absoluteBeat);
     mGame->SetMeasure(measure);
     mGame->SetBacking(backing);
-    mGame->SetTimePlaying(timePLaying);
-    mGame->SetItems(items);
-    mGame->SetDeclarations(declarations);
-    mGame->SetDeclarationNote(declarationNote);
-    mGame->SetAudio(audio);
-    mGame->SetMusic(music);
-    mGame->SetGameStateManager(gameStateManager);
-}
-
-/**
- * Add an item to the game
- * @param item New item to add
- */
-void LevelLoader::AddItem(std::shared_ptr<Item> item, std::vector<std::shared_ptr<Item>> &items)
-{
-    items.push_back(item);
-}
-
-/**
- * Add a music note to the game
- * @param music New item to add
- */
-void LevelLoader::AddMusic(std::shared_ptr<Music> music, std::vector<std::shared_ptr<Music>> &passedMusic)
-{
-    passedMusic.push_back(music);
-}
-
-/**
- * Add a declaration to the game
- * @param declaration New declaration to add
- */
-void LevelLoader::AddDeclaration(std::shared_ptr<Declaration> declaration,std::vector<std::shared_ptr<Declaration>> &declarations)
-{
-    declarations.push_back(declaration);
 }
 
 /**
  * Handle a node of type item.
  * @param node XML node
  */
-void LevelLoader::XmlDeclarations(wxXmlNode *node, std::vector<std::shared_ptr<Declaration>> &declarations,
-                                  std::vector<std::shared_ptr<Declaration>> &declarationNote)
+void LevelLoader::XmlDeclarations(wxXmlNode *node)
 {
     // A pointer for the declaration we are loading
 
@@ -197,22 +128,24 @@ void LevelLoader::XmlDeclarations(wxXmlNode *node, std::vector<std::shared_ptr<D
         else if(name == L"note")
         {
             declaration = make_shared<DeclarationNote>(mGame);
-            declarationNote.push_back(declaration);
+            mGame->AddDeclarationNote(declaration);
         }
 
         if (declaration != nullptr)
         {
             declaration->XmlLoad(node);
-            AddDeclaration(declaration,declarations);
+            mGame->AddDeclaration(declaration);
         }
     }
+
+
 }
 
 /**
  * Handle a node of type item.
  * @param node XML node
  */
-void LevelLoader::XmlItems(wxXmlNode *node, std::vector<std::shared_ptr<Item>> &items)
+void LevelLoader::XmlItems(wxXmlNode *node)
 {
     // A pointer for the item we are loading
 
@@ -241,7 +174,7 @@ void LevelLoader::XmlItems(wxXmlNode *node, std::vector<std::shared_ptr<Item>> &
         if (item != nullptr)
         {
             item->XmlLoad(node);
-            AddItem(item, items);
+            mGame->AddItem(item);
         }
     }
 }
@@ -250,17 +183,13 @@ void LevelLoader::XmlItems(wxXmlNode *node, std::vector<std::shared_ptr<Item>> &
  * Handle a node of type music.
  * @param node XML node
  */
-void LevelLoader::XmlMusic(wxXmlNode *node, std::vector<std::shared_ptr<Sound>> &audio,
-                           std::vector<std::shared_ptr<Music>> &passedMusic)
+void LevelLoader::XmlMusic(wxXmlNode *node)
 {
     for( *node ; node; node=node->GetNext())
     {
-        if (!audio.empty())
-        {
-            shared_ptr<Music> music = make_shared<Music>(mGame, audio.back());
+            shared_ptr<Music> music = make_shared<Music>(mGame);
             music->XmlLoad(node);
-            AddMusic(music, passedMusic);
-        }
+            mGame->AddMusic(music);
     }
 }
 
@@ -268,52 +197,12 @@ void LevelLoader::XmlMusic(wxXmlNode *node, std::vector<std::shared_ptr<Sound>> 
  * Handle a node of type audio.
  * @param node XML node
  */
-void LevelLoader::XmlAudio(wxXmlNode *node, std::vector<std::shared_ptr<Sound>> &audio)
+void LevelLoader::XmlAudio(wxXmlNode *node)
 {
     for( *node ; node; node=node->GetNext())
     {
         shared_ptr<Sound> sound = make_shared<Sound>(mGame);
         sound->XmlLoad(node);
-        audio.push_back(sound);
-    }
-}
-
-/**
- * Accept a visitor for the collection
- * @param visitor The visitor for the collection
- */
-void LevelLoader::AcceptItem(ItemVisitor *visitor, std::vector<std::shared_ptr<Item>> &items)
-{
-    for (auto item : items)
-    {
-        item->Accept(visitor);
-    }
-}
-
-void LevelLoader::MergeDeclarationToNote(std::vector<std::shared_ptr<Music>> &music,
-                                         std::vector<std::shared_ptr<Declaration>> &declarationNote)
-{
-    for (auto musicNote : music)
-    {
-        for (auto declarationNote : declarationNote)
-        {
-            if (declarationNote->GetId() == musicNote->GetId()) {
-                musicNote->AddDeclaration(declarationNote);
-            }
-        }
-    }
-}
-
-void LevelLoader::MergeSoundToNote(std::vector<std::shared_ptr<Music>> &music,
-                                   std::vector<std::shared_ptr<Sound>> &audio)
-{
-    for (auto musicNote : music)
-    {
-        for (auto audio : audio)
-        {
-            if (audio->GetName() == musicNote->GetSound()) {
-                musicNote->AddSound(audio);
-            }
-        }
+        mGame->AddAudio(sound);
     }
 }

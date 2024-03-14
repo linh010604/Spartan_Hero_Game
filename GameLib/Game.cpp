@@ -166,6 +166,15 @@ void Game::AutoplayMusic()
 }
 
 void Game::KeyUp(wxChar key) {
+    if (!mAutoPlay){
+        for (auto note: mMusic){
+            if (note->GetKey()->GetKey() == key){
+                if(!note->KeyUp())
+                    break;
+            }
+        }
+    }
+
 
 }
 

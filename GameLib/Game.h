@@ -360,4 +360,3 @@ public:
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H
-

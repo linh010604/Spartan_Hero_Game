@@ -163,7 +163,11 @@ void GameView::OnPaint(wxPaintEvent& event)
         }
 
         else {
+
+
+
             wxString noticeText = wxString::Format("Welcome to the Carnival!");
+
 
             // Decrease the font size here
             int smallerFontSize = NoticeSize - 20; // Adjust the value to make the font smaller as needed
@@ -209,10 +213,13 @@ void GameView::OnPaint(wxPaintEvent& event)
 
                 gc->DrawText(noticeText, xPos, yPos);
 
+
+
             }
 
             else
             {
+
                 wxString noticeText = wxString::Format("Hope You Had Fun!");
                 wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
                 gc->SetFont(font, LevelNoticeColor);
@@ -226,6 +233,34 @@ void GameView::OnPaint(wxPaintEvent& event)
                 double yPos = (mGame.GetHeight() - textHeight) / 2;
 
                 gc->DrawText(noticeText, xPos, yPos);
+
+                // Load and display the image
+                wxImage onestarimage(wxT("images/onestar.png"));
+                wxImage twostarimage(wxT("images/twostar.png"));
+                wxImage threestarimage(wxT("images/twostar.png"));
+
+                if (onestarimage.IsOk()) {
+                    wxBitmap bitmap(onestarimage);
+                    if (bitmap.IsOk()) {
+                        // Determine the new size
+                        double scaleFactor = 0.25; // Scale the image to .25% of its original size
+                        int newWidth = bitmap.GetWidth() * scaleFactor;
+                        int newHeight = bitmap.GetHeight() * scaleFactor;
+
+                        // Calculate the position to keep the image horizontally centered but at the top vertically
+                        int imageX = (mGame.GetWidth() - newWidth) / 2;
+                        int topMargin = 10;  // You can adjust this value to increase or decrease the top margin
+                        int imageY = topMargin;  // Set imageY to a small value or zero to place it at the top
+
+
+                        // Draw the bitmap scaled
+                        gc->DrawBitmap(bitmap, imageX, imageY, newWidth, newHeight);
+                    } else {
+                        wxLogError("Failed to create a bitmap from the image.");
+                    }
+                } else {
+                    wxLogError("Failed to load the image file.");
+                }
 
 
             }

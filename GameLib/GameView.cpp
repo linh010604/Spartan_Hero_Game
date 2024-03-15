@@ -166,7 +166,7 @@ void GameView::OnPaint(wxPaintEvent& event)
             wxString noticeText = wxString::Format("Welcome to the Carnival!");
 
             // Decrease the font size here
-            int smallerFontSize = NoticeSize - 5; // Adjust the value to make the font smaller as needed
+            int smallerFontSize = NoticeSize - 20; // Adjust the value to make the font smaller as needed
 
             wxFont font(smallerFontSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
             gc->SetFont(font, LevelNoticeColor);
@@ -194,7 +194,6 @@ void GameView::OnPaint(wxPaintEvent& event)
 
             if (mCurrentLevel != 3)
             {
-
 
                 wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
                 wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);

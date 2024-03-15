@@ -43,6 +43,9 @@
 	</audio>
 	<declarations>
 		<image id="i600" size="1304,900" image="background2.png" />
+		<image id="i601" size="247,409" image="carnival1.png" />
+		<image id="i603" size="247,409" image="carnival2.png" />
+
 
 		<sound-board id="i622" size="726,545" size-beats="4" top-width="300" image="sound-board.png" cover="sound-board-cover.png" />
 		<score-board id="i871" size="200,136" image="score-board.png" />
@@ -58,6 +61,9 @@
 	</declarations>
 	<items>
 		<image id="i600" p="652,450"/>
+		<image id="i601" p="247,750"/>
+		<image id="i603" p="1100,700"/>
+
 		<sound-board id="i622" p="652,465">
 			<track track="1" key-image="key-a.png" key-size="88,66" key="A" />
 			<track track="2" key-image="key-s.png" key-size="88,66" key="S" />

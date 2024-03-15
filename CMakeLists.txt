@@ -34,6 +34,9 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/levels/
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/levels/)
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/audio/
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/audio/)
+
 # Fetch miniaudio from GitHub
 include(FetchContent)
 FetchContent_Declare(

@@ -22,8 +22,13 @@ class Game;
 class Music
 {
 private:
+    /// The puck matches with this music note
     std::shared_ptr<Declaration> mDeclaration;
+
+    /// The key match with this music note
     std::shared_ptr<ItemKey> mKey;
+
+    /// The sound match with this music note
     std::shared_ptr<Sound> mAudio;
 
     /// The game this item is contained in
@@ -50,12 +55,6 @@ private:
 
 public:
     ~Music();
-
-    /**
-     * Get the pointer to the Level object
-     * @return Pointer to Level object
-     */
-    Game *GetGame() { return mGame;}
 
     /**
      * The X location of the item
@@ -120,6 +119,10 @@ public:
 
     void XmlLoad(wxXmlNode *node);
 
+    /**
+     * Add the match puck with the sound
+     * @param declaration the puck
+     */
     void AddDeclaration(const std::shared_ptr<Declaration>& declaration) {mDeclaration = declaration;}
 
     void AddSound(const std::shared_ptr<Sound>& sound) {mAudio = sound;}
@@ -134,7 +137,7 @@ public:
 
     void PlayAutoMusic();
 
-    bool PlayMannualMusic();
+    bool PlayManualMusic();
 
 };
 

@@ -68,7 +68,8 @@ void GameView::Initialize(wxFrame *mainFrame) {
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnAutoPlayMode, this, IDM_AUTOPLAY);
 
-    mGame.Load(L"levels/level1.xml");
+
+    mGame.Load( wxString::Format("levels/level%d.xml", mCurrentLevel));
     Refresh();
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
@@ -208,6 +209,10 @@ void GameView::OnPaint(wxPaintEvent& event)
 
 }
 
+/**
+ * CHeck if we should display welcome notice for each level
+ * @param level current level
+ */
 void GameView::DisplayLevelNotice(int level) {
     mCurrentLevel = level;
     mDisplayLevelNotice = true;
@@ -259,10 +264,6 @@ void GameView::OnLevelOption(wxCommandEvent& event)
 void GameView::OnKeyDown(wxKeyEvent& event)
 {
     wxChar key = event.GetKeyCode();
-    // A = 65, S = 83, D = 68, F = 70
-    // J = 74, K = 75, L = 76, ; = 59
-    // Compute the time that has elapsed
-    // since the last call to OnPaint.
     mGame.PressKey(key);
 
 }
@@ -274,10 +275,6 @@ void GameView::OnKeyDown(wxKeyEvent& event)
 void GameView::OnKeyUp(wxKeyEvent& event)
 {
     wxChar key = event.GetKeyCode();
-    // A = 65, S = 83, D = 68, F = 70
-    // J = 74, K = 75, L = 76, ; = 59
-    // Compute the time that has elapsed
-    // since the last call to OnPaint.
     mGame.KeyUp(key);
 }
 
@@ -290,43 +287,39 @@ void GameView::OnTimer(wxTimerEvent& event)
     Refresh();
 }
 
+/**
+ * Handle sequencing when each level complete
+ */
 void GameView::Sequence()
 {
-    wxString filename;
-    int levelNumber = 0;
-    switch(mCurrentLevel) {
-        case 0:
-            filename = L"levels/level0.xml";
-            levelNumber = 0;
-            break;
-        case 1:
-            filename = L"levels/level1.xml";
-            levelNumber = 1;
-            break;
-        case 2:
-            filename = L"levels/level2.xml";
-            levelNumber = 2;
-            break;
-        case 3:
-            filename = L"levels/level3.xml";
-            levelNumber = 3;
-            break;
-    }
-
-    mStopWatch.Start();
-    mTime = 0;
     mGame = Game(mAudioEngine);
-    mGame.Load(filename);
-    Refresh();
-    DisplayLevelNotice(levelNumber);
+    mGame.Load( wxString::Format("levels/level%d.xml", mCurrentLevel));
     mGame.UpdateAutoPlayMode(mAutoPlay);
+    Refresh();
+    mTime = 0;
+    mDisplayLevelNotice = true;
+    mClosingTime = 0;
+    mTimer.SetOwner(this);
+    mTimer.Start(FrameDuration);
+    mStopWatch.Start();
+    DisplayLevelNotice(mCurrentLevel);
 
 }
+
+/**
+ * Handle the autoplay mode
+ * @param event Command event
+ */
 void GameView::OnAutoPlayMode(wxCommandEvent& event)
 {
     mAutoPlay = !mAutoPlay;
     mGame.UpdateAutoPlayMode(mAutoPlay);
 }
+
+/**
+ * Draw the star at the end of level to show playing progress
+ * @param gc A shared pointer to a wxGraphicsContext object used for drawing.
+ */
 void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
 {
     double realScore = mGame.GetGameStateManager()->GetScore();

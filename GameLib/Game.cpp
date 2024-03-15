@@ -204,7 +204,7 @@ void Game::PressKey(wxChar key)
     if (!mAutoPlay){
         for (auto note: mMusic){
             if (note->GetKey()->GetKey() == key){
-                if(!note->PlayMannualMusic())
+                if(!note->PlayManualMusic())
                     break;
             }
         }

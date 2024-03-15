@@ -53,6 +53,10 @@ void Music::XmlLoad(wxXmlNode *node)
 
 }
 
+/**
+ * Draw the music note and duration line on track
+ * @param gp A shared pointer to a wxGraphicsContext object used for drawing.
+ */
 void Music::Draw(std::shared_ptr<wxGraphicsContext> gp)
 {
     if (mFirstUpdate && mAudio->GetLong() &&  mLongY < mKey->GetY2() ){
@@ -80,6 +84,12 @@ void Music::Draw(std::shared_ptr<wxGraphicsContext> gp)
     }
 
 }
+
+/**
+ * Update location of the music note
+ * @param elapsed The time since the last update
+ * @param timeOnTrack Total time appear on track
+ */
 void Music::Update(double elapsed, double timeOnTrack)
 {
     if (mGame->GetAutopPlayState()){
@@ -176,7 +186,12 @@ void Music::PlayAutoMusic()
         mBeatPLay = 0;
     }
 }
-bool Music::PlayMannualMusic()
+
+/**
+ * Playing sound when the game in manual mode
+ * @return mPlayMusic check if the sound is played or not
+ */
+bool Music::PlayManualMusic()
 {
 
     DeclarationNoteVisitor declarationVisitor;
@@ -203,6 +218,11 @@ bool Music::PlayMannualMusic()
 
     return mPlayMusic;
 }
+
+/**
+ * Stop music when key up
+ * @return mPlayMusic check if the note is played or not
+ */
 bool Music::KeyUp()
 {
     if (mBeatPLay != 0 && mPlayMusic){

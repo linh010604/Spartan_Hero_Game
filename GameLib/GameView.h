@@ -39,8 +39,6 @@ private:
 
     bool mAutoPlay = false; ///< Autoplay mode of the game
 
-    void GetStarImageBasedOnScore(int score);
-
 public:
 
     /**

@@ -2,7 +2,6 @@
  * @file ItemSoundboard.cpp
  * @author Nicolas Roberts
  * @author Linh Nguyen
- *
  */
 
 #include "pch.h"
@@ -45,8 +44,6 @@ const double KeyRow = 0.85;
  */
 ItemSoundboard::ItemSoundboard(Game *game) : Item(game)
 {
-    //initialize Image info here
-
 }
 
 
@@ -76,6 +73,12 @@ void ItemSoundboard::XmlLoad(wxXmlNode *node)
     }
 }
 
+/**
+ *
+ * @param gp
+ * @param soundboard
+ * @param beforeSoundboard
+ */
 void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard)
 {
     int tracksCount = mKeys.size();
@@ -144,6 +147,11 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
 
 }
 
+/**
+ *
+ * @param track
+ * @return
+ */
 std::shared_ptr<ItemKey> ItemSoundboard::SearchKey(int track)
 {
     for (auto key : mKeys)

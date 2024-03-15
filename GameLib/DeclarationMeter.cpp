@@ -17,7 +17,6 @@ const double MaxNeedleRotation = 0.9;
 /// as a percentage of the height of the image.
 const double NeedlePivotYOffset = 0.80;
 
-
 using namespace std;
 
 /// All images directory
@@ -47,7 +46,22 @@ void DeclarationMeter::XmlLoad(wxXmlNode *node)
     Declaration::XmlLoad(node);
 }
 
-void DeclarationMeter:: Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y, bool before)
+/**
+ * Draw the declaration meter on the graphics context.
+ *
+ * This function draws the declaration meter represented by this instance onto the provided
+ * graphics context at the specified coordinates. The meter consists of a background image,
+ * a needle indicating the current progress, and a cover image. The needle's rotation is
+ * calculated based on the ratio of played notes to total notes, with adjustments made to
+ * ensure the needle remains within predefined bounds. The meter is positioned with its center
+ * at the specified (x, y) coordinates.
+ *
+ * @param gp The shared pointer to the graphics context on which to draw the meter
+ * @param x The x-coordinate where the center of the meter will be positioned
+ * @param y The y-coordinate where the center of the meter will be positioned
+ * @param before A boolean value indicating whether to draw the meter before other elements
+ */
+void DeclarationMeter::Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y, bool before)
 {
     Declaration::Draw(gp, x, y, before);
 
@@ -75,7 +89,6 @@ void DeclarationMeter:: Draw(std::shared_ptr <wxGraphicsContext> gp, double x, d
                        wid, hit);
     }
 
-
     gp->PopState();
 
     gp->DrawBitmap(*mCoverBitmap,
@@ -83,4 +96,3 @@ void DeclarationMeter:: Draw(std::shared_ptr <wxGraphicsContext> gp, double x, d
                    int(y -this->GetHeight() / 2),
                    this->GetWidth(), this->GetHeight());
 }
-

@@ -25,6 +25,7 @@ const int NoticeSize = 100;
 /// Color to draw the level notices
 const auto LevelNoticeColor = wxColour(192, 252, 207);
 
+/// Full points awarded for a correct action.
 const int FullPoint = 10;
 
 /// Frame duration in milliseconds
@@ -46,6 +47,10 @@ wxBEGIN_EVENT_TABLE(GameView, wxWindow)
         EVT_PAINT(GameView::OnPaint)
 wxEND_EVENT_TABLE()
 
+/**
+ * Constructor
+ * @param audioEngine Pointer to the audio engine object.
+ */
 GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine), mAudioEngine(audioEngine)
 {
 }
@@ -85,6 +90,13 @@ void GameView::Initialize(wxFrame *mainFrame)
 
 }
 
+/**
+ * Handles the paint event for the game view.
+ *
+ * This function is responsible for drawing the game scene, including graphics, text, and notices.
+ *
+ * @param event The paint event.
+ */
 void GameView::OnPaint(wxPaintEvent &event)
 {
     // Create a double-buffered display context
@@ -371,4 +383,3 @@ void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
                        starBitmap->GetHeight());
     }
 }
-

@@ -3,6 +3,7 @@
  * @author Angelina Jolie Daoud
  * @author Linh Thao Nguyen
  *
+ * File for Game class
  */
 
 #ifndef PROJECT1_GAMELIB_GAME_H
@@ -16,26 +17,11 @@
 #include "ItemVisitor.h"
 #include "DeclarationVisitor.h"
 #include "GameStateManager.h"
-//#include "Item.h"
 
-/**
- * Allows access to Declaration without creating a circular dependency.
- */
+// Forward references
 class Item;
-
-/**
- * Allows access to Declaration without creating a circular dependency.
- */
 class Declaration;
-
-/**
- * Allows access to Music without creating a circular dependency.
- */
 class Music;
-
-/**
- * Allows access to Audio without creating a circular dependency.
- */
 class Sound;
 
 /**
@@ -288,11 +274,40 @@ public:
 
     void Update(double elapsed);
 
+    /**
+     * Setter for virtualWidth
+     * @param virtualWidth
+     */
     void SetVirtualWidth(double virtualWidth) {mVirtualWidth = virtualWidth;}
+
+    /**
+     * Setter for virtualHeight
+     * @param virtualHeight
+     */
     void SetVirtualHeight(double virtualHeight) {mVirtualHeight = virtualHeight;}
+
+    /**
+     * Setter for beatsPerMinute
+     * @param beatsPerMinute
+     */
     void SetBeatsPerMinute(double beatsPerMinute) {mBeatsPerMinute = beatsPerMinute;}
+
+    /**
+     * Setter for beatsPerMeasure
+     * @param beatsPerMeasure
+     */
     void SetBeatsPerMeasure(int beatsPerMeasure) {mBeatsPerMeasure = beatsPerMeasure;}
+
+    /**
+     * Setter for measure
+     * @param measure
+     */
     void SetMeasure(int measure){mMeasure = measure;}
+
+    /**
+     * Setter for backing
+     * @param backing
+     */
     void SetBacking(wxString backing) {mBacking = backing;}
 
     /**

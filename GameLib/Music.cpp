@@ -175,6 +175,7 @@ void Music::PlayAutoMusic()
         mBeatPLay = 0;
     }
 }
+
 bool Music::PlayMannualMusic()
 {
     double currBeat = mGame->GetAbsoluteBeat();

@@ -1,6 +1,9 @@
-//
-// Created by naodg on 3/6/2024.
-//
+/**
+ * @file DeclarationNote.h
+ * @author Naod Ghebredngl
+ *
+ * File for the Declaration Note Class
+ */
 
 #ifndef PROJECT1_DECLARATIONNOTE_H
 #define PROJECT1_DECLARATIONNOTE_H
@@ -9,9 +12,12 @@
 #include "Game.h"
 #include "ItemKey.h"
 
+/**
+ * Note Class derived from Declaration
+ */
 class DeclarationNote : public Declaration{
 private:
-    int mTrack = 0;
+    int mTrack = 0; ///< Number of tracks
     double mTolerance; ///< Tolerance of the note
 public:
     /// Default constructor (disabled)
@@ -31,13 +37,6 @@ public:
 
     int GetTrack() const {return mTrack;}
 
-
-    /**
-     * Draw this item
-     * @param gp Device context to draw on
-     * @param x X location
-     * @param y Y location
-     */
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
 
     /**

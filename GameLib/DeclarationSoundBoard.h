@@ -1,8 +1,8 @@
 /**
  * @file DeclarationSoundBoard.h
- * @author thaol
+ * @author Linh Nguyen
  *
- *
+ * File for the Declaration Soundboard Class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATIONSOUNDBOARD_H
@@ -11,7 +11,7 @@
 #include "Declaration.h"
 
 /**
- * Class for a Soundboard Declaration
+ * Soundboard Class derived from Declaration
  */
 class DeclarationSoundBoard : public Declaration
 {
@@ -45,12 +45,6 @@ public:
      */
     double GetTopWidth() override {return mTopWidth;}
 
-    /**
-     * Draw this item
-     * @param gp Device context to draw on
-     * @param x X location
-     * @param y Y location
-     */
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
 
     /**

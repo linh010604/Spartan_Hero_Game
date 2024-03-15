@@ -11,9 +11,8 @@
 #include "Declaration.h"
 #include "ItemKey.h"
 #include "Sound.h"
-/**
- * Allows access to Game without creating a circular dependency.
- */
+
+// Forward Reference
 class Game;
 
 /**
@@ -22,9 +21,9 @@ class Game;
 class Music
 {
 private:
-    std::shared_ptr<Declaration> mDeclaration;
-    std::shared_ptr<ItemKey> mKey;
-    std::shared_ptr<Sound> mAudio;
+    std::shared_ptr<Declaration> mDeclaration; ///> Shared pointer to declarations
+    std::shared_ptr<ItemKey> mKey; ///> Shared pointer to item keys
+    std::shared_ptr<Sound> mAudio; ///> Shared pointer to audio sounds
 
     /// The game this item is contained in
     Game   *mGame;

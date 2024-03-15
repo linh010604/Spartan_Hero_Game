@@ -30,7 +30,7 @@ public:
 
     ItemMeter(Game *game);
 
-    // Method to update the meter's value
+    /// Method to update the meter's value
     void UpdateMeter(double value);
 
     /**

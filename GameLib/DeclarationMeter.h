@@ -2,7 +2,7 @@
  * @file DeclarationMeter.h
  * @author thaol
  *
- *
+ * File for the Declaration Meter Class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATIONMETER_H
@@ -12,17 +12,16 @@
 
 /**
  * Meter Class derived from Declaration
- *
  */
 class DeclarationMeter : public Declaration
 {
 private:
-
     /// The bitmap we can display for this image
     std::unique_ptr<wxBitmap> mCoverBitmap;
 
     /// The bitmap we can display for this image
     std::unique_ptr<wxBitmap> mNeedleBitmap;
+
 public:
     /// Default constructor (disabled)
     DeclarationMeter() = delete;

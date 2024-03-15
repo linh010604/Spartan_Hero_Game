@@ -1,15 +1,14 @@
 /**
  * @file DeclarationVisitor.h
- * @author thaol
+ * @author Linh Nguyen
  *
- *
+ * File for the Declaration Visitor Class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATIONVISITOR_H
 #define PROJECT1_GAMELIB_DECLARATIONVISITOR_H
 
 // Forward references to all declarations
-
 class DeclarationSoundBoard;
 class DeclarationImage;
 class DeclarationMeter;
@@ -17,7 +16,7 @@ class DeclarationScoreBoard;
 class DeclarationNote;
 
 /**
- * Item visitor base class
+ * Declaration visitor base class
  */
 class DeclarationVisitor
 {

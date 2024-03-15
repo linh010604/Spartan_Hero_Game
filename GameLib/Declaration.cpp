@@ -1,6 +1,6 @@
 /**
  * @file Declaration.cpp
- * @author thaol
+ * @author Linh Nguyen
  */
 
 #include "pch.h"
@@ -11,14 +11,13 @@ using namespace std;
 
 /// All images directory
 wstring const ImageDir = L"images/";
-//wstring const ExtraImageDir = L"ExtraImages/";
+// wstring const ExtraImageDir = L"ExtraImages/";
 
 /**
  * Destructor
  */
 Declaration::~Declaration()
 {
-
 }
 
 /**
@@ -53,6 +52,20 @@ void Declaration::XmlLoad(wxXmlNode *node)
     sizeString.AfterFirst(',').ToDouble(&mHeight);
 }
 
+/**
+ * Draw the declaration item on the graphics context.
+ *
+ * This function draws the declaration item represented by this instance onto the provided
+ * graphics context at the specified coordinates. The `before` parameter determines whether
+ * the item should be drawn before or after other elements. The item's image is drawn with
+ * scaling applied based on the current scale factor. The center of the item is positioned
+ * at the specified (x, y) coordinates.
+ *
+ * @param gp The shared pointer to the graphics context on which to draw the item
+ * @param x The x-coordinate where the center of the item will be positioned
+ * @param y The y-coordinate where the center of the item will be positioned
+ * @param before A boolean value indicating whether to draw the item before other elements
+ */
 void Declaration::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) {
     gp->DrawBitmap(*mDeclarationBitmap,
                    int(x - mWidth*mScale / 2),

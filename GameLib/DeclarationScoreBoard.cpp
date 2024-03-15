@@ -1,6 +1,6 @@
 /**
  * @file DeclarationScoreBoard.cpp
- * @author thaol
+ * @author Linh Nguyen
  * @author Angelina Jolie Daoud
  */
 
@@ -9,9 +9,7 @@
 #include "DeclarationScoreBoard.h"
 #include "GameStateManager.h"
 
-
 using namespace std;
-
 
 wstring const ImageDir = L"images/";
 
@@ -40,7 +38,19 @@ DeclarationScoreBoard::DeclarationScoreBoard(Game *game): Declaration(game)
 {
 }
 
-
+/**
+ * Draw the declaration scoreboard on the graphics context.
+ *
+ * This function draws the declaration scoreboard represented by this instance onto the provided
+ * graphics context at the specified coordinates. The scoreboard includes the current score, beat,
+ * and readiness state of the game. The text is positioned relative to the specified (x, y)
+ * coordinates, with adjustments made for different states of the game.
+ *
+ * @param gp The shared pointer to the graphics context on which to draw the scoreboard
+ * @param x The x-coordinate where the center of the scoreboard will be positioned
+ * @param y The y-coordinate where the center of the scoreboard will be positioned
+ * @param before A boolean value indicating whether to draw the scoreboard before other elements
+ */
 void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before)
 {
     Declaration::Draw(gp, x, y,before);
@@ -93,8 +103,8 @@ void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x
     }
 
     // Set the font for drawing the score
-//    wxFont scoreFont(wxSize(0,ScoreSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-//    gp->SetFont(scoreFont, *wxBLACK);
+    //    wxFont scoreFont(wxSize(0,ScoreSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+    //    gp->SetFont(scoreFont, *wxBLACK);
 
     //wxString scoreText = wxString::Format("%06d", mScore);
 }

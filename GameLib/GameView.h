@@ -3,6 +3,7 @@
  * @author Angelina Jolie Daoud
  * @author Linh Nguyen
  *
+ * File for the Game View class
  */
 
 #ifndef PROJECT1_GAMELIB_GAMEVIEW_H

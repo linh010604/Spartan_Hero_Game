@@ -283,11 +283,9 @@ void Game::GameUpdate()
                 sound->LoadSound(mAudioEngine);
                 sound->PlaySound();
                 mBackPlaying =! mBackPlaying;
+                break;
             }
         }
-//        mAudio[0]->LoadSound(mAudioEngine);
-//        mAudio[0]->PlaySound();
-//        mBackPlaying =! mBackPlaying;
     }
 
 

@@ -16,6 +16,8 @@
 
 using namespace std;
 
+double TopMargin = 200;
+
 /// Level notices duration in seconds
 const double LevelNoticeDuration = 2.0;
 
@@ -174,6 +176,8 @@ void GameView::OnPaint(wxPaintEvent &event)
                 double xPos = (mGame.GetWidth() - textWidth) / 2;
                 double yPos = (mGame.GetHeight() - textHeight) / 2;
 
+                DisplayStar(gc);
+
                 gc->DrawText(noticeText, xPos, yPos);
 
             }
@@ -192,21 +196,23 @@ void GameView::OnPaint(wxPaintEvent &event)
                 double xPos = (mGame.GetWidth() - textWidth) / 2;
                 double yPos = (mGame.GetHeight() - textHeight) / 2;
 
+                DisplayStar(gc);
+
                 gc->DrawText(noticeText, xPos, yPos);
 
             }
 
         }
-        else if(mStopWatch.Time() - mClosingTime >= 2 * LevelNoticeDuration * 1000)
+        else if(mStopWatch.Time() - mClosingTime >= LevelNoticeDuration * 1000)
         {
             mCurrentLevel = (mCurrentLevel + 1) % 4;
             Sequence();
         }
-        else if(mStopWatch.Time() - mClosingTime < 2 * LevelNoticeDuration * 1000
-            && mStopWatch.Time() - mClosingTime > LevelNoticeDuration * 1000)
-        {
-            DisplayStar(gc);
-        }
+//        else if(mStopWatch.Time() - mClosingTime < 2 * LevelNoticeDuration * 1000
+//            && mStopWatch.Time() - mClosingTime > LevelNoticeDuration * 1000)
+//        {
+//            DisplayStar(gc);
+//        }
 
     }
 
@@ -340,7 +346,7 @@ void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
 
         gc->DrawBitmap(*starBitmap,
                        xPos,
-                       yPos,
+                       yPos - TopMargin,
                        starBitmap->GetWidth(),
                        starBitmap->GetHeight());
     }
@@ -353,7 +359,7 @@ void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
 
         gc->DrawBitmap(*starBitmap,
                        xPos,
-                       yPos,
+                       yPos - TopMargin,
                        starBitmap->GetWidth(),
                        starBitmap->GetHeight());
     }
@@ -366,7 +372,7 @@ void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
 
         gc->DrawBitmap(*starBitmap,
                        xPos,
-                       yPos,
+                       yPos - TopMargin,
                        starBitmap->GetWidth(),
                        starBitmap->GetHeight());
     }

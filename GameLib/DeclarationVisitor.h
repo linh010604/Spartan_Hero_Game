@@ -34,31 +34,31 @@ public:
      * Visit a ItemSoundboard object
      * @param soundboard Soundboard we are visiting
      */
-    virtual void VisitDeclarationSoundBoard(DeclarationSoundBoard* soundboard) {}
+    virtual void VisitDeclarationSoundBoard(DeclarationSoundBoard *soundboard) {}
 
     /**
      * Visit a ItemScoreboard object
      * @param scoreboard Soundboard we are visiting
      */
-    virtual void VisitDeclarationScoreBoard(DeclarationScoreBoard* scoreboard) {}
+    virtual void VisitDeclarationScoreBoard(DeclarationScoreBoard *scoreboard) {}
 
     /**
      * Visit a ItemSoundboard object
      * @param soundboard Soundboard we are visiting
      */
-    virtual void VisitDeclarationImage(DeclarationImage* image) {}
+    virtual void VisitDeclarationImage(DeclarationImage *image) {}
 
     /**
      * Visit a ItemSoundboard object
      * @param soundboard Soundboard we are visiting
      */
-    virtual void VisitDeclarationMeter(DeclarationMeter* meter) {}
+    virtual void VisitDeclarationMeter(DeclarationMeter *meter) {}
 
     /**
      * Visit a ItemSoundboard object
      * @param soundboard Soundboard we are visiting
      */
-    virtual void VisitDeclarationNote(DeclarationNote* note) {}
+    virtual void VisitDeclarationNote(DeclarationNote *note) {}
 
 };
 

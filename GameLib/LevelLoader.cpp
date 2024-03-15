@@ -29,6 +29,13 @@ LevelLoader::LevelLoader(Game *game) : mGame(game)
 {
 }
 
+/**
+ * Load the game level from a .level XML file.
+ *
+ * Opens the XML file and reads the nodes, creating items as appropriate.
+ *
+ * @param filename The filename of the file to load the game from.
+ */
 void LevelLoader::Load(const wxString &filename)
 {
     double virtualHeight;
@@ -98,7 +105,7 @@ void LevelLoader::Load(const wxString &filename)
 }
 
 /**
- * Handle a node of type item.
+ * Handle a node of type declaration.
  * @param node XML node
  */
 void LevelLoader::XmlDeclarations(wxXmlNode *node)

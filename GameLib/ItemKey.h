@@ -25,7 +25,7 @@ class ItemSoundboard;
 class ItemKey {
 private:
 
-    // The soundboard this track is contained in
+    /// The soundboard this track is contained in
     ItemSoundboard  *mItemSoundBoard;
 
     /// The track number
@@ -38,10 +38,10 @@ private:
     double mWidth = 0;  ///< Width of the key
     double mHeight = 0; ///< Length of the key
     // Item location in the game
-    double  mX2 = 0;     ///< X location for the center of the item
-    double  mY2 = 0;     ///< Y location for the center of the item
-    double  mX1 = 0;
-    double  mY1 = 0;
+    double  mX2 = 0;    ///< X2 location for the track line
+    double  mY2 = 0;    ///< Y2 location for the track line
+    double  mX1 = 0;    ///< X1 location from the center of the key
+    double  mY1 = 0;    ///< Y1 location from the center of the key
 
 public:
     /// Default constructor (disabled)
@@ -95,6 +95,13 @@ public:
      */
     int GetTrack() const {return mTrack;}
 
+    /**
+     * Set location of track line and key
+     * @param x1
+     * @param x2
+     * @param y1
+     * @param y2
+     */
     void SetLocation(double x1, double x2, double y1,double y2);
 
 };

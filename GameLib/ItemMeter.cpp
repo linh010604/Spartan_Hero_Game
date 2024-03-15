@@ -12,13 +12,4 @@
  */
 ItemMeter::ItemMeter(Game *game) : Item(game)
 {
-    //initialize Image info here
-
-}
-
-
-void ItemMeter::UpdateMeter(double value)
-{
-    mCurrentMeterValue = value;
-
 }

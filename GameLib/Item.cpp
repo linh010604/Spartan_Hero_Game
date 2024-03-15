@@ -47,6 +47,7 @@ void Item::XmlLoad(wxXmlNode *node)
  * Draw this item
  * @param gp Device context to draw on
  * @param declaration The corresponding declaration
+ * @param beforeSoundboard Check if this item is draw above or below
  */
 void Item::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration, bool beforeSoundboard)
 {

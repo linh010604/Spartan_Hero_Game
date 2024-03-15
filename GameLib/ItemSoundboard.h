@@ -18,11 +18,6 @@
 class ItemKey;
 
 /**
- * Allows access to ItemTrackLine without creating circular dependency.
- */
-class ItemTrackLine;
-
-/**
  * Class for a Soundboard Item
  */
 class ItemSoundboard : public Item
@@ -52,8 +47,6 @@ public:
     void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard) override;
 
     std::shared_ptr<ItemKey> SearchKey(int track) ;
-
-    void DrawRedLines(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, double puckX, double puckY);
 
     /**
      * Accept a visitor

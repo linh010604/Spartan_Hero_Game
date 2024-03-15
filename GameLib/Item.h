@@ -19,18 +19,18 @@ class Game;
 /**
  * Base class for any item in our game.
  */
-class Item {
+class Item
+{
 private:
 
-
     /// The game this item is contained in
-    Game   *mGame;
+    Game *mGame;
 
     // Item location in the game
-    double  mX = 0;     ///< X location for the center of the item
-    double  mY = 0;     ///< Y location for the center of the item
+    double mX = 0;     ///< X location for the center of the item
+    double mY = 0;     ///< Y location for the center of the item
 
-    wxString  mId = L"";  ///< Id of the declaration
+    wxString mId = L"";  ///< Id of the declaration
 
 
 protected:
@@ -60,14 +60,18 @@ public:
      * Get the pointer to the Game object
      * @return Pointer to Game object
      */
-    Game *GetGame() { return mGame;  }
+    Game *GetGame() { return mGame; }
 
     /**
      * Set the item location
      * @param x X location in pixels
      * @param y Y location in pixels
      */
-    virtual void SetLocation(double x, double y) { mX = x; mY = y; }
+    virtual void SetLocation(double x, double y)
+    {
+        mX = x;
+        mY = y;
+    }
 
     /// Default constructor (disabled)
     Item() = delete;
@@ -80,20 +84,20 @@ public:
 
     virtual void XmlLoad(wxXmlNode *node);
 
-    virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration, bool beforeSoundboard);
+    virtual void Draw(std::shared_ptr<wxGraphicsContext> gp,
+                      std::shared_ptr<Declaration> declaration,
+                      bool beforeSoundboard);
 
     /**
     * Accept a visitor
      * @param visitor The visitor we accept
      */
-    virtual void Accept(ItemVisitor* visitor) = 0;
+    virtual void Accept(ItemVisitor *visitor) = 0;
 
     ///  Handle updates for animation
     /// @param elapsed The time since the last update
     virtual void Update(double elapsed) {}
 
 };
-
-
 
 #endif //PROJECT1_ITEM_H

@@ -45,8 +45,6 @@ const double KeyRow = 0.85;
  */
 ItemSoundboard::ItemSoundboard(Game *game) : Item(game)
 {
-    //initialize Image info here
-
 }
 
 
@@ -76,6 +74,12 @@ void ItemSoundboard::XmlLoad(wxXmlNode *node)
     }
 }
 
+/**
+ * Draw the track line and keys
+ * @param gp A shared pointer to a wxGraphicsContext object used for drawing.
+ * @param soundboard item soundboard with location of the track
+ * @param beforeSoundboard check if this function is draw on top or bottom
+ */
 void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard)
 {
     int tracksCount = mKeys.size();
@@ -143,6 +147,11 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
 
 }
 
+/**
+ * Find the key of the given track
+ * @param track the given track
+ * @return key having the same track
+ */
 std::shared_ptr<ItemKey> ItemSoundboard::SearchKey(int track)
 {
     for (auto key : mKeys)
@@ -154,12 +163,4 @@ std::shared_ptr<ItemKey> ItemSoundboard::SearchKey(int track)
     }
 
     return nullptr;
-//    for (auto line : mTracks)
-//    {
-//
-//        if (line->GetTrack() == note->GetTrack())
-//        {
-//            note->SetLocation(line->GetX1(), line->GetX2(), line->GetY1(), line->GetY2());
-//        }
-//    }
 }

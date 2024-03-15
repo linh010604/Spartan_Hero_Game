@@ -20,6 +20,7 @@ private:
     /// The timer that allows for animation
     wxTimer mTimer;
 
+    /// The audio engine for miniaudio
     ma_engine *mAudioEngine;
 
     /// Stopwatch used to measure elapsed time
@@ -28,14 +29,16 @@ private:
     /// The last stopwatch time
     long mTime = 0;
 
-    long mClosingTime = 0 ;
+    long mClosingTime = 0 ; ///< The time displaying closing message
 
     /// The game
     Game mGame;
 
-    bool mDisplayLevelNotice = true;
-    wxStopWatch mLevelNoticeStopWatch;
-    int mCurrentLevel = 1;
+    bool mDisplayLevelNotice = true; ///< bool checking if the notice has been display
+
+    wxStopWatch mLevelNoticeStopWatch; ///< Stopwatch used to get time for Notice display
+
+    int mCurrentLevel = 1; ///< Current level of the game
 
     bool mAutoPlay = false; ///< Autoplay mode of the game
 

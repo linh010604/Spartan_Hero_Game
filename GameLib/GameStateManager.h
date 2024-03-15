@@ -18,16 +18,23 @@ class Game;
 class GameStateManager
 {
 private:
-    Game* mGame;
-    int mScore=0;
-    int mCurrentMeasure = 0 ;
+
+    /// The game this class mange score
+    Game *mGame;
+
+    /// Current score of the game
+    int mScore = 0;
+
+    /// Current measure og the game
+    int mCurrentMeasure = 0;
+
+    /// Current beat of the game
     int mCurrentBeat = 0;
 
 public:
-    GameStateManager(Game* game);
+    GameStateManager(Game *game);
 
     ~GameStateManager();
-
 
     void UpdateScore(int points);
     void SetDurationBonus(float duration);

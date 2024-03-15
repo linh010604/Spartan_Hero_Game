@@ -40,16 +40,16 @@ public:
     virtual void VisitItemScoreboard(ItemScoreboard* scoreboard) {}
 
     /**
-     * Visit a ItemSoundboard object
-     * @param soundboard Soundboard we are visiting
+     * Visit a ItemImage object
+     * @param image Image we are visiting
      */
     virtual void VisitItemImage(ItemImage* image) {}
 
     /**
-     * Visit a ItemSoundboard object
-     * @param soundboard Soundboard we are visiting
+     * Visit a ItemMeter object
+     * @param meter Meter we are visiting
      */
-    virtual void VisitItemMeter(ItemMeter* image) {}
+    virtual void VisitItemMeter(ItemMeter* meter) {}
 
 };
 

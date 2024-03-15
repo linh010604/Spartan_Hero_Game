@@ -28,7 +28,7 @@ file(COPY ${spartanhero-resources_SOURCE_DIR}/resources/
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/images/)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/stars/
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/stars/)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/levels/

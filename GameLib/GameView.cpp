@@ -5,7 +5,6 @@
  */
 
 #include "pch.h"
-
 #include "GameView.h"
 #include "Sound.h"
 #include "ids.h"
@@ -16,7 +15,6 @@
 #include <thread>
 
 using namespace std;
-
 
 /// Level notices duration in seconds
 const double LevelNoticeDuration = 2.0;
@@ -32,10 +30,13 @@ const int FullPoint = 10;
 /// Frame duration in milliseconds
 const int FrameDuration = 30;
 
+/// Filename for 3 stars image
 const wstring threestars = L"stars/threestar.png";
 
+/// Filename for 2 stars image
 const wstring twostars = L"stars/twostar.png";
 
+/// Filename for 1 star image
 const wstring onestar = L"stars/onestar.png";
 
 /**
@@ -53,7 +54,8 @@ GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine), mAudioEngine(au
  * Initialize the game view class.
  * @param mainFrame The parent window for this class
  */
-void GameView::Initialize(wxFrame *mainFrame) {
+void GameView::Initialize(wxFrame *mainFrame)
+{
     Create(mainFrame, wxID_ANY);
 
     // Allows ability to paint on background
@@ -68,8 +70,7 @@ void GameView::Initialize(wxFrame *mainFrame) {
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLevelOption, this, IDM_LEVEL3);
     mainFrame->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnAutoPlayMode, this, IDM_AUTOPLAY);
 
-
-    mGame.Load( wxString::Format("levels/level%d.xml", mCurrentLevel));
+    mGame.Load(wxString::Format("levels/level%d.xml", mCurrentLevel));
     Refresh();
 
     Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
@@ -84,7 +85,7 @@ void GameView::Initialize(wxFrame *mainFrame) {
 
 }
 
-void GameView::OnPaint(wxPaintEvent& event)
+void GameView::OnPaint(wxPaintEvent &event)
 {
     // Create a double-buffered display context
     wxAutoBufferedPaintDC dc(this);
@@ -105,8 +106,9 @@ void GameView::OnPaint(wxPaintEvent& event)
     wxRect rect = GetRect();
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 
-    if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
-        if (mCurrentLevel != 3)
+    if(mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000)
+    {
+        if(mCurrentLevel != 3)
         {
 
             wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
@@ -124,7 +126,8 @@ void GameView::OnPaint(wxPaintEvent& event)
             gc->DrawText(noticeText, xPos, yPos);
         }
 
-        else{
+        else
+        {
             wxString noticeText = wxString::Format("     Welcome \n to the Carnival!");
             wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
             gc->SetFont(font, LevelNoticeColor);
@@ -141,16 +144,21 @@ void GameView::OnPaint(wxPaintEvent& event)
 
         }
 
-    } else if (mDisplayLevelNotice){
+    }
+    else if(mDisplayLevelNotice)
+    {
         mDisplayLevelNotice = false;
     }
 
-    if (mGame.GetState() == Game::GameState::Closing){
-        if (mClosingTime == 0){
+    if(mGame.GetState() == Game::GameState::Closing)
+    {
+        if(mClosingTime == 0)
+        {
             mClosingTime = mStopWatch.Time();
         }
-        if ( mStopWatch.Time() - mClosingTime <= LevelNoticeDuration*1000){
-            if (mCurrentLevel != 3)
+        if(mStopWatch.Time() - mClosingTime <= LevelNoticeDuration * 1000)
+        {
+            if(mCurrentLevel != 3)
             {
 
                 wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
@@ -172,7 +180,7 @@ void GameView::OnPaint(wxPaintEvent& event)
             else
             {
                 wxString noticeText = wxString::Format("Hope You Had Fun!");
-                wxFont font(NoticeSize-5, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+                wxFont font(NoticeSize - 5, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
                 gc->SetFont(font, LevelNoticeColor);
 
                 // Measure text size
@@ -185,17 +193,16 @@ void GameView::OnPaint(wxPaintEvent& event)
 
                 gc->DrawText(noticeText, xPos, yPos);
 
-
             }
 
-
         }
-        else if  (mStopWatch.Time() - mClosingTime >= 2*LevelNoticeDuration*1000)
+        else if(mStopWatch.Time() - mClosingTime >= 2 * LevelNoticeDuration * 1000)
         {
             mCurrentLevel = (mCurrentLevel + 1) % 4;
             Sequence();
         }
-        else if (mStopWatch.Time() - mClosingTime < 2*LevelNoticeDuration*1000 && mStopWatch.Time() - mClosingTime > LevelNoticeDuration*1000)
+        else if(mStopWatch.Time() - mClosingTime < 2 * LevelNoticeDuration * 1000
+            && mStopWatch.Time() - mClosingTime > LevelNoticeDuration * 1000)
         {
             DisplayStar(gc);
         }
@@ -213,7 +220,8 @@ void GameView::OnPaint(wxPaintEvent& event)
  * CHeck if we should display welcome notice for each level
  * @param level current level
  */
-void GameView::DisplayLevelNotice(int level) {
+void GameView::DisplayLevelNotice(int level)
+{
     mCurrentLevel = level;
     mDisplayLevelNotice = true;
     mLevelNoticeStopWatch.Start();
@@ -223,26 +231,23 @@ void GameView::DisplayLevelNotice(int level) {
  * Handle level choosing event
  * @param event Command event
  */
-void GameView::OnLevelOption(wxCommandEvent& event)
+void GameView::OnLevelOption(wxCommandEvent &event)
 {
     wxString filename;
     int levelNumber = 0;
 
-    switch(event.GetId()) {
-        case IDM_LEVEL0:
-            filename = L"levels/level0.xml";
+    switch(event.GetId())
+    {
+        case IDM_LEVEL0:filename = L"levels/level0.xml";
             levelNumber = 0;
             break;
-        case IDM_LEVEL1:
-            filename = L"levels/level1.xml";
+        case IDM_LEVEL1:filename = L"levels/level1.xml";
             levelNumber = 1;
             break;
-        case IDM_LEVEL2:
-            filename = L"levels/level2.xml";
+        case IDM_LEVEL2:filename = L"levels/level2.xml";
             levelNumber = 2;
             break;
-        case IDM_LEVEL3:
-            filename = L"levels/level3.xml";
+        case IDM_LEVEL3:filename = L"levels/level3.xml";
             levelNumber = 3;
             break;
     }
@@ -261,7 +266,7 @@ void GameView::OnLevelOption(wxCommandEvent& event)
  * Handle a key press event
  * @param event Keypress event
  */
-void GameView::OnKeyDown(wxKeyEvent& event)
+void GameView::OnKeyDown(wxKeyEvent &event)
 {
     wxChar key = event.GetKeyCode();
     mGame.PressKey(key);
@@ -272,7 +277,7 @@ void GameView::OnKeyDown(wxKeyEvent& event)
  * Handle a key release event
  * @param event ItemTrackLine release event
  */
-void GameView::OnKeyUp(wxKeyEvent& event)
+void GameView::OnKeyUp(wxKeyEvent &event)
 {
     wxChar key = event.GetKeyCode();
     mGame.KeyUp(key);
@@ -282,7 +287,7 @@ void GameView::OnKeyUp(wxKeyEvent& event)
  * Handle timer events
  * @param event timer event
  */
-void GameView::OnTimer(wxTimerEvent& event)
+void GameView::OnTimer(wxTimerEvent &event)
 {
     Refresh();
 }
@@ -293,7 +298,7 @@ void GameView::OnTimer(wxTimerEvent& event)
 void GameView::Sequence()
 {
     mGame = Game(mAudioEngine);
-    mGame.Load( wxString::Format("levels/level%d.xml", mCurrentLevel));
+    mGame.Load(wxString::Format("levels/level%d.xml", mCurrentLevel));
     mGame.UpdateAutoPlayMode(mAutoPlay);
     Refresh();
     mTime = 0;
@@ -310,7 +315,7 @@ void GameView::Sequence()
  * Handle the autoplay mode
  * @param event Command event
  */
-void GameView::OnAutoPlayMode(wxCommandEvent& event)
+void GameView::OnAutoPlayMode(wxCommandEvent &event)
 {
     mAutoPlay = !mAutoPlay;
     mGame.UpdateAutoPlayMode(mAutoPlay);
@@ -323,21 +328,23 @@ void GameView::OnAutoPlayMode(wxCommandEvent& event)
 void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
 {
     double realScore = mGame.GetGameStateManager()->GetScore();
-    double totalScore = (FullPoint*mGame.GetTotalNote());
-    double ratio = realScore/ totalScore;
-    if (ratio >= 0.8){
+    double totalScore = (FullPoint * mGame.GetTotalNote());
+    double ratio = realScore / totalScore;
+    if(ratio >= 0.8)
+    {
         auto starBitmap = make_unique<wxBitmap>(threestars, wxBITMAP_TYPE_ANY);
         // Calculate positions to center the text
         double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
         double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
 
         gc->DrawBitmap(*starBitmap,
-                     xPos,
-                     yPos,
-                     starBitmap->GetWidth(),
-                     starBitmap->GetHeight());
+                       xPos,
+                       yPos,
+                       starBitmap->GetWidth(),
+                       starBitmap->GetHeight());
     }
-    else if (ratio >= 0.5 && ratio < 0.8){
+    else if(ratio >= 0.5 && ratio < 0.8)
+    {
         auto starBitmap = make_unique<wxBitmap>(twostars, wxBITMAP_TYPE_ANY);
         // Calculate positions to center the text
         double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
@@ -348,7 +355,8 @@ void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
                        yPos,
                        starBitmap->GetWidth(),
                        starBitmap->GetHeight());
-    } else
+    }
+    else
     {
         auto starBitmap = make_unique<wxBitmap>(onestar, wxBITMAP_TYPE_ANY);
         // Calculate positions to center the text

@@ -15,9 +15,6 @@
  */
 class ItemMeter : public Item
 {
-
-private:
-    double mCurrentMeterValue = 0;
 public:
     /// Default constructor (disabled)
     ItemMeter() = delete;
@@ -30,15 +27,11 @@ public:
 
     ItemMeter(Game *game);
 
-    // Method to update the meter's value
-    void UpdateMeter(double value);
-
     /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(ItemVisitor* visitor) override { visitor->VisitItemMeter(this); }
-
+    void Accept(ItemVisitor *visitor) override { visitor->VisitItemMeter(this); }
 
 };
 

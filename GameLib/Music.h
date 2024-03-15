@@ -125,8 +125,16 @@ public:
      */
     void AddDeclaration(const std::shared_ptr<Declaration>& declaration) {mDeclaration = declaration;}
 
+    /**
+     * Add the match audio with the music note
+     * @param sound the sound pointer
+     */
     void AddSound(const std::shared_ptr<Sound>& sound) {mAudio = sound;}
 
+    /**
+     * Add the match key with the sound
+     * @param key the item key
+     */
     void AddKey(const std::shared_ptr<ItemKey>& key) {mKey = key;}
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp);

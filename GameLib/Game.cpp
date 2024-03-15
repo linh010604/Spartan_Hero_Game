@@ -261,9 +261,13 @@ void Game::GameUpdate()
     }
     else if (mState == GameState::Countdown && mAbsoluteBeat >= StartingBeat && !mBackPlaying)
     {
-        mAudio[0]->LoadSound(mAudioEngine);
-        mAudio[0]->PlaySound();
-        mBackPlaying =! mBackPlaying;
+        for(auto sound:mAudio){
+            if (sound->GetName() == mBacking){
+                sound->LoadSound(mAudioEngine);
+                sound->PlaySound();
+                mBackPlaying =! mBackPlaying;
+            }
+        }
     }
 
 

@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 project(project1)
 set(APPLICATION_LIBRARY GameLib)
 
-
 # Request the required wxWidgets libs
 # Turn off wxWidgets own precompiled header system, since
 # it doesn't seem to work. The CMake version works much better.
@@ -29,11 +28,14 @@ file(COPY ${spartanhero-resources_SOURCE_DIR}/resources/
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/images/)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/images/
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/stars/
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/stars/)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/levels/
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/levels/)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/audio/
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/audio/)
 
 # Fetch miniaudio from GitHub
 include(FetchContent)

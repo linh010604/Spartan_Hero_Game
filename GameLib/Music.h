@@ -46,6 +46,7 @@ private:
     double mBeatPLay = 0; ///< Beat which the note are played
     bool mContinueDurationLine = false; ///<check if we still need to draw red line
     bool mStopAtKey = false; ///< check if note hit the key
+    bool mAddedNote = false; ///<check if the note is added to total note
 
 public:
     ~Music();

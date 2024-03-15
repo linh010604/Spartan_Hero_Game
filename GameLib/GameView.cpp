@@ -281,7 +281,9 @@ void GameView::OnAutoPlayMode(wxCommandEvent& event)
 }
 void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
 {
-    double ratio = mGame.GetGameStateManager()->GetScore()/(FullPoint*mGame.GetTotalNote());
+    double realScore = mGame.GetGameStateManager()->GetScore();
+    double totalScore = (FullPoint*mGame.GetTotalNote());
+    double ratio = realScore/ totalScore;
     if (ratio >= 0.8){
         auto starBitmap = make_unique<wxBitmap>(threestars, wxBITMAP_TYPE_ANY);
         // Calculate positions to center the text
@@ -294,29 +296,29 @@ void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
                      starBitmap->GetWidth(),
                      starBitmap->GetHeight());
     }
-//    else if (ratio >= 0.5 && ratio < 0.8){
-//        auto starBitmap = make_unique<wxBitmap>(twostars, wxBITMAP_TYPE_ANY);
-//        // Calculate positions to center the text
-//        double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
-//        double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
-//
-//        gc->DrawBitmap(*starBitmap,
-//                       xPos,
-//                       yPos,
-//                       starBitmap->GetWidth(),
-//                       starBitmap->GetHeight());
-//    } else
-//    {
-//        auto starBitmap = make_unique<wxBitmap>(onestar, wxBITMAP_TYPE_ANY);
-//        // Calculate positions to center the text
-//        double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
-//        double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
-//
-//        gc->DrawBitmap(*starBitmap,
-//                       xPos,
-//                       yPos,
-//                       starBitmap->GetWidth(),
-//                       starBitmap->GetHeight());
-//    }
+    else if (ratio >= 0.5 && ratio < 0.8){
+        auto starBitmap = make_unique<wxBitmap>(twostars, wxBITMAP_TYPE_ANY);
+        // Calculate positions to center the text
+        double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
+        double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
+
+        gc->DrawBitmap(*starBitmap,
+                       xPos,
+                       yPos,
+                       starBitmap->GetWidth(),
+                       starBitmap->GetHeight());
+    } else
+    {
+        auto starBitmap = make_unique<wxBitmap>(onestar, wxBITMAP_TYPE_ANY);
+        // Calculate positions to center the text
+        double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
+        double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
+
+        gc->DrawBitmap(*starBitmap,
+                       xPos,
+                       yPos,
+                       starBitmap->GetWidth(),
+                       starBitmap->GetHeight());
+    }
 }
 

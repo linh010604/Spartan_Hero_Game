@@ -105,29 +105,10 @@ void GameView::OnPaint(wxPaintEvent& event)
     mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
 
     if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
-        wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
-        wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-        gc->SetFont(font, LevelNoticeColor);
+        if (mCurrentLevel != 3)
+        {
 
-        // Measure text size
-        double textWidth, textHeight;
-        gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
-
-        // Calculate positions to center the text
-        double xPos = (mGame.GetWidth() - textWidth) / 2;
-        double yPos = (mGame.GetHeight() - textHeight) / 2;
-
-        gc->DrawText(noticeText, xPos, yPos);
-    } else if (mDisplayLevelNotice){
-        mDisplayLevelNotice = false;
-    }
-
-    if (mGame.GetState() == Game::GameState::Closing){
-        if (mClosingTime == 0){
-            mClosingTime = mStopWatch.Time();
-        }
-        if ( mStopWatch.Time() - mClosingTime <= LevelNoticeDuration*1000){
-            wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
+            wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
             wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
             gc->SetFont(font, LevelNoticeColor);
 
@@ -140,6 +121,73 @@ void GameView::OnPaint(wxPaintEvent& event)
             double yPos = (mGame.GetHeight() - textHeight) / 2;
 
             gc->DrawText(noticeText, xPos, yPos);
+        }
+
+        else{
+            wxString noticeText = wxString::Format("     Welcome \n to the Carnival!");
+            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+            gc->SetFont(font, LevelNoticeColor);
+
+            // Measure text size
+            double textWidth, textHeight;
+            gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+            // Calculate positions to center the text
+            double xPos = (mGame.GetWidth() - textWidth) / 2;
+            double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+            gc->DrawText(noticeText, xPos, yPos);
+
+        }
+
+    } else if (mDisplayLevelNotice){
+        mDisplayLevelNotice = false;
+    }
+
+    if (mGame.GetState() == Game::GameState::Closing){
+        if (mClosingTime == 0){
+            mClosingTime = mStopWatch.Time();
+        }
+        if ( mStopWatch.Time() - mClosingTime <= LevelNoticeDuration*1000){
+            if (mCurrentLevel != 3)
+            {
+
+                wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
+                wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+                gc->SetFont(font, LevelNoticeColor);
+
+                // Measure text size
+                double textWidth, textHeight;
+                gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+                // Calculate positions to center the text
+                double xPos = (mGame.GetWidth() - textWidth) / 2;
+                double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+                gc->DrawText(noticeText, xPos, yPos);
+
+            }
+
+            else
+            {
+                wxString noticeText = wxString::Format("Hope You Had Fun!");
+                wxFont font(NoticeSize-5, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+                gc->SetFont(font, LevelNoticeColor);
+
+                // Measure text size
+                double textWidth, textHeight;
+                gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+                // Calculate positions to center the text
+                double xPos = (mGame.GetWidth() - textWidth) / 2;
+                double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+                gc->DrawText(noticeText, xPos, yPos);
+
+
+            }
+
+
         }
         else if  (mStopWatch.Time() - mClosingTime >= 2*LevelNoticeDuration*1000)
         {

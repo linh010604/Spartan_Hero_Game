@@ -285,6 +285,11 @@ void Game::GameUpdate()
                 mBackPlaying =! mBackPlaying;
             }
         }
+//        mAudio[0]->LoadSound(mAudioEngine);
+//        mAudio[0]->PlaySound();
+//        mBackPlaying =! mBackPlaying;
+    }
+
 
 }
 

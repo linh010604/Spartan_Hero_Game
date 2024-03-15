@@ -1,5 +1,5 @@
 /**
- * @file AquariumTest.cpp
+ * @file GameTest.cpp
  * @author thaol
  */
 
@@ -10,7 +10,7 @@
 #include <Music.h>
 
 #define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
+#include <miniaudio.h>
 
 using namespace std;
 

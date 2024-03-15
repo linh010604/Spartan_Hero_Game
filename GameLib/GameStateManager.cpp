@@ -3,6 +3,7 @@
  * @author Angelina Jolie Daoud
  */
 
+#include "pch.h"
 #include "GameStateManager.h"
 #include "Game.h"
 

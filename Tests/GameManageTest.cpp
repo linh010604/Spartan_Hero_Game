@@ -1,6 +1,8 @@
+#include <pch.h>
 #include <gtest/gtest.h>
 #include <memory>
-#include "GameStateManager.h"
+#include <GameStateManager.h>
+
 
 class GameStateManagerTest : public ::testing::Test {
 protected:

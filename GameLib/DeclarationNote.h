@@ -1,6 +1,9 @@
-//
-// Created by naodg on 3/6/2024.
-//
+/**
+ * @file DeclarationNote.h
+ * @author Noad G
+ *
+ *
+ */
 
 #ifndef PROJECT1_DECLARATIONNOTE_H
 #define PROJECT1_DECLARATIONNOTE_H

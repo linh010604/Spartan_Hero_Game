@@ -132,13 +132,14 @@ void Game::Load(const wxString &filename)
 
 }
 
-/**  Handle updates for animation
-* @param elapsed The time since the last update
-*/
+/**
+ * Handle updates for animation
+ * @param elapsed The time since the last update
+ */
 void Game::Update(double elapsed)
 {
     mTimePLaying += elapsed;
-    if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
+    if (mTimePLaying >= 2.0 && mState != GameState::Closing) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
     double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
     mTimeOnTrack = mBeatsPerMeasure/beatsPerSecond;
     mGameStateManager->UpdateMeasureAndBeat();
@@ -161,7 +162,7 @@ void Game::AddItem(std::shared_ptr<Item> item)
 
 /**
  * Add a music note to the game
- * @param music New item to add
+ * @param music New music note to add
  */
 void Game::AddMusic(std::shared_ptr<Music> music)
 {
@@ -169,8 +170,8 @@ void Game::AddMusic(std::shared_ptr<Music> music)
 }
 
 /**
- * Add a music note to the game
- * @param music New item to add
+ * Add a sound to the game
+ * @param audio New sound to add
  */
 void Game::AddAudio(std::shared_ptr<Sound> audio)
 {
@@ -187,8 +188,8 @@ void Game::AddDeclaration(std::shared_ptr<Declaration> declaration)
 }
 
 /**
- * Add a declaration to the game
- * @param declaration New declaration to add
+ * Add a puck to the game
+ * @param declaration the puck declaration
  */
 void Game::AddDeclarationNote(std::shared_ptr<Declaration> declaration)
 {
@@ -223,6 +224,9 @@ void Game::AcceptItem(ItemVisitor *visitor)
     }
 }
 
+/**
+ * Merging puck to music note
+ */
 void Game::MergeDeclarationToNote()
 {
     for (auto musicNote : mMusic)
@@ -236,6 +240,10 @@ void Game::MergeDeclarationToNote()
     }
 }
 
+/**
+ * Draw music note that appear on the screeen
+ * @param gc A shared pointer to a wxGraphicsContext object used for drawing.
+ */
 void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 {
     for (auto music : mMusic)
@@ -244,14 +252,23 @@ void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
     }
 }
 
+/**
+ * Update GameState for game
+ */
 void Game::GameUpdate()
 {
-    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+1) * mBeatsPerMeasure){
+    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+2) * mBeatsPerMeasure){
         mState = GameState::Closing;
         mTimePLaying = 0;
-        mAudio[0]->PlayEnd();
+        for(auto sound:mAudio){
+            if (sound->GetName() == mBacking){
+                sound->PlayEnd();
+                break;
+            }
+        }
+
     }
-    else if (wxRound(4-mAbsoluteBeat) < 0 && mState != GameState::Playing)
+    else if (wxRound(4-mAbsoluteBeat) < 0 && mState == GameState::Countdown)
     {
         mState = GameState::Playing;
     }
@@ -268,10 +285,12 @@ void Game::GameUpdate()
                 mBackPlaying =! mBackPlaying;
             }
         }
-    }
-
 
 }
+
+/**
+ * Merging sound to the music note
+ */
 void Game::MergeSoundToNote()
 {
     for (auto musicNote : mMusic)
@@ -284,10 +303,20 @@ void Game::MergeSoundToNote()
         }
     }
 }
+
+/**
+ * UPpdate the auoplaymode from GameView
+ * @param autoplay the autoplaym mode of the game
+ */
 void Game::UpdateAutoPlayMode(bool autoplay)
 {
     mAutoPlay = autoplay;
 }
+
+/**
+ * Handle the key up event
+ * @param key key pressed
+ */
 void Game::KeyUp(wxChar key)
 {
     if (!mAutoPlay){
@@ -299,6 +328,10 @@ void Game::KeyUp(wxChar key)
         }
     }
 }
+
+/**
+ * Handle when the game is autoplay
+ */
 void Game::AutoplayMusic()
 {
     if (mAutoPlay)
@@ -306,4 +339,5 @@ void Game::AutoplayMusic()
             music->PlayAutoMusic();
         }
 }
+
 

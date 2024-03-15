@@ -1,6 +1,10 @@
-//
-// Created by naodg on 3/6/2024.
-//
+/**
+ * @file DeclarationNote.h
+ * @author thaol
+ * @author Naodg
+ *
+ *
+ */
 
 #ifndef PROJECT1_DECLARATIONNOTE_H
 #define PROJECT1_DECLARATIONNOTE_H
@@ -9,6 +13,9 @@
 #include "Game.h"
 #include "ItemKey.h"
 
+/**
+ * Class for an Declaration Note (Puck)
+ */
 class DeclarationNote : public Declaration{
 private:
     int mTrack = 0;
@@ -30,7 +37,6 @@ public:
     void XmlLoad(wxXmlNode *node) override;
 
     int GetTrack() const {return mTrack;}
-
 
     /**
      * Draw this item

@@ -1,6 +1,8 @@
 /**
  * @file LevelLoader.cpp
  * @author Roshni Kaur
+ * @author Nico
+ *
  */
 
 #include "pch.h"
@@ -21,7 +23,7 @@ using namespace std;
 
 /**
  * Constructor
- * @param game The game this item is a member of
+ * @param game The game this class load for
  */
 LevelLoader::LevelLoader(Game *game) : mGame(game)
 {

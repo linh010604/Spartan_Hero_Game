@@ -9,9 +9,7 @@
 #include "DeclarationScoreBoard.h"
 #include "GameStateManager.h"
 
-
 using namespace std;
-
 
 wstring const ImageDir = L"images/";
 
@@ -76,7 +74,7 @@ void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x
         gp->GetTextExtent(scoreText, &textWidth, &textHeight);
         gp->DrawText(scoreText, x - textWidth / 2, y - textHeight / 2 + ScoreY);
     }
-    else if (this->GetGame()->GetState() == Game::GameState::Playing)
+    else if (this->GetGame()->GetState() == Game::GameState::Playing || this->GetGame()->GetState() == Game::GameState::Closing)
     {
         wxFont beatFont(wxSize(0,BeatsSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
         gp->SetFont(beatFont, *wxBLACK);
@@ -92,9 +90,4 @@ void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x
         gp->DrawText(scoreText, x - textWidth / 2, y - textHeight / 2 + ScoreY);
     }
 
-    // Set the font for drawing the score
-//    wxFont scoreFont(wxSize(0,ScoreSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-//    gp->SetFont(scoreFont, *wxBLACK);
-
-    //wxString scoreText = wxString::Format("%06d", mScore);
 }

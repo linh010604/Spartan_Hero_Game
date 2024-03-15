@@ -1,6 +1,10 @@
-//
-// Created by naodg on 3/6/2024.
-//
+/**
+ * @file DeclarationNote.cpp
+ * @author thaol
+ * @author Naodg
+ *
+ *
+ */
 
 #include "pch.h"
 #include "Game.h"

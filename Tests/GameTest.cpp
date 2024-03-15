@@ -10,7 +10,7 @@
 #include <Music.h>
 
 #define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
+#include <miniaudio.h>
 
 using namespace std;
 
@@ -55,7 +55,7 @@ TEST_F(GameTest, LoadLevelOne) {
 
     game.Load(level);
 
-    ASSERT_EQ(game.GetItemSize(), 6) << L"All items are loaded";
+    ASSERT_EQ(game.GetItemSize(), 7) << L"All items are loaded";
 
     ASSERT_EQ(game.GetDeclarationSize(), 14) << L"All declarations are loaded";
 

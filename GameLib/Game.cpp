@@ -138,7 +138,7 @@ void Game::Load(const wxString &filename)
 void Game::Update(double elapsed)
 {
     mTimePLaying += elapsed;
-    if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
+    if (mTimePLaying >= 2.0 && mState != GameState::Closing) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
     double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
     mTimeOnTrack = mBeatsPerMeasure/beatsPerSecond;
     mGameStateManager->UpdateMeasureAndBeat();
@@ -246,12 +246,12 @@ void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 
 void Game::GameUpdate()
 {
-    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+1) * mBeatsPerMeasure){
+    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+2) * mBeatsPerMeasure){
         mState = GameState::Closing;
         mTimePLaying = 0;
         mAudio[0]->PlayEnd();
     }
-    else if (wxRound(4-mAbsoluteBeat) < 0 && mState != GameState::Playing)
+    else if (wxRound(4-mAbsoluteBeat) < 0 && mState == GameState::Countdown)
     {
         mState = GameState::Playing;
     }
@@ -268,6 +268,7 @@ void Game::GameUpdate()
 
 
 }
+
 void Game::MergeSoundToNote()
 {
     for (auto musicNote : mMusic)

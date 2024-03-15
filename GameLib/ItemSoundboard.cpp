@@ -127,7 +127,6 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
 
             mKeys[i]->SetLocation(x1InitLeftTrack + shiftX1,x2InitLeftTrack + shiftX2,y1Track, y2Track);
             this->GetGame()->DrawNote(gp);
-            //mKeys[i]->Draw(gp);
             shiftX1 += x1Space;
             shiftX2 += x2Space;
 

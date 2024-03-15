@@ -70,6 +70,7 @@ public:
     void OnTimer(wxTimerEvent& event);
     void Sequence();
     void OnAutoPlayMode(wxCommandEvent& event);
+    void DisplayStar(std::shared_ptr<wxGraphicsContext> gc);
 
 /**
 * Declares event table

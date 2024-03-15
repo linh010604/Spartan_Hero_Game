@@ -9,7 +9,6 @@
 #define PROJECT1_GAMELIB_DECLARATION_H
 
 #include "DeclarationVisitor.h"
-#include "ItemKey.h"
 
 class Game;
 

@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 project(project1)
 set(APPLICATION_LIBRARY GameLib)
 
-
 # Request the required wxWidgets libs
 # Turn off wxWidgets own precompiled header system, since
 # it doesn't seem to work. The CMake version works much better.

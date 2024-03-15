@@ -35,12 +35,8 @@ set(SOURCE_FILES pch.h
         DeclarationNote.h
         ItemSoundBoardVisitor.cpp
         ItemSoundBoardVisitor.h
-        MeterVisitor.cpp
-        MeterVisitor.h
         Music.cpp
         Music.h
-        PuckVisitor.cpp
-        PuckVisitor.h
         GameStateManager.cpp
         GameStateManager.h
         ItemVisitor.cpp

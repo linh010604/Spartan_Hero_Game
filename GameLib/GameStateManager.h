@@ -12,6 +12,9 @@
 
 class Game;
 
+/**
+ * Class to manage score of the game
+ */
 class GameStateManager
 {
 private:
@@ -32,7 +35,6 @@ public:
     int GetScore();
     std::pair<int, int> GetCurrentMeasureAndBeat() const;
 
-    void UpdateScoreboard(bool soundPlayed, float durationHeld, float totalDuration);
     void UpdateMeasureAndBeat();
 };
 

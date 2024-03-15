@@ -14,7 +14,6 @@
 #include <wx/stdpaths.h>
 #include <wx/dcbuffer.h>
 #include <thread>
-#include <chrono>
 
 using namespace std;
 
@@ -28,9 +27,16 @@ const int NoticeSize = 100;
 /// Color to draw the level notices
 const auto LevelNoticeColor = wxColour(192, 252, 207);
 
+const int FullPoint = 10;
 
 /// Frame duration in milliseconds
-const int FrameDuration = 20;
+const int FrameDuration = 30;
+
+const wstring threestars = L"stars/threestar.png";
+
+const wstring twostars = L"stars/twostar.png";
+
+const wstring onestar = L"stars/onestar.png";
 
 /**
 * The event table that connects window events
@@ -135,10 +141,14 @@ void GameView::OnPaint(wxPaintEvent& event)
 
             gc->DrawText(noticeText, xPos, yPos);
         }
-        else
+        else if  (mStopWatch.Time() - mClosingTime >= 2*LevelNoticeDuration*1000)
         {
             mCurrentLevel = (mCurrentLevel + 1) % 4;
             Sequence();
+        }
+        else if (mStopWatch.Time() - mClosingTime < 2*LevelNoticeDuration*1000 && mStopWatch.Time() - mClosingTime > LevelNoticeDuration*1000)
+        {
+            DisplayStar(gc);
         }
 
     }
@@ -268,5 +278,45 @@ void GameView::OnAutoPlayMode(wxCommandEvent& event)
 {
     mAutoPlay = !mAutoPlay;
     mGame.UpdateAutoPlayMode(mAutoPlay);
+}
+void GameView::DisplayStar(std::shared_ptr<wxGraphicsContext> gc)
+{
+    double ratio = mGame.GetGameStateManager()->GetScore()/(FullPoint*mGame.GetTotalNote());
+    if (ratio >= 0.8){
+        auto starBitmap = make_unique<wxBitmap>(threestars, wxBITMAP_TYPE_ANY);
+        // Calculate positions to center the text
+        double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
+        double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
+
+        gc->DrawBitmap(*starBitmap,
+                     xPos,
+                     yPos,
+                     starBitmap->GetWidth(),
+                     starBitmap->GetHeight());
+    }
+//    else if (ratio >= 0.5 && ratio < 0.8){
+//        auto starBitmap = make_unique<wxBitmap>(twostars, wxBITMAP_TYPE_ANY);
+//        // Calculate positions to center the text
+//        double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
+//        double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
+//
+//        gc->DrawBitmap(*starBitmap,
+//                       xPos,
+//                       yPos,
+//                       starBitmap->GetWidth(),
+//                       starBitmap->GetHeight());
+//    } else
+//    {
+//        auto starBitmap = make_unique<wxBitmap>(onestar, wxBITMAP_TYPE_ANY);
+//        // Calculate positions to center the text
+//        double xPos = (mGame.GetWidth() - starBitmap->GetWidth()) / 2;
+//        double yPos = (mGame.GetHeight() - starBitmap->GetHeight()) / 2;
+//
+//        gc->DrawBitmap(*starBitmap,
+//                       xPos,
+//                       yPos,
+//                       starBitmap->GetWidth(),
+//                       starBitmap->GetHeight());
+//    }
 }
 

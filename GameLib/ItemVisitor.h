@@ -2,7 +2,7 @@
  * @file ItemVisitor.h
  * @author thaol
  *
- *
+ * Visitor class for Item objects
  */
 
 #ifndef PROJECT1_GAMELIB_ITEMVISITOR_H

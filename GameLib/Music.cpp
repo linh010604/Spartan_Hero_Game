@@ -16,7 +16,7 @@ bool const AfterTrack = true;
 /// lines are drawn as wxRED
 const int LongDurationLineWidth = 12;
 
-int FullPoint = 10;
+const int FullPoint = 10;
 
 /**
  * Destructor
@@ -131,7 +131,6 @@ void Music::Update(double elapsed, double timeOnTrack)
     else if (mContinueDurationLine && mAudio->GetLong()){
         if(mLongY - mKey->GetY2() > 0){
             mContinueDurationLine = false;
-            //note->GetGame()->AddScore(MaxDurationBonus);
         }
         else //stop drawing line once top of line gets to key
         {
@@ -146,8 +145,9 @@ void Music::Update(double elapsed, double timeOnTrack)
     DeclarationNoteVisitor declarationVisitor;
     mDeclaration->Accept(&declarationVisitor);
     double tolerance = declarationVisitor.GetTolerance();
+    double acceptedY = (tolerance/ mGame->GetBeatsPerMersure()) * (mKey->GetY2() - mKey->GetY1());
 
-    if (mY > mKey->GetY2() + tolerance && !mPlayMusic && !mGame->GetAutopPlayState()){
+    if (mY > mKey->GetY2() + acceptedY && !mPlayMusic && !mGame->GetAutopPlayState()){
         mPlayMusic = true;
         mGame->UpdateTotalNote();
     }
@@ -167,7 +167,7 @@ void Music::PlayAutoMusic()
         mAudio->PlaySound();
         mGame->UpdatePlayedNote();
         mGame->GetGameStateManager()->UpdateScore(FullPoint);
-//        }
+//          }
 
     }
     else if(mBeatPLay != 0 && mPlayMusic && mGame->GetAbsoluteBeat()- mDuration > mBeatPLay){
@@ -177,8 +177,6 @@ void Music::PlayAutoMusic()
 }
 bool Music::PlayMannualMusic()
 {
-    double currBeat = mGame->GetAbsoluteBeat();
-    double noteBeat = (mMeasure-1) * mGame->GetBeatsPerMersure() + (mBeat-1);
 
     DeclarationNoteVisitor declarationVisitor;
     mDeclaration->Accept(&declarationVisitor);
@@ -186,17 +184,20 @@ bool Music::PlayMannualMusic()
 
     double acceptedY = (tolerance/ mGame->GetBeatsPerMersure()) * (mKey->GetY2() - mKey->GetY1());
 
-    if (abs(mY - mKey->GetY2() ) <= acceptedY ){
+    if (!mPlayMusic && abs(mY - mKey->GetY2() ) <= acceptedY ){
         mPlayMusic = true;
         mBeatPLay = mGame->GetAbsoluteBeat();
         mAudio->LoadSound(mGame->GetAudioEngine());
         mAudio->PlaySound();
         mGame->UpdatePlayedNote();
+        mGame->GetGameStateManager()->UpdateScore(FullPoint);
     }
     else if (mBeatPLay != 0 && mPlayMusic && mGame->GetAbsoluteBeat()- mDuration > mBeatPLay){
-        //mGame->GetGameStateManager()->UpdateScore(FullPoint);
         mAudio->PlayEnd();
         mBeatPLay = 0;
+        if (mAudio->GetLong()){
+            mGame->GetGameStateManager()->UpdateScore(FullPoint);
+        }
     }
 
     return mPlayMusic;
@@ -209,8 +210,7 @@ bool Music::KeyUp()
             int point  = (mGame->GetAbsoluteBeat() - mBeatPLay)/mDuration*10;
             mGame->GetGameStateManager()->UpdateScore(point);
         }
-        else
-            mGame->GetGameStateManager()->UpdateScore(FullPoint);
+
         mBeatPLay = 0;
     }
     return mPlayMusic;

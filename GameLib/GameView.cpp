@@ -162,9 +162,13 @@ void GameView::OnPaint(wxPaintEvent& event)
             gc->DrawText(noticeText, xPos, yPos);
         }
 
-        else{
+        else {
             wxString noticeText = wxString::Format("Welcome to the Carnival!");
-            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+
+            // Decrease the font size here
+            int smallerFontSize = NoticeSize - 5; // Adjust the value to make the font smaller as needed
+
+            wxFont font(smallerFontSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
             gc->SetFont(font, LevelNoticeColor);
 
             // Measure text size
@@ -176,9 +180,8 @@ void GameView::OnPaint(wxPaintEvent& event)
             double yPos = (mGame.GetHeight() - textHeight) / 2;
 
             gc->DrawText(noticeText, xPos, yPos);
-
-
         }
+
     } else if (mDisplayLevelNotice){
         mDisplayLevelNotice = false;
     }
@@ -191,6 +194,7 @@ void GameView::OnPaint(wxPaintEvent& event)
 
             if (mCurrentLevel != 3)
             {
+
 
                 wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
                 wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
@@ -318,4 +322,6 @@ void GameView::OnAutoPlayMode(wxCommandEvent& event)
     mAutoPlay = !mAutoPlay;
     mGame.UpdateAutoPlayMode(mAutoPlay);
 }
+
+
 

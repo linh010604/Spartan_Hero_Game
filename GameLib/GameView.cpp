@@ -77,78 +77,79 @@ void GameView::Initialize(wxFrame *mainFrame) {
 
 }
 
-void GameView::OnPaint(wxPaintEvent& event)
-{
-    // Create a double-buffered display context
-    wxAutoBufferedPaintDC dc(this);
-
-    wxBrush background(*wxBLACK);
-    dc.SetBackground(background);
-    dc.Clear();
-
-    // Compute the time that has elapsed
-    // since the last call to OnPaint.
-    auto newTime = mStopWatch.Time();
-    auto elapsed = (double)(newTime - mTime) * 0.001;
-    mTime = newTime;
-    // Create a graphics context
-    auto gc = std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
-
-    // Tell the game class to draw
-    wxRect rect = GetRect();
-    mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
-
-    if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
-        wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
-        wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-        gc->SetFont(font, LevelNoticeColor);
-
-        // Measure text size
-        double textWidth, textHeight;
-        gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
-
-        // Calculate positions to center the text
-        double xPos = (mGame.GetWidth() - textWidth) / 2;
-        double yPos = (mGame.GetHeight() - textHeight) / 2;
-
-        gc->DrawText(noticeText, xPos, yPos);
-    } else if (mDisplayLevelNotice){
-        mDisplayLevelNotice = false;
-    }
-
-    if (mGame.GetState() == Game::GameState::Closing){
-        if (mClosingTime == 0){
-            mClosingTime = mStopWatch.Time();
-        }
-        if ( mStopWatch.Time() - mClosingTime <= LevelNoticeDuration*1000){
-            wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
-            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-            gc->SetFont(font, LevelNoticeColor);
-
-            // Measure text size
-            double textWidth, textHeight;
-            gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
-
-            // Calculate positions to center the text
-            double xPos = (mGame.GetWidth() - textWidth) / 2;
-            double yPos = (mGame.GetHeight() - textHeight) / 2;
-
-            gc->DrawText(noticeText, xPos, yPos);
-        }
-        else
-        {
-            mCurrentLevel = (mCurrentLevel + 1) % 4;
-            Sequence();
-        }
-
-    }
-
-    // Restores state of graphics
-    gc->PopState();
-
-    mGame.Update(elapsed);
-
-}
+//void GameView::OnPaint(wxPaintEvent& event)
+//{
+//    // Create a double-buffered display context
+//    wxAutoBufferedPaintDC dc(this);
+//
+//    wxBrush background(*wxBLACK);
+//    dc.SetBackground(background);
+//    dc.Clear();
+//
+//    // Compute the time that has elapsed
+//    // since the last call to OnPaint.
+//    auto newTime = mStopWatch.Time();
+//    auto elapsed = (double)(newTime - mTime) * 0.001;
+//    mTime = newTime;
+//    // Create a graphics context
+//    auto gc = std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
+//
+//    // Tell the game class to draw
+//    wxRect rect = GetRect();
+//    mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
+//
+//    if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
+//        wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
+//        wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+//        gc->SetFont(font, LevelNoticeColor);
+//
+//        // Measure text size
+//        double textWidth, textHeight;
+//        gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+//
+//        // Calculate positions to center the text
+//        double xPos = (mGame.GetWidth() - textWidth) / 2;
+//        double yPos = (mGame.GetHeight() - textHeight) / 2;
+//
+//        gc->DrawText(noticeText, xPos, yPos);
+//    } else if (mDisplayLevelNotice){
+//        mDisplayLevelNotice = false;
+//    }
+//
+//    if (mGame.GetState() == Game::GameState::Closing){
+//        if (mClosingTime == 0){
+//            mClosingTime = mStopWatch.Time();
+//        }
+//        if ( mStopWatch.Time() - mClosingTime <= LevelNoticeDuration*1000){
+//
+//            wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
+//            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+//            gc->SetFont(font, LevelNoticeColor);
+//
+//            // Measure text size
+//            double textWidth, textHeight;
+//            gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+//
+//            // Calculate positions to center the text
+//            double xPos = (mGame.GetWidth() - textWidth) / 2;
+//            double yPos = (mGame.GetHeight() - textHeight) / 2;
+//
+//            gc->DrawText(noticeText, xPos, yPos);
+//        }
+//        else
+//        {
+//            mCurrentLevel = (mCurrentLevel + 1) % 4;
+//            Sequence();
+//        }
+//
+//    }
+//
+//    // Restores state of graphics
+//    gc->PopState();
+//
+//    mGame.Update(elapsed);
+//
+//}
 
 void GameView::DisplayLevelNotice(int level) {
     mCurrentLevel = level;
@@ -191,6 +192,127 @@ void GameView::OnLevelOption(wxCommandEvent& event)
     mGame.UpdateAutoPlayMode(mAutoPlay);
     Refresh();
     DisplayLevelNotice(levelNumber);
+
+}
+
+void GameView::OnPaint(wxPaintEvent& event)
+{
+    // Create a double-buffered display context
+    wxAutoBufferedPaintDC dc(this);
+
+    wxBrush background(*wxBLACK);
+    dc.SetBackground(background);
+    dc.Clear();
+
+    // Compute the time that has elapsed
+    // since the last call to OnPaint.
+    auto newTime = mStopWatch.Time();
+    auto elapsed = (double)(newTime - mTime) * 0.001;
+    mTime = newTime;
+    // Create a graphics context
+    auto gc = std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
+
+    // Tell the game class to draw
+    wxRect rect = GetRect();
+    mGame.OnDraw(gc, rect.GetWidth(), rect.GetHeight());
+
+    if (mDisplayLevelNotice && mLevelNoticeStopWatch.Time() < LevelNoticeDuration * 1000) {
+        if (mCurrentLevel != 3)
+        {
+
+            wxString noticeText = wxString::Format("Level %d Begin", mCurrentLevel);
+            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+            gc->SetFont(font, LevelNoticeColor);
+
+            // Measure text size
+            double textWidth, textHeight;
+            gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+            // Calculate positions to center the text
+            double xPos = (mGame.GetWidth() - textWidth) / 2;
+            double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+            gc->DrawText(noticeText, xPos, yPos);
+        }
+
+        else{
+            wxString noticeText = wxString::Format("Welcome to the Carnival!");
+            wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+            gc->SetFont(font, LevelNoticeColor);
+
+            // Measure text size
+            double textWidth, textHeight;
+            gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+            // Calculate positions to center the text
+            double xPos = (mGame.GetWidth() - textWidth) / 2;
+            double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+            gc->DrawText(noticeText, xPos, yPos);
+
+
+        }
+    } else if (mDisplayLevelNotice){
+        mDisplayLevelNotice = false;
+    }
+
+    if (mGame.GetState() == Game::GameState::Closing){
+        if (mClosingTime == 0){
+            mClosingTime = mStopWatch.Time();
+        }
+        if ( mStopWatch.Time() - mClosingTime <= LevelNoticeDuration*1000){
+
+            if (mCurrentLevel != 3)
+            {
+
+                wxString noticeText = wxString::Format("Level %d Complete", mCurrentLevel);
+                wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+                gc->SetFont(font, LevelNoticeColor);
+
+                // Measure text size
+                double textWidth, textHeight;
+                gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+                // Calculate positions to center the text
+                double xPos = (mGame.GetWidth() - textWidth) / 2;
+                double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+                gc->DrawText(noticeText, xPos, yPos);
+
+            }
+
+            else
+            {
+                wxString noticeText = wxString::Format("Hope You Had Fun!");
+                wxFont font(NoticeSize, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+                gc->SetFont(font, LevelNoticeColor);
+
+                // Measure text size
+                double textWidth, textHeight;
+                gc->GetTextExtent(noticeText, &textWidth, &textHeight, nullptr, nullptr);
+
+                // Calculate positions to center the text
+                double xPos = (mGame.GetWidth() - textWidth) / 2;
+                double yPos = (mGame.GetHeight() - textHeight) / 2;
+
+                gc->DrawText(noticeText, xPos, yPos);
+
+
+            }
+
+        }
+        else
+        {
+            mCurrentLevel = (mCurrentLevel + 1) % 4;
+            Sequence();
+        }
+
+    }
+
+    // Restores state of graphics
+    gc->PopState();
+
+    mGame.Update(elapsed);
 
 }
 

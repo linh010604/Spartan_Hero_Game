@@ -62,8 +62,8 @@
 	</declarations>
 	<items>
 		<image id="i600" p="652,450"/>
-		<image id="i601" p="247,750"/>
-		<image id="i603" p="1100,700"/>
+		<image id="i601" p="200,750"/>
+		<image id="i603" p="1150,700"/>
 		<image id="i604" p="650,100"/>
 
 		<sound-board id="i622" p="652,465">

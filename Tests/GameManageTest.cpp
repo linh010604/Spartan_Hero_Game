@@ -1,6 +1,7 @@
+#include <pch.h>
 #include <gtest/gtest.h>
+#include <memory>
 #include <GameStateManager.h>
-#include <Game.h>
 
 
 class GameStateManagerTest : public ::testing::Test {
@@ -12,20 +13,25 @@ protected:
 };
 
 TEST_F(GameStateManagerTest, ScoreUpdate) {
+
     gameStateManager->UpdateScore(10);
     ASSERT_EQ(10, gameStateManager->GetScore());
+
     gameStateManager->UpdateScore(5);
     ASSERT_EQ(15, gameStateManager->GetScore());
 }
 
-TEST_F(GameStateManagerTest, MeasureAndBeatUpdate) {
-    gameStateManager->UpdateMeasureAndBeat(5, 3);
-    auto [measure, beat] = gameStateManager->GetCurrentMeasureAndBeat();
-    ASSERT_EQ(5, measure);
-    ASSERT_EQ(3, beat);
+TEST_F(GameStateManagerTest, DurationBonusFullDurationHeld) {
+    gameStateManager->UpdateScoreboard(true, 2.0f, 2.0f);
+    ASSERT_EQ(20, gameStateManager->GetScore());
 }
 
-TEST_F(GameStateManagerTest, DurationBonus) {
-    gameStateManager->SetDurationBonus(0.5);
-    ASSERT_EQ(5, gameStateManager->GetScore());
+TEST_F(GameStateManagerTest, NoDurationBonusWhenSoundNotPlayed) {
+    gameStateManager->UpdateScoreboard(false, 2.0f, 2.0f);
+    ASSERT_EQ(0, gameStateManager->GetScore());
+}
+
+TEST_F(GameStateManagerTest, PartialDurationBonus) {
+    gameStateManager->UpdateScoreboard(true, 1.0f, 2.0f);
+    ASSERT_EQ(15, gameStateManager->GetScore());
 }

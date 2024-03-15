@@ -6,11 +6,11 @@
  */
 #ifdef WIN32
 #define _CRTDBG_MAP_ALLOC
+#include "pch.h"
 #include <cstdlib>
 #include <crtdbg.h>
 #endif
 
-#include "pch.h"
 #include "GameApp.h"
 
 wxIMPLEMENT_APP(GameApp);

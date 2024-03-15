@@ -31,34 +31,14 @@ double const SecondsPerMinute = 60;
 
 double const StartingBeat = 4;
 
-/**
- * Constructor
- * @param PEngine Pointer to the audio engine object
- */
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
 }
 
-/**
- * Retrieves the GameStateManager object.
- *
- * @return A shared pointer to the GameStateManager.
- */
 std::shared_ptr<GameStateManager> Game::GetGameStateManager() {
     return mGameStateManager;
 }
 
-/**
- * Draws the game scene using the provided graphics context.
- *
- * This function draws the game represented by this instance onto the provided
- * graphics context at the specified coordinates. The content is positioned
- * relative to the specified (x, y) coordinates, with adjustments made for
- * different states of the game.
- *
- * @param graphics Shared pointer to the wxGraphicsContext object for drawing.
- * @param width The width of the drawing area.
- * @param height The height of the drawing area.
- */
+
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
     // Width of virtual pixels
     int virtualWidth = mVirtualWidth;
@@ -96,7 +76,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
                 break;
             }
         }
+
     }
+
+
 }
 
 /**
@@ -144,19 +127,19 @@ void Game::Load(const wxString &filename)
     }
 
     MergeDeclarationToNote();
+
     MergeSoundToNote();
 
 }
 
 /**
-* Handle updates for animation
-*
-* @param elapsed The time since the last update
-*/
+ * Handle updates for animation
+ * @param elapsed The time since the last update
+ */
 void Game::Update(double elapsed)
 {
     mTimePLaying += elapsed;
-    if (mTimePLaying >= 2.0) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
+    if (mTimePLaying >= 2.0 && mState != GameState::Closing) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
     double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
     mTimeOnTrack = mBeatsPerMeasure/beatsPerSecond;
     mGameStateManager->UpdateMeasureAndBeat();
@@ -170,7 +153,6 @@ void Game::Update(double elapsed)
 
 /**
  * Add an item to the game
- *
  * @param item New item to add
  */
 void Game::AddItem(std::shared_ptr<Item> item)
@@ -180,8 +162,7 @@ void Game::AddItem(std::shared_ptr<Item> item)
 
 /**
  * Add a music note to the game
- *
- * @param music New item to add
+ * @param music New music note to add
  */
 void Game::AddMusic(std::shared_ptr<Music> music)
 {
@@ -189,9 +170,8 @@ void Game::AddMusic(std::shared_ptr<Music> music)
 }
 
 /**
- * Add a music note to the game
- *
- * @param music New item to add
+ * Add a sound to the game
+ * @param audio New sound to add
  */
 void Game::AddAudio(std::shared_ptr<Sound> audio)
 {
@@ -200,7 +180,6 @@ void Game::AddAudio(std::shared_ptr<Sound> audio)
 
 /**
  * Add a declaration to the game
- *
  * @param declaration New declaration to add
  */
 void Game::AddDeclaration(std::shared_ptr<Declaration> declaration)
@@ -209,9 +188,8 @@ void Game::AddDeclaration(std::shared_ptr<Declaration> declaration)
 }
 
 /**
- * Add a declaration to the game
- *
- * @param declaration New declaration to add
+ * Add a puck to the game
+ * @param declaration the puck declaration
  */
 void Game::AddDeclarationNote(std::shared_ptr<Declaration> declaration)
 {
@@ -220,7 +198,6 @@ void Game::AddDeclarationNote(std::shared_ptr<Declaration> declaration)
 
 /**
  * Handle a key press event
- *
  * @param key The key was pressed
  */
 void Game::PressKey(wxChar key)
@@ -237,7 +214,6 @@ void Game::PressKey(wxChar key)
 
 /**
  * Accept a visitor for the collection
- *
  * @param visitor The visitor for the collection
  */
 void Game::AcceptItem(ItemVisitor *visitor)
@@ -249,10 +225,7 @@ void Game::AcceptItem(ItemVisitor *visitor)
 }
 
 /**
- * Merges declaration notes into music notes based on their IDs.
- *
- * This function iterates through each music note and declaration note,
- * and if their IDs match, it adds the declaration note to the music note.
+ * Merging puck to music note
  */
 void Game::MergeDeclarationToNote()
 {
@@ -268,10 +241,8 @@ void Game::MergeDeclarationToNote()
 }
 
 /**
- *
- * Draws the music notes using the provided graphics context.
- *
- * @param gc Shared pointer to the wxGraphicsContext object for drawing.
+ * Draw music note that appear on the screeen
+ * @param gc A shared pointer to a wxGraphicsContext object used for drawing.
  */
 void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 {
@@ -282,19 +253,22 @@ void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 }
 
 /**
- * Updates the game state based on the current conditions.
- *
- * This function checks various conditions such as beat count, game state, and time elapsed
- * to determine the appropriate state transitions and actions to take.
+ * Update GameState for game
  */
 void Game::GameUpdate()
 {
-    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+1) * mBeatsPerMeasure){
+    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+2) * mBeatsPerMeasure){
         mState = GameState::Closing;
         mTimePLaying = 0;
-        mAudio[0]->PlayEnd();
+        for(auto sound:mAudio){
+            if (sound->GetName() == mBacking){
+                sound->PlayEnd();
+                break;
+            }
+        }
+
     }
-    else if (wxRound(4-mAbsoluteBeat) < 0 && mState != GameState::Playing)
+    else if (wxRound(4-mAbsoluteBeat) < 0 && mState == GameState::Countdown)
     {
         mState = GameState::Playing;
     }
@@ -304,17 +278,23 @@ void Game::GameUpdate()
     }
     else if (mState == GameState::Countdown && mAbsoluteBeat >= StartingBeat && !mBackPlaying)
     {
-        mAudio[0]->LoadSound(mAudioEngine);
-        mAudio[0]->PlaySound();
-        mBackPlaying =! mBackPlaying;
+        for(auto sound:mAudio){
+            if (sound->GetName() == mBacking){
+                sound->LoadSound(mAudioEngine);
+                sound->PlaySound();
+                mBackPlaying =! mBackPlaying;
+            }
+        }
+//        mAudio[0]->LoadSound(mAudioEngine);
+//        mAudio[0]->PlaySound();
+//        mBackPlaying =! mBackPlaying;
     }
+
+
 }
 
 /**
- * Merges sound objects to music notes based on their names.
- *
- * This function iterates through each music note and sound object,
- * and if their names match, it adds the sound object to the music note.
+ * Merging sound to the music note
  */
 void Game::MergeSoundToNote()
 {
@@ -330,9 +310,8 @@ void Game::MergeSoundToNote()
 }
 
 /**
- * Updates the autoplay mode of the game.
- *
- * @param autoplay Boolean value indicating whether autoplay mode is enabled or not.
+ * UPpdate the auoplaymode from GameView
+ * @param autoplay the autoplaym mode of the game
  */
 void Game::UpdateAutoPlayMode(bool autoplay)
 {
@@ -340,13 +319,8 @@ void Game::UpdateAutoPlayMode(bool autoplay)
 }
 
 /**
- * Handles key release events in the game.
- *
- * This function is called when a key is released.
- * If autoplay mode is disabled, it checks each music note for the corresponding key release,
- * and if found, releases the note.
- *
- * @param key The key released.
+ * Handle the key up event
+ * @param key key pressed
  */
 void Game::KeyUp(wxChar key)
 {
@@ -361,9 +335,7 @@ void Game::KeyUp(wxChar key)
 }
 
 /**
- * Plays the music notes automatically if autoplay mode is enabled.
- *
- * This function is called during gameplay to play the music notes automatically.
+ * Handle when the game is autoplay
  */
 void Game::AutoplayMusic()
 {
@@ -372,3 +344,5 @@ void Game::AutoplayMusic()
             music->PlayAutoMusic();
         }
 }
+
+

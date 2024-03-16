@@ -10,7 +10,7 @@
 
 #include "DeclarationVisitor.h"
 
-// Forward reference
+/// Forward reference
 class Game;
 
 /**

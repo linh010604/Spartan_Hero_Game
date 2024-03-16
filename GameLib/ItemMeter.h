@@ -30,9 +30,6 @@ public:
 
     ItemMeter(Game *game);
 
-    /// Method to update the meter's value
-    void UpdateMeter(double value);
-
     /**
      * Accept a visitor
      * @param visitor The visitor we accept

@@ -18,7 +18,7 @@ bool const AfterTrack = true;
 const int LongDurationLineWidth = 12;
 
 /// Number representing the full points awarded for a correct action.
-int FullPoint = 10;
+const int FullPoint = 10;
 
 /**
  * Destructor

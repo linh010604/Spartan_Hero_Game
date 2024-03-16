@@ -18,7 +18,7 @@ const int GoodSoundScore = 10;
  * Constructor The game this declaration is a member of
  * @param game
  */
-GameStateManager::GameStateManager(Game* game)
+GameStateManager::GameStateManager(Game *game)
     : mGame(game), mScore(0), mCurrentMeasure(0), mCurrentBeat(0)
 {
 }
@@ -38,8 +38,8 @@ void GameStateManager::UpdateScore(int points)
  */
 void GameStateManager::UpdateMeasureAndBeat()
 {
-    mCurrentMeasure = wxRound(mGame->GetAbsoluteBeat())/mGame->GetBeatsPerMersure();
-    mCurrentBeat = wxRound(mGame->GetAbsoluteBeat()) - mCurrentMeasure * mGame->GetBeatsPerMersure()+1;
+    mCurrentMeasure = wxRound(mGame->GetAbsoluteBeat()) / mGame->GetBeatsPerMersure();
+    mCurrentBeat = wxRound(mGame->GetAbsoluteBeat()) - mCurrentMeasure * mGame->GetBeatsPerMersure() + 1;
 }
 
 /**
@@ -82,11 +82,11 @@ std::pair<int, int> GameStateManager::GetCurrentMeasureAndBeat() const
  */
 void GameStateManager::UpdateScoreboard(bool soundPlayed, float durationHeld, float totalDuration)
 {
-    if (soundPlayed)
+    if(soundPlayed)
     {
         UpdateScore(GoodSoundScore);
 
-        if (totalDuration > 0)
+        if(totalDuration > 0)
         {
             float durationPercentage = durationHeld / totalDuration;
             int bonus = static_cast<int>(MaxDurationBonus * durationPercentage);

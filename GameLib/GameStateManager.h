@@ -10,7 +10,7 @@
 
 #include <utility>
 
-// Forward reference
+/// Forward reference
 class Game;
 
 /**
@@ -19,13 +19,13 @@ class Game;
 class GameStateManager
 {
 private:
-    Game* mGame; ///< Game instance
-    int mScore=0; ///< Current score
-    int mCurrentMeasure = 0 ; ///< Current Measure
+    Game *mGame; ///< Game instance
+    int mScore = 0; ///< Current score
+    int mCurrentMeasure = 0; ///< Current Measure
     int mCurrentBeat = 0; ///< Current Beat
 
 public:
-    GameStateManager(Game* game);
+    GameStateManager(Game *game);
 
     ~GameStateManager();
 

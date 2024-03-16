@@ -28,7 +28,6 @@ const int BeatsSize = 30;
 /// relative to the vertical center of the scoreboard.
 const int ScoreY = 15;
 
-
 /// Y location to display "Get Ready" relative to the
 /// vertical center of the scoreboard. The X value is
 /// chosen that centers the text
@@ -109,9 +108,4 @@ void DeclarationScoreBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x
         gp->DrawText(scoreText, x - textWidth / 2, y - textHeight / 2 + ScoreY);
     }
 
-    // Set the font for drawing the score
-    //    wxFont scoreFont(wxSize(0,ScoreSize), wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-    //    gp->SetFont(scoreFont, *wxBLACK);
-
-    //wxString scoreText = wxString::Format("%06d", mScore);
 }

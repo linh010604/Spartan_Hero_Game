@@ -1,9 +1,9 @@
- /**
- * @file ItemScoreboard.h
- * @author Angelina Jolie Daoud
- *
- * File for ItemScoreboard class
- */
+/**
+* @file ItemScoreboard.h
+* @author Angelina Jolie Daoud
+*
+* File for ItemScoreboard class
+*/
 
 #ifndef PROJECT1_GAMELIB_ITEMSCOREBOARD_H
 #define PROJECT1_GAMELIB_ITEMSCOREBOARD_H
@@ -33,12 +33,9 @@ public:
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(ItemVisitor* visitor) override { visitor->VisitItemScoreboard(this); }
-
-
+    void Accept(ItemVisitor *visitor) override { visitor->VisitItemScoreboard(this); }
 
 private:
-
 
 };
 

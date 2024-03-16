@@ -6,7 +6,6 @@
 #include "pch.h"
 #include "Sound.h"
 #include <miniaudio.h>
-#include <thread>
 
 /// Directory that contains the audio files
 const std::wstring AudioDirectory = L"audio";

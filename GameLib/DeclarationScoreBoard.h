@@ -43,9 +43,6 @@ private:
     /// Text for scoreboard
     std::string mText = "Placeholder";
 
-    /// Score display for scoreboard
-    int mScore = 000000;
-
 };
 
 #endif //PROJECT1_GAMELIB_DECLARATIONSCOREBOARD_H

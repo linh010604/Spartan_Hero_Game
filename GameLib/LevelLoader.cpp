@@ -109,8 +109,6 @@ void LevelLoader::Load(const wxString &filename)
 void LevelLoader::XmlDeclarations(wxXmlNode *node)
 {
     // A pointer for the declaration we are loading
-
-    // auto child = node->GetChildren();
     for(*node; node; node = node->GetNext())
     {
         shared_ptr<Declaration> declaration;

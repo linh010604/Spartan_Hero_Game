@@ -13,13 +13,3 @@
 ItemMeter::ItemMeter(Game *game) : Item(game)
 {
 }
-
-/**
- *
- * @param value
- */
-void ItemMeter::UpdateMeter(double value)
-{
-    mCurrentMeterValue = value;
-
-}

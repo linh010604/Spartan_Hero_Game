@@ -11,7 +11,7 @@
 #include <string>
 #include <miniaudio.h>
 
-// Forward Reference
+/// Forward Reference
 class Game;
 
 /**

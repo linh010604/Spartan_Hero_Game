@@ -7,4 +7,3 @@
 
 #include "ItemVisitor.h"
 #include "ItemMeter.h"
-#include <iostream>

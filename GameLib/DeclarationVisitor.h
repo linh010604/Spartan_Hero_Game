@@ -8,7 +8,7 @@
 #ifndef PROJECT1_GAMELIB_DECLARATIONVISITOR_H
 #define PROJECT1_GAMELIB_DECLARATIONVISITOR_H
 
-// Forward references to all declarations
+/// Forward references to all declarations
 class DeclarationSoundBoard;
 class DeclarationImage;
 class DeclarationMeter;

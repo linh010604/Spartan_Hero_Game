@@ -7,6 +7,8 @@
 #include "DeclarationMeter.h"
 #include "Game.h"
 
+using namespace std;
+
 /// Positive or negative rotations of this amount will move
 /// the needle to the limit in that direction.
 /// A meter score of 0 will be a rotation of -0.9
@@ -16,8 +18,6 @@ const double MaxNeedleRotation = 0.9;
 /// This is how far down the need image the pivot point is
 /// as a percentage of the height of the image.
 const double NeedlePivotYOffset = 0.80;
-
-using namespace std;
 
 /// All images directory
 wstring const ImageDir = L"images/";

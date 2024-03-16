@@ -192,8 +192,16 @@ public:
      */
     size_t GetDeclarationSize() const {return mDeclarations.size();}
 
+    /**
+     * Gets the number of played notes in the game.
+     * @return The number of notes successfully played.
+     */
     int GetPlayedNote() const {return mNumberOfPlayedNote ; }
 
+    /**
+     * Gets the total number of notes in the current game level.
+     * @return The total number of notes.
+     */
     int GetTotalNote() const {return mTotalNote ;}
 
     /**
@@ -328,8 +336,14 @@ public:
 
     void UpdateAutoPlayMode(bool autoplay);
 
+    /**
+     * Updates the count of played notes by one.
+     */
     void UpdatePlayedNote(){mNumberOfPlayedNote+=1;}
 
+    /**
+     * Updates the total count of notes in the game.
+     */
     void UpdateTotalNote(){mTotalNote+=1;}
 
     void AutoplayMusic();

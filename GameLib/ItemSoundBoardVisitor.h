@@ -11,7 +11,9 @@
 #include "ItemVisitor.h"
 #include "ItemKey.h"
 #include "ItemSoundboard.h"
-
+/**
+ * Class for a Soundboard Visitor
+ */
 class ItemSoundBoardVisitor : public ItemVisitor {
 private:
     int mTrack;

@@ -11,7 +11,9 @@
 #include <utility>
 
 class Game;
-
+/**
+ * Class for storing measure, beat, and score
+ */
 class GameStateManager
 {
 private:

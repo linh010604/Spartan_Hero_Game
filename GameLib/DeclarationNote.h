@@ -12,6 +12,9 @@
 #include "Game.h"
 #include "ItemKey.h"
 
+/**
+ * Class for a Note Declaration
+ */
 class DeclarationNote : public Declaration{
 private:
     int mTrack = 0;

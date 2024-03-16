@@ -10,6 +10,9 @@
 
 class ItemSoundboard;
 
+/**
+ * Visitor class for a meter
+ */
 class MeterVisitor{
 protected:
     /**

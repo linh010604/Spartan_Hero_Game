@@ -10,7 +10,9 @@
 
 #include "DeclarationVisitor.h"
 #include "DeclarationNote.h"
-
+/**
+ * Class for a Note Declaration Visitor
+ */
 class DeclarationNoteVisitor : public DeclarationVisitor {
 private:
     int mTrack = 0;

@@ -11,6 +11,9 @@
 // Forward references to all item types
 class ItemSoundboard;
 
+/**
+ * Visitor class for a puck
+ */
 class PuckVisitor {
 protected:
     /**

@@ -31,10 +31,18 @@ public:
 
     DeclarationNote(Game *game);
 
+    /**
+     *This method returns the tolerance value used for some operation.
+     * @return The tolerance value as a double.
+     */
     double GetTolerance() const {return mTolerance;}
 
     void XmlLoad(wxXmlNode *node) override;
 
+    /**
+     * Retrieves the track number associated with this object.
+     * @return The track number as an integer.
+     */
     int GetTrack() const {return mTrack;}
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;

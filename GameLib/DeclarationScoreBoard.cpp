@@ -11,6 +11,7 @@
 
 using namespace std;
 
+///Image directory
 wstring const ImageDir = L"images/";
 
 /// Font size to use to display the score
@@ -26,8 +27,13 @@ const int BeatsSize = 30;
 /// relative to the vertical center of the scoreboard.
 const int ScoreY = 15;
 
-const int ReadyY = -10;
 
+/// Y location to display "Get Ready" relative to the
+/// vertical center of the scoreboard. The X value is
+/// chosen that centers the text
+const int ReadyY = -10;
+/// Y location to display the measure and beat
+/// relative to the vertical center of the scoreboard.
 const int BeatY = -25;
 
 /**

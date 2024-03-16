@@ -30,13 +30,7 @@ public:
     DeclarationScoreBoard(Game *game);
 
 
-    /**
-     * Draw this item
-    * @param gp Device context to draw on
-    * @param x The X position where the item should be drawn
-    * @param y The Y position where the item should be drawn
-    * @param before A flag indicating whether the drawing is happening before or after some specific event or condition in the rendering cycle
-    */
+   
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
 
     /**

@@ -1,6 +1,6 @@
 /**
  * @file DeclarationMeter.h
- * @author thaol
+ * @author Linh Nguyen
  *
  * File for the Declaration Meter Class
  */

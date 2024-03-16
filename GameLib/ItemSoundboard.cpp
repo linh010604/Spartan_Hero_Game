@@ -74,10 +74,13 @@ void ItemSoundboard::XmlLoad(wxXmlNode *node)
 }
 
 /**
+ * Draws the soundboard item on the graphics context.
  *
- * @param gp
- * @param soundboard
- * @param beforeSoundboard
+ * This function handles the drawing of the soundboard tracks and associated keys.
+ *
+ * @param gp Shared pointer to the wxGraphicsContext object for drawing.
+ * @param soundboard Shared pointer to the Declaration object representing the soundboard.
+ * @param beforeSoundboard Boolean indicating whether to draw before the soundboard.
  */
 void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard)
 {
@@ -148,9 +151,10 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
 }
 
 /**
+ * Searches for a key associated with the specified track.
  *
- * @param track
- * @return
+ * @param track The track number to search for.
+ * @return A shared pointer to the ItemKey object associated with the track, or nullptr if not found.
  */
 std::shared_ptr<ItemKey> ItemSoundboard::SearchKey(int track)
 {

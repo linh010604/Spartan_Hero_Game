@@ -1,6 +1,6 @@
 /**
  * @file Music.cpp
- * @author thaol
+ * @author Linh Nguyen
  */
 
 #include "pch.h"
@@ -10,12 +10,14 @@
 
 using namespace std;
 
+/// Boolean constant indicating that the action occurs after the track.
 bool const AfterTrack = true;
 
 /// Width of the long duration lines. These
 /// lines are drawn as wxRED
 const int LongDurationLineWidth = 12;
 
+/// Number representing the full points awarded for a correct action.
 int FullPoint = 10;
 
 /**
@@ -53,6 +55,13 @@ void Music::XmlLoad(wxXmlNode *node)
 
 }
 
+/**
+ *Draws the music on the graphics context.
+ *
+ * This function handles drawing the music note, including the long duration line if applicable, based on the current state of the note.
+ *
+ * @param gp A shared pointer to the wxGraphicsContext object used for drawing.
+ */
 void Music::Draw(std::shared_ptr<wxGraphicsContext> gp)
 {
     if (mFirstUpdate && mAudio->GetLong() &&  mLongY < mKey->GetY2() ){
@@ -70,8 +79,14 @@ void Music::Draw(std::shared_ptr<wxGraphicsContext> gp)
         mDeclaration->Update(mY/mKey->GetY2());
         mDeclaration->Draw(gp, mX, mY, AfterTrack);
     }
-
 }
+
+/**
+ * Updates the position of the music note.
+ *
+ * @param elapsed The elapsed time since the last update.
+ * @param timeOnTrack The total time taken to travel the track.
+ */
 void Music::Update(double elapsed, double timeOnTrack)
 {
     if (mGame->GetAutopPlayState()){
@@ -111,7 +126,6 @@ void Music::Update(double elapsed, double timeOnTrack)
             mY = newPosY;
         }
 
-
         if(mAudio->GetLong()){
             double longDurationLengthY = (mDuration/ mGame->GetBeatsPerMersure()) * (mKey->GetY2() - mKey->GetY1());
             double longDurationLengthX = (mDuration/ mGame->GetBeatsPerMersure()) * (mKey->GetX2() - mKey->GetX1());
@@ -120,13 +134,11 @@ void Music::Update(double elapsed, double timeOnTrack)
                 mLongX = mX - longDurationLengthX;
                 mLongY = mY - longDurationLengthY;
             }
-
         }
         else {
             mLongX = mX;
             mLongY = mY;
         }
-
     }
     else if (mContinueDurationLine && mAudio->GetLong()){
         if(mLongY - mKey->GetY2() > 0){
@@ -140,7 +152,6 @@ void Music::Update(double elapsed, double timeOnTrack)
             mLongY = mLongY + ((mKey->GetY2() - mKey->GetY1())/timeOnTrack)*elapsed;
 
         }
-
     }
 
     DeclarationNoteVisitor declarationVisitor;
@@ -151,18 +162,18 @@ void Music::Update(double elapsed, double timeOnTrack)
         mPlayMusic = true;
         mGame->UpdateTotalNote();
     }
-
-
-
 }
 
+/**
+ * Plays the music note automatically.
+ */
 void Music::PlayAutoMusic()
 {
     /// Auto play music (add to different function)
     if (mY!= 0 && mY >= mKey->GetY2() && !mPlayMusic){
         //if (mStopAtKey){
         mPlayMusic = true;
-        mBeatPLay = mGame->GetAbsoluteBeat();
+        mBeatPlay = mGame->GetAbsoluteBeat();
         mAudio->LoadSound(mGame->GetAudioEngine());
         mAudio->PlaySound();
         mGame->UpdatePlayedNote();
@@ -170,13 +181,19 @@ void Music::PlayAutoMusic()
 //        }
 
     }
-    else if(mBeatPLay != 0 && mPlayMusic && mGame->GetAbsoluteBeat()- mDuration > mBeatPLay){
+    else if(mBeatPlay != 0 && mPlayMusic && mGame->GetAbsoluteBeat() - mDuration > mBeatPlay){
         mAudio->PlayEnd();
-        mBeatPLay = 0;
+        mBeatPlay = 0;
     }
 }
 
-bool Music::PlayMannualMusic()
+/**
+ * Plays the music note automatically based on the current state.
+ * If the note has reached its target position on the track, it triggers the playback of its associated audio.
+ *
+ * @return True if the note is currently playing its music, false otherwise.
+ */
+bool Music::PlayManualMusic()
 {
     double currBeat = mGame->GetAbsoluteBeat();
     double noteBeat = (mMeasure-1) * mGame->GetBeatsPerMersure() + (mBeat-1);
@@ -189,32 +206,37 @@ bool Music::PlayMannualMusic()
 
     if (abs(mY - mKey->GetY2() ) <= acceptedY ){
         mPlayMusic = true;
-        mBeatPLay = mGame->GetAbsoluteBeat();
+        mBeatPlay = mGame->GetAbsoluteBeat();
         mAudio->LoadSound(mGame->GetAudioEngine());
         mAudio->PlaySound();
         mGame->UpdatePlayedNote();
     }
-    else if (mBeatPLay != 0 && mPlayMusic && mGame->GetAbsoluteBeat()- mDuration > mBeatPLay){
+    else if (mBeatPlay != 0 && mPlayMusic && mGame->GetAbsoluteBeat() - mDuration > mBeatPlay){
         //mGame->GetGameStateManager()->UpdateScore(FullPoint);
         mAudio->PlayEnd();
-        mBeatPLay = 0;
+        mBeatPlay = 0;
     }
 
     return mPlayMusic;
 }
+
+/**
+ * Handles the key up event for the music note.
+ * Stops the music playback if it's ongoing and updates the score accordingly.
+ *
+ * @return True if the music was playing and is now stopped, false otherwise.
+ */
 bool Music::KeyUp()
 {
-    if (mBeatPLay != 0 && mPlayMusic){
+    if (mBeatPlay != 0 && mPlayMusic){
         mAudio->PlayEnd();
         if (mAudio->GetLong()){
-            int point  = (mGame->GetAbsoluteBeat() - mBeatPLay)/mDuration*10;
+            int point  = (mGame->GetAbsoluteBeat() - mBeatPlay) / mDuration * 10;
             mGame->GetGameStateManager()->UpdateScore(point);
         }
         else
             mGame->GetGameStateManager()->UpdateScore(FullPoint);
-        mBeatPLay = 0;
+        mBeatPlay = 0;
     }
     return mPlayMusic;
 }
-
-

@@ -1,6 +1,6 @@
 /**
  * @file DeclarationImage.h
- * @author thaol
+ * @author Linh Nguyen
  *
  * File for Image Declaration class
  */

@@ -1,5 +1,5 @@
 /**
- * @file AquariumTest.cpp
+ * @file GameTest.cpp
  * @author thaol
  */
 

@@ -2,7 +2,6 @@
  * @file ItemSoundboard.cpp
  * @author Nicolas Roberts
  * @author Linh Nguyen
- *
  */
 
 #include "pch.h"
@@ -75,10 +74,13 @@ void ItemSoundboard::XmlLoad(wxXmlNode *node)
 }
 
 /**
- * Draw the track line and keys
- * @param gp A shared pointer to a wxGraphicsContext object used for drawing.
- * @param soundboard item soundboard with location of the track
- * @param beforeSoundboard check if this function is draw on top or bottom
+ * Draws the soundboard item on the graphics context.
+ *
+ * This function handles the drawing of the soundboard tracks and associated keys.
+ *
+ * @param gp Shared pointer to the wxGraphicsContext object for drawing.
+ * @param soundboard Shared pointer to the Declaration object representing the soundboard.
+ * @param beforeSoundboard Boolean indicating whether to draw before the soundboard.
  */
 void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard)
 {
@@ -131,6 +133,7 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
 
             mKeys[i]->SetLocation(x1InitLeftTrack + shiftX1,x2InitLeftTrack + shiftX2,y1Track, y2Track);
             this->GetGame()->DrawNote(gp);
+            //mKeys[i]->Draw(gp);
             shiftX1 += x1Space;
             shiftX2 += x2Space;
 
@@ -148,9 +151,10 @@ void ItemSoundboard::Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr
 }
 
 /**
- * Find the key of the given track
- * @param track the given track
- * @return key having the same track
+ * Searches for a key associated with the specified track.
+ *
+ * @param track The track number to search for.
+ * @return A shared pointer to the ItemKey object associated with the track, or nullptr if not found.
  */
 std::shared_ptr<ItemKey> ItemSoundboard::SearchKey(int track)
 {
@@ -163,4 +167,12 @@ std::shared_ptr<ItemKey> ItemSoundboard::SearchKey(int track)
     }
 
     return nullptr;
+//    for (auto line : mTracks)
+//    {
+//
+//        if (line->GetTrack() == note->GetTrack())
+//        {
+//            note->SetLocation(line->GetX1(), line->GetX2(), line->GetY1(), line->GetY2());
+//        }
+//    }
 }

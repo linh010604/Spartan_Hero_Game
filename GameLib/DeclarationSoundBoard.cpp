@@ -1,6 +1,6 @@
 /**
  * @file DeclarationSoundBoard.cpp
- * @author thaol
+ * @author Linh Nguyen
  */
 
 #include "pch.h"
@@ -37,6 +37,19 @@ void DeclarationSoundBoard::XmlLoad(wxXmlNode *node)
     Declaration::XmlLoad(node);
 }
 
+/**
+ * Draw the declaration sound board on the graphics context.
+ *
+ * This function draws the declaration sound board represented by this instance onto the provided
+ * graphics context at the specified coordinates. If the `before` parameter is true, the cover
+ * image of the sound board is drawn. Otherwise, the sound board is drawn as part of the scene.
+ * The sound board is positioned with its center at the specified (x, y) coordinates.
+ *
+ * @param gp The shared pointer to the graphics context on which to draw the sound board
+ * @param x The x-coordinate where the center of the sound board will be positioned
+ * @param y The y-coordinate where the center of the sound board will be positioned
+ * @param before A boolean value indicating whether to draw the sound board before other elements
+ */
 void DeclarationSoundBoard::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) {
     if (before)
         Declaration::Draw(gp, x, y, before);

@@ -1,6 +1,6 @@
 /**
  * @file ItemVisitor.cpp
- * @author thaol
+ * @author Linh Nguyen
  */
 
 #include "pch.h"

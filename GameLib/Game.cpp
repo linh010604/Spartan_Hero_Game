@@ -23,12 +23,14 @@
 #include <memory>
 
 using namespace std;
-
+/// Boolean representing before track
 bool const BeforeTrack = true;
+/// Boolean representing after track
 bool const AfterTrack = false;
 ///Seconds in a minute
 double const SecondsPerMinute = 60;
 
+/// Starting beat
 double const StartingBeat = 4;
 
 Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
@@ -283,9 +285,11 @@ void Game::GameUpdate()
                 sound->LoadSound(mAudioEngine);
                 sound->PlaySound();
                 mBackPlaying =! mBackPlaying;
-                break;
             }
         }
+//        mAudio[0]->LoadSound(mAudioEngine);
+//        mAudio[0]->PlaySound();
+//        mBackPlaying =! mBackPlaying;
     }
 
 
@@ -342,4 +346,5 @@ void Game::AutoplayMusic()
             music->PlayAutoMusic();
         }
 }
+
 

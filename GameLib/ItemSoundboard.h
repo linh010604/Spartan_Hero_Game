@@ -12,10 +12,9 @@
 #include "Item.h"
 #include "DeclarationNote.h"
 
-/**
- * Allows access to ItemKey without creating circular dependency.
- */
+// Forward references
 class ItemKey;
+class ItemTrackLine;
 
 /**
  * Class for a Soundboard Item

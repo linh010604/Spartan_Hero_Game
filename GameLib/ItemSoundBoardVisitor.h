@@ -11,27 +11,20 @@
 #include "ItemVisitor.h"
 #include "ItemKey.h"
 #include "ItemSoundboard.h"
-
 /**
- * Visitor class for the soundboard
+ * Class for a Soundboard Visitor
  */
 class ItemSoundBoardVisitor : public ItemVisitor {
 private:
-    /// The given track
     int mTrack;
-    /// The key match with the track given
     std::shared_ptr<ItemKey> mKey;
 
 public:
-    /**
-     * Constructor
-     * @param track the given track for searching
-     */
     ItemSoundBoardVisitor(int track) : mTrack(track) {}
 
     /**
-    * Visit soundboard
-    * @param soundboard The item soundboard we are visiting
+    * Visit key
+    * @param key The key we are visiting
     */
     void VisitItemSoundboard (ItemSoundboard* soundboard) override
     {

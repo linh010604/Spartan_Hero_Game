@@ -1,6 +1,6 @@
 /**
  * @file ids.h
- * @author thaol
+ * @author Linh Nguyen
  *
  * File containing all ids
  */

@@ -1,8 +1,8 @@
 /**
  * @file DeclarationNoteVisitor.h
- * @author thaol
+ * @author Linh Nguyen
  *
- *  Visitor to declaration note
+ * File for the Declaration Note Visitor Class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATIONNOTEVISITOR_H
@@ -12,12 +12,12 @@
 #include "DeclarationNote.h"
 
 /**
- * Visitor class for puck
+ * Note Visitor Class derived from DeclarationVisitor
  */
 class DeclarationNoteVisitor : public DeclarationVisitor {
 private:
-    int mTrack = 0;
-    double mTolerance = 0;
+    int mTrack = 0; ///> Number of Tracks
+    double mTolerance = 0; ///< Tolerance of the note
 public:
 
     /**
@@ -27,14 +27,15 @@ public:
     int GetTrack() const { return mTrack; }
 
     /**
-     * Get tolerance of the puck
-     * @return tolerance of the puck
-     */
+    * Get track of the note
+    * @return track of the note
+    */
     double GetTolerance() const { return mTolerance; }
 
+
     /**
-    * Visit Declaration note
-    * @param note The note we are visiting
+    * Visit key
+    * @param key The key we are visiting
     */
     void VisitDeclarationNote (DeclarationNote* note) override
     {

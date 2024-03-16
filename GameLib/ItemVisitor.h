@@ -1,6 +1,6 @@
 /**
  * @file ItemVisitor.h
- * @author thaol
+ * @author Linh Nguyen
  *
  * Visitor class for Item objects
  */

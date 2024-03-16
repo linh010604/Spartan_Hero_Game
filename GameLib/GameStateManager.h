@@ -2,7 +2,7 @@
  * @file GameStateManager.h
  * @author Angelina Jolie Daoud
  *
- *
+ * File for Game State Manager Class
  */
 
 #ifndef PROJECT1_GAMELIB_GAMESTATEMANAGER_H
@@ -10,29 +10,22 @@
 
 #include <utility>
 
+// Forward reference
 class Game;
 
 /**
- * Class to manage score of the game
+ * Base class for Game State Manager
  */
 class GameStateManager
 {
 private:
-
-    /// The game this class mange score
-    Game *mGame;
-
-    /// Current score of the game
-    int mScore = 0;
-
-    /// Current measure og the game
-    int mCurrentMeasure = 0;
-
-    /// Current beat of the game
-    int mCurrentBeat = 0;
+    Game* mGame; ///< Game instance
+    int mScore=0; ///< Current score
+    int mCurrentMeasure = 0 ; ///< Current Measure
+    int mCurrentBeat = 0; ///< Current Beat
 
 public:
-    GameStateManager(Game *game);
+    GameStateManager(Game* game);
 
     ~GameStateManager();
 
@@ -42,6 +35,7 @@ public:
     int GetScore();
     std::pair<int, int> GetCurrentMeasureAndBeat() const;
 
+    void UpdateScoreboard(bool soundPlayed, float durationHeld, float totalDuration);
     void UpdateMeasureAndBeat();
 };
 

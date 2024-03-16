@@ -3,6 +3,7 @@
  * @author Angelina Jolie Daoud
  * @author Linh Thao Nguyen
  *
+ * File for Game class
  */
 
 #ifndef PROJECT1_GAMELIB_GAME_H
@@ -17,24 +18,10 @@
 #include "DeclarationVisitor.h"
 #include "GameStateManager.h"
 
-/**
- * Allows access to Declaration without creating a circular dependency.
- */
+// Forward references
 class Item;
-
-/**
- * Allows access to Declaration without creating a circular dependency.
- */
 class Declaration;
-
-/**
- * Allows access to Music without creating a circular dependency.
- */
 class Music;
-
-/**
- * Allows access to Audio without creating a circular dependency.
- */
 class Sound;
 
 /**
@@ -43,10 +30,7 @@ class Sound;
 class Game
 {
 public:
-    /// Game State in game
     enum class GameState {Ready, Countdown, Playing, Closing};
-
-    /// Get the gamestate of the game
     std::shared_ptr<GameStateManager> GetGameStateManager();
 
 private:
@@ -86,7 +70,6 @@ private:
     /// All of the declarations to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarations;
 
-    /// All of the puck in game
     std::vector<std::shared_ptr<Declaration>> mDeclarationNote;
 
     /// All of music to use our game
@@ -113,7 +96,6 @@ private:
     /// how long since this lv start
     double mTimePLaying = 0;
 
-    /// Current state of the game
     GameState mState = GameState::Ready;
 
     double mTimeOnTrack; ///< time on track
@@ -126,7 +108,6 @@ private:
 
     int mTotalNote = 0 ;///< Total notes have been pass
 
-    /// pointer mange score of the game
     std::shared_ptr<GameStateManager> mGameStateManager;
 
 public:
@@ -172,6 +153,7 @@ public:
     private:
         Game* mGame;   ///< Game we are iterating over
         int mPos;       ///< Position in the collection
+        ma_engine* mAudioEngine; ///< The audio engine for miniaudio
     };
 
     /**
@@ -210,16 +192,8 @@ public:
      */
     size_t GetDeclarationSize() const {return mDeclarations.size();}
 
-    /**
-     * Get the note have been played sound
-     * @return mNumberOfPlayedNote
-     */
     int GetPlayedNote() const {return mNumberOfPlayedNote ; }
 
-    /**
-     * Get the total music note has gone by
-     * @return mTotalNote
-     */
     int GetTotalNote() const {return mTotalNote ;}
 
     /**
@@ -244,6 +218,10 @@ public:
     double GetHeight() const {return mVirtualHeight;}
 
     /**
+    * @return mBeatsPerMinute
+    */
+    double GetBeatsPerMinute() const {return mBeatsPerMinute;}
+    /**
     * @return mBeatsPerMersure
     */
     double GetBeatsPerMersure() const {return mBeatsPerMeasure;}
@@ -251,6 +229,10 @@ public:
     * @return current beat
     */
     double GetAbsoluteBeat() const {return mAbsoluteBeat;}
+    /**
+    * @return the game measure
+    */
+    double GetMeasure() const {return mMeasure;}
 
     /**
     * @return mState
@@ -293,37 +275,37 @@ public:
     void Update(double elapsed);
 
     /**
-     * Set the virtual width of the screen
-     * @param virtualWidth the virtual width of the screen
+     * Setter for virtualWidth
+     * @param virtualWidth
      */
     void SetVirtualWidth(double virtualWidth) {mVirtualWidth = virtualWidth;}
 
     /**
-     * Set the virtual height of the screen
-     * @param virtualHeight the virtual height of the screen
+     * Setter for virtualHeight
+     * @param virtualHeight
      */
     void SetVirtualHeight(double virtualHeight) {mVirtualHeight = virtualHeight;}
 
     /**
-     * Set the beats per minutes of the game
-     * @param beatsPerMinute  the beats per minutes
+     * Setter for beatsPerMinute
+     * @param beatsPerMinute
      */
     void SetBeatsPerMinute(double beatsPerMinute) {mBeatsPerMinute = beatsPerMinute;}
 
     /**
-     * Set the beats per measure of the game
-     * @param beatsPerMeasure  the beats per measure
+     * Setter for beatsPerMeasure
+     * @param beatsPerMeasure
      */
     void SetBeatsPerMeasure(int beatsPerMeasure) {mBeatsPerMeasure = beatsPerMeasure;}
 
     /**
-     * Set the total measure of the game
-     * @param measure total measure of the game
+     * Setter for measure
+     * @param measure
      */
     void SetMeasure(int measure){mMeasure = measure;}
 
     /**
-     * Set the backing music of the Game
+     * Setter for backing
      * @param backing
      */
     void SetBacking(wxString backing) {mBacking = backing;}
@@ -346,17 +328,12 @@ public:
 
     void UpdateAutoPlayMode(bool autoplay);
 
-    /**
-     * Update total played music note
-     */
     void UpdatePlayedNote(){mNumberOfPlayedNote+=1;}
 
-    /**
-     * Update total note went through
-     */
     void UpdateTotalNote(){mTotalNote+=1;}
 
     void AutoplayMusic();
 };
 
 #endif //PROJECT1_GAMELIB_GAME_H
+

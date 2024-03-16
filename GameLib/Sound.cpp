@@ -89,8 +89,6 @@ void Sound::PlaySound()
 
         // And play the sound!
         ma_sound_start(&mSound);
-
-
     }
 }
 

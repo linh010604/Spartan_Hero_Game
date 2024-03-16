@@ -11,18 +11,22 @@
 /// holding for the duration for a long sound
 const int MaxDurationBonus = 10;
 
+/// Score we get when we successfully hit a note
+const int GoodSoundScore = 10;
+
 /**
- * Constructor
- * @param game The game this item is a member of
+ * Constructor The game this declaration is a member of
+ * @param game
  */
 GameStateManager::GameStateManager(Game* game)
     : mGame(game), mScore(0), mCurrentMeasure(0), mCurrentBeat(0)
-    {
-    }
+{
+}
 
 /**
- * Update the score of the game
- * @param points total point to add
+ * Updates the score by adding the given points.
+ *
+ * @param points The points to be added to the score.
  */
 void GameStateManager::UpdateScore(int points)
 {
@@ -30,7 +34,7 @@ void GameStateManager::UpdateScore(int points)
 }
 
 /**
- * Update current beats and measure for game
+ * Updates the current measure and beat based on the game's absolute beat.
  */
 void GameStateManager::UpdateMeasureAndBeat()
 {
@@ -39,8 +43,9 @@ void GameStateManager::UpdateMeasureAndBeat()
 }
 
 /**
- * Update the score according to bonus point for long note
- * @param duration the duration of the note
+ * Sets the duration bonus for the current gameplay.
+ *
+ * @param duration The duration of the action to calculate bonus.
  */
 void GameStateManager::SetDurationBonus(float duration)
 {
@@ -49,8 +54,9 @@ void GameStateManager::SetDurationBonus(float duration)
 }
 
 /**
- * Get current score of the game
- * @return mScore
+ * Retrieves the current score.
+ *
+ * @return The current score.
  */
 int GameStateManager::GetScore()
 {
@@ -58,18 +64,42 @@ int GameStateManager::GetScore()
 }
 
 /**
- * Get current measure and beats of the game
- * @return mCurrentMeasure and m CurrentBeat
+ * Retrieves the current measure and beat as a pair.
+ *
+ * @return A pair representing the current measure and beat.
  */
 std::pair<int, int> GameStateManager::GetCurrentMeasureAndBeat() const
 {
     return {mCurrentMeasure, mCurrentBeat};
 }
 
+/**
+ * Updates the scoreboard based on the sound played, duration held, and total duration.
+ *
+ * @param soundPlayed Indicates whether a sound was played.
+ * @param durationHeld The duration for which the sound was held.
+ * @param totalDuration The total duration of the action.
+ */
+void GameStateManager::UpdateScoreboard(bool soundPlayed, float durationHeld, float totalDuration)
+{
+    if (soundPlayed)
+    {
+        UpdateScore(GoodSoundScore);
+
+        if (totalDuration > 0)
+        {
+            float durationPercentage = durationHeld / totalDuration;
+            int bonus = static_cast<int>(MaxDurationBonus * durationPercentage);
+            bonus = (bonus > MaxDurationBonus) ? MaxDurationBonus : bonus;
+            UpdateScore(bonus);
+        }
+    }
+}
+
+/**
+ * Destructor
+ */
 GameStateManager::~GameStateManager()
 {
 
 }
-
-
-

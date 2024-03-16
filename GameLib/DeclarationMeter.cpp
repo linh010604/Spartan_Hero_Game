@@ -1,6 +1,6 @@
 /**
  * @file DeclarationMeter.cpp
- * @author thaol
+ * @author Linh Nguyen
  */
 
 #include "pch.h"
@@ -26,7 +26,7 @@ wstring const ImageDir = L"images/";
  * Constructor
  * @param game Game this declaration is a member of
  */
-DeclarationMeter::DeclarationMeter(Game *game) : Declaration(game)
+DeclarationMeter::DeclarationMeter(Game *game): Declaration(game)
 {
 }
 
@@ -36,42 +36,55 @@ DeclarationMeter::DeclarationMeter(Game *game) : Declaration(game)
  */
 void DeclarationMeter::XmlLoad(wxXmlNode *node)
 {
-    wxString coverFilename = ImageDir + node->GetAttribute(L"cover", "");
+    wxString coverFilename = ImageDir + node->GetAttribute(L"cover","");
     mCoverBitmap = make_unique<wxBitmap>(
         coverFilename, wxBITMAP_TYPE_ANY);
-    wxString needleFilename = ImageDir + node->GetAttribute(L"needle", "");
+    wxString needleFilename = ImageDir + node->GetAttribute(L"needle","");
     mNeedleBitmap = make_unique<wxBitmap>(
         needleFilename, wxBITMAP_TYPE_ANY);
 
     Declaration::XmlLoad(node);
 }
 
-void DeclarationMeter::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before)
+/**
+ * Draw the declaration meter on the graphics context.
+ *
+ * This function draws the declaration meter represented by this instance onto the provided
+ * graphics context at the specified coordinates. The meter consists of a background image,
+ * a needle indicating the current progress, and a cover image. The needle's rotation is
+ * calculated based on the ratio of played notes to total notes, with adjustments made to
+ * ensure the needle remains within predefined bounds. The meter is positioned with its center
+ * at the specified (x, y) coordinates.
+ *
+ * @param gp The shared pointer to the graphics context on which to draw the meter
+ * @param x The x-coordinate where the center of the meter will be positioned
+ * @param y The y-coordinate where the center of the meter will be positioned
+ * @param before A boolean value indicating whether to draw the meter before other elements
+ */
+void DeclarationMeter::Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y, bool before)
 {
     Declaration::Draw(gp, x, y, before);
 
-    double wid = this->GetWidth();
-    double hit = this->GetHeight();
+    int wid = this->GetWidth();
+    int hit = this->GetHeight();
     int needlePivotY = (int)(hit * NeedlePivotYOffset);
 
     gp->PushState();
-    gp->Translate(x, y + needlePivotY - hit / 2);
+    gp->Translate(x, y + needlePivotY - hit/2);
     double playedNote = this->GetGame()->GetPlayedNote();
     double totalNote = this->GetGame()->GetTotalNote();
 
-    if(totalNote == 0)
-    {
+    if (totalNote == 0){
         gp->Rotate(MaxNeedleRotation);
         gp->DrawBitmap(*mNeedleBitmap,
-                       -wid / 2,
+                       -wid/2,
                        -needlePivotY,
                        wid, hit);
     }
-    else
-    {
-        gp->Rotate(min(-MaxNeedleRotation + playedNote / totalNote * 2 * MaxNeedleRotation, MaxNeedleRotation));
+    else{
+        gp->Rotate( min(-MaxNeedleRotation + playedNote/totalNote * 2 * MaxNeedleRotation,MaxNeedleRotation));
         gp->DrawBitmap(*mNeedleBitmap,
-                       -wid / 2,
+                       -wid/2,
                        -needlePivotY,
                        wid, hit);
     }
@@ -79,8 +92,7 @@ void DeclarationMeter::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, dou
     gp->PopState();
 
     gp->DrawBitmap(*mCoverBitmap,
-                   int(x - this->GetWidth() / 2),
-                   int(y - this->GetHeight() / 2),
+                   int(x -this->GetWidth() / 2),
+                   int(y -this->GetHeight() / 2),
                    this->GetWidth(), this->GetHeight());
 }
-

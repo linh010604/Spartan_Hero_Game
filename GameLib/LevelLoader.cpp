@@ -1,8 +1,6 @@
 /**
  * @file LevelLoader.cpp
  * @author Roshni Kaur
- * @author Nico
- *
  */
 
 #include "pch.h"
@@ -23,18 +21,18 @@ using namespace std;
 
 /**
  * Constructor
- * @param game The game this class load for
+ * @param game The game this item is a member of
  */
 LevelLoader::LevelLoader(Game *game) : mGame(game)
 {
 }
 
 /**
- * Load the game level from a .level XML file.
+ * Loads in all the values from the XML file into the member variables in Game.
  *
- * Opens the XML file and reads the nodes, creating items as appropriate.
+ * This function parses the XML file specified by the filename and populates the game with declarations, items, music, and audio.
  *
- * @param filename The filename of the file to load the game from.
+ * @param filename The filename of the XML file to load.
  */
 void LevelLoader::Load(const wxString &filename)
 {
@@ -105,7 +103,7 @@ void LevelLoader::Load(const wxString &filename)
 }
 
 /**
- * Handle a node of type declaration.
+ * Handle a node of type item.
  * @param node XML node
  */
 void LevelLoader::XmlDeclarations(wxXmlNode *node)

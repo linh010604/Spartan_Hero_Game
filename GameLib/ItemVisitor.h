@@ -2,7 +2,7 @@
  * @file ItemVisitor.h
  * @author Linh Nguyen
  *
- *
+ * Visitor class for Item objects
  */
 
 #ifndef PROJECT1_GAMELIB_ITEMVISITOR_H
@@ -40,16 +40,16 @@ public:
     virtual void VisitItemScoreboard(ItemScoreboard* scoreboard) {}
 
     /**
-     * Visit a ItemImage object.
-     * @param image Image we are visiting.
+     * Visit a ItemImage object
+     * @param image Image we are visiting
      */
     virtual void VisitItemImage(ItemImage* image) {}
 
     /**
-     * Visit a ItemMeter object.
-     * @param meter Meter we are visiting.
+     * Visit a ItemMeter object
+     * @param meter Meter we are visiting
      */
-    virtual void VisitItemMeter(ItemMeter* image) {}
+    virtual void VisitItemMeter(ItemMeter* meter) {}
 
 };
 

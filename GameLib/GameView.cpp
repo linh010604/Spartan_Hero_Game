@@ -49,7 +49,6 @@ wxEND_EVENT_TABLE()
 
 /**
  * Constructor
- * @param audioEngine Pointer to the audio engine object.
  */
 GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine), mAudioEngine(audioEngine)
 {

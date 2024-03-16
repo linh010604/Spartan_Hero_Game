@@ -9,13 +9,14 @@
 #include "DeclarationNoteVisitor.h"
 
 using namespace std;
-
+/// Boolean for checking after track
 bool const AfterTrack = true;
 
 /// Width of the long duration lines. These
 /// lines are drawn as wxRED
 const int LongDurationLineWidth = 12;
 
+/// Constant for point growth when a full note is hit
 const int FullPoint = 10;
 
 /**

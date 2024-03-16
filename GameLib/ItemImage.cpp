@@ -1,6 +1,7 @@
 /**
  * @file ItemImage.cpp
  * @author Linh Nguyen
+ * @author Naod Ghebredngl
  */
 
 #include "pch.h"

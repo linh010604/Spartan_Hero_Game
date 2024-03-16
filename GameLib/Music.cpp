@@ -1,6 +1,7 @@
 /**
  * @file Music.cpp
  * @author thaol
+ * @author Naod Ghebredngl
  */
 
 #include "pch.h"

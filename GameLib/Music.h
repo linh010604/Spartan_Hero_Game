@@ -1,7 +1,7 @@
 /**
  * @file Music.h
  * @author thaol
- *
+ *@author Naod Ghebredngl
  *
  */
 

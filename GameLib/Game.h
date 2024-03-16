@@ -30,7 +30,9 @@ class Sound;
 class Game
 {
 public:
+    /// Enumeration class for different game states
     enum class GameState {Ready, Countdown, Playing, Closing};
+    /// Shared pointer of Game State Manager
     std::shared_ptr<GameStateManager> GetGameStateManager();
 
 private:
@@ -70,6 +72,7 @@ private:
     /// All of the declarations to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarations;
 
+    /// All of the declarations notes to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarationNote;
 
     /// All of music to use our game
@@ -96,6 +99,7 @@ private:
     /// how long since this lv start
     double mTimePLaying = 0;
 
+    /// Ready state
     GameState mState = GameState::Ready;
 
     double mTimeOnTrack; ///< time on track

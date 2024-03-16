@@ -1,8 +1,8 @@
 /**
  * @file Music.h
- * @author Linh Nguyen
+ * @author thaol
  *
- * File for the Music Class.
+ *
  */
 
 #ifndef PROJECT1_GAMELIB_MUSIC_H
@@ -11,8 +11,9 @@
 #include "Declaration.h"
 #include "ItemKey.h"
 #include "Sound.h"
-
-// Forward Reference
+/**
+ * Allows access to Game without creating a circular dependency.
+ */
 class Game;
 
 /**
@@ -21,9 +22,14 @@ class Game;
 class Music
 {
 private:
-    std::shared_ptr<Declaration> mDeclaration; ///> Shared pointer to declarations
-    std::shared_ptr<ItemKey> mKey; ///> Shared pointer to item keys
-    std::shared_ptr<Sound> mAudio; ///> Shared pointer to audio sounds
+    /// The puck matches with this music note
+    std::shared_ptr<Declaration> mDeclaration;
+
+    /// The key match with this music note
+    std::shared_ptr<ItemKey> mKey;
+
+    /// The sound match with this music note
+    std::shared_ptr<Sound> mAudio;
 
     /// The game this item is contained in
     Game   *mGame;
@@ -42,18 +48,13 @@ private:
     double mDuration = 0 ;///<Measure of the sound
     bool mFirstUpdate = false ;///<Check if this is time for note to appear
     bool mPlayMusic = false; ///<Check if this note has been played or not
-    double mBeatPlay = 0; ///< Beat which the note are played
+    double mBeatPLay = 0; ///< Beat which the note are played
     bool mContinueDurationLine = false; ///<check if we still need to draw red line
     bool mStopAtKey = false; ///< check if note hit the key
+    bool mAddedNote = false; ///<check if the note is added to total note
 
 public:
     ~Music();
-
-    /**
-     * Get the pointer to the Level object
-     * @return Pointer to Level object
-     */
-    Game *GetGame() { return mGame;}
 
     /**
      * The X location of the item
@@ -118,10 +119,22 @@ public:
 
     void XmlLoad(wxXmlNode *node);
 
+    /**
+     * Add the match puck with the sound
+     * @param declaration the puck
+     */
     void AddDeclaration(const std::shared_ptr<Declaration>& declaration) {mDeclaration = declaration;}
 
+    /**
+     * Add the match audio with the music note
+     * @param sound the sound pointer
+     */
     void AddSound(const std::shared_ptr<Sound>& sound) {mAudio = sound;}
 
+    /**
+     * Add the match key with the sound
+     * @param key the item key
+     */
     void AddKey(const std::shared_ptr<ItemKey>& key) {mKey = key;}
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp);

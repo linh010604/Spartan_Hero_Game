@@ -21,9 +21,9 @@ class Game;
 class Music
 {
 private:
-    std::shared_ptr<Declaration> mDeclaration; ///> Shared pointer to declarations
-    std::shared_ptr<ItemKey> mKey; ///> Shared pointer to item keys
-    std::shared_ptr<Sound> mAudio; ///> Shared pointer to audio sounds
+    std::shared_ptr<Declaration> mDeclaration; ///< Shared pointer to declarations
+    std::shared_ptr<ItemKey> mKey; ///< Shared pointer to item keys
+    std::shared_ptr<Sound> mAudio; ///< Shared pointer to audio sounds
 
     /// The game this item is contained in
     Game *mGame;
@@ -122,10 +122,22 @@ public:
 
     void XmlLoad(wxXmlNode *node);
 
+    /**
+     * Match the puck with the music note
+     * @param declaration the puck of this music note
+     */
     void AddDeclaration(const std::shared_ptr<Declaration> &declaration) { mDeclaration = declaration; }
 
+    /**
+     * Match the sound file with the music note
+     * @param sound the sound file of this music note
+     */
     void AddSound(const std::shared_ptr<Sound> &sound) { mAudio = sound; }
 
+    /**
+     * Match the correct key with the music note
+     * @param key the key of this music note
+     */
     void AddKey(const std::shared_ptr<ItemKey> &key) { mKey = key; }
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp);

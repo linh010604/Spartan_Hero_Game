@@ -45,10 +45,6 @@ private:
 
 public:
 
-    /**
-     * Constructor
-     * @param audioEngine The audio engine to use
-     */
     GameView(ma_engine *audioEngine);
 
     void OnPaint(wxPaintEvent& event);
@@ -72,10 +68,6 @@ public:
     void OnAutoPlayMode(wxCommandEvent& event);
     void DisplayStar(std::shared_ptr<wxGraphicsContext> gc);
 
-/**
-* Declares event table
-*/
-wxDECLARE_EVENT_TABLE();
 
 };
 

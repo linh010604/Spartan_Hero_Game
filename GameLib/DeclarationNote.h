@@ -32,10 +32,18 @@ public:
 
     DeclarationNote(Game *game);
 
+    /**
+     * Return the tolerance of the puck when clicking
+     * @return mTolerance
+     */
     double GetTolerance() const { return mTolerance; }
 
     void XmlLoad(wxXmlNode *node) override;
 
+    /**
+     * Get the track of the puck
+     * @return mTrack
+     */
     int GetTrack() const { return mTrack; }
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;

@@ -14,7 +14,8 @@
 /**
  * Note Visitor Class derived from DeclarationVisitor
  */
-class DeclarationNoteVisitor : public DeclarationVisitor {
+class DeclarationNoteVisitor : public DeclarationVisitor
+{
 private:
     int mTrack = 0; ///< Number of Tracks
     double mTolerance = 0; ///< Tolerance of the note
@@ -32,12 +33,11 @@ public:
     */
     double GetTolerance() const { return mTolerance; }
 
-
     /**
     * Visit key
     * @param note The note we are visiting
     */
-    void VisitDeclarationNote (DeclarationNote* note) override
+    void VisitDeclarationNote(DeclarationNote *note) override
     {
         mTrack = note->GetTrack();
         mTolerance = note->GetTolerance();

@@ -72,8 +72,9 @@ void MainFrame::OnExit(wxCommandEvent &event)
 }
 
 /**
- * About menu option handlers
- * @param event The About event
+ * Handles About item event from menu.
+ * Method displays a dialog showing info about application.
+ * @param event The event object associated with the About action.
  */
 void MainFrame::OnAbout(wxCommandEvent &event)
 {

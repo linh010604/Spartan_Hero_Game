@@ -44,15 +44,8 @@ const wstring twostars = L"stars/twostar.png";
 const wstring onestar = L"stars/onestar.png";
 
 /**
-* The event table that connects window events
-*/
-wxBEGIN_EVENT_TABLE(GameView, wxWindow)
-        EVT_PAINT(GameView::OnPaint)
-wxEND_EVENT_TABLE()
-
-/**
  * Constructor
- * @param audioEngine Pointer to the audio engine object.
+ * @param audioEngine The audio engine for miniaudio
  */
 GameView::GameView(ma_engine *audioEngine) : mGame(audioEngine), mAudioEngine(audioEngine)
 {

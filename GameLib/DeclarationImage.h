@@ -13,7 +13,8 @@
 /**
  * Class for an Image Declaration
  */
-class DeclarationImage : public Declaration {
+class DeclarationImage : public Declaration
+{
 public:
     /// Default constructor (disabled)
     DeclarationImage() = delete;
@@ -30,7 +31,7 @@ public:
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationImage(this); }
+    void Accept(DeclarationVisitor *visitor) override { visitor->VisitDeclarationImage(this); }
 
 };
 

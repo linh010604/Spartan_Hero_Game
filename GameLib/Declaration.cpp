@@ -41,13 +41,13 @@ void Declaration::XmlLoad(wxXmlNode *node)
 {
     mId = node->GetAttribute(L"id", L"0").ToStdWstring();
 
-    wxString filename = ImageDir + node->GetAttribute(L"image","");
+    wxString filename = ImageDir + node->GetAttribute(L"image", "");
     mDeclarationImage = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
     mDeclarationBitmap = make_unique<wxBitmap>(*mDeclarationImage);
     mWidth = mDeclarationBitmap->GetWidth();
     mHeight = mDeclarationBitmap->GetHeight();
 
-    auto sizeString = node->GetAttribute("size","0,0");
+    auto sizeString = node->GetAttribute("size", "0,0");
     sizeString.BeforeFirst(',').ToDouble(&mWidth);
     sizeString.AfterFirst(',').ToDouble(&mHeight);
 }
@@ -63,9 +63,10 @@ void Declaration::XmlLoad(wxXmlNode *node)
  * @param before If true, the item is drawn before other elements; if false, it's drawn after.
  *
  */
-void Declaration::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) {
+void Declaration::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before)
+{
     gp->DrawBitmap(*mDeclarationBitmap,
-                   int(x - mWidth*mScale / 2),
-                   int(y - mHeight*mScale / 2),
-                   mWidth*mScale, mHeight*mScale);
+                   int(x - mWidth * mScale / 2),
+                   int(y - mHeight * mScale / 2),
+                   mWidth * mScale, mHeight * mScale);
 }

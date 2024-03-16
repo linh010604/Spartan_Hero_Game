@@ -55,6 +55,13 @@ void Declaration::XmlLoad(wxXmlNode *node)
 /**
  * Draw the declaration item on the graphics context.
  *
+ * The declaration item is drawn with its center positioned at the given (x, y) coordinates.
+ *
+ * @param gp A shared pointer to the graphics context on which the item will be drawn.
+ * @param x The x-coordinate of the center position for drawing the item.
+ * @param y The y-coordinate of the center position for drawing the item.
+ * @param before If true, the item is drawn before other elements; if false, it's drawn after.
+ *
  */
 void Declaration::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) {
     gp->DrawBitmap(*mDeclarationBitmap,

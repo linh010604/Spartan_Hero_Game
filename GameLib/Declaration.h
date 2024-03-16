@@ -25,7 +25,7 @@ private:
     wxString  mId = "";  ///< Id of the declaration
     double mWidth = 0;  ///< Width of the declaration
     double mHeight = 0; ///< Length of the declaration
-    double mScale = 1; /// <Scale of the note
+    double mScale = 1; ///< Scale of the note
 
     /// The underlying image
     std::unique_ptr<wxImage> mDeclarationImage;
@@ -83,18 +83,8 @@ public:
      */
     Game *GetGame() { return mGame;  }
 
-    /**
-     * The attributes loaded from the Xml file
-     * @param node The XML node from which to load attributes
-     */
     virtual void XmlLoad(wxXmlNode *node);
 
-    /**
-     * Draw this item
-     * @param gp Device context to draw on
-     * @param x X location
-     * @param y Y location
-     */
     virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before);
 
     /**

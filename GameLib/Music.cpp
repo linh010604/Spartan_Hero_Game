@@ -109,14 +109,6 @@ void Music::Update(double elapsed, double timeOnTrack)
     double currBeat = mGame->GetAbsoluteBeat();
     double noteBeat = (mMeasure - 1) * mGame->GetBeatsPerMersure() + (mBeat - 1);
 
-    if(!mFirstUpdate)
-    {
-        mX = mKey->GetX1();
-        mY = mKey->GetY1();
-        mLongX = mX;
-        mLongY = mY;
-    }
-
     DeclarationNoteVisitor declarationVisitor;
     mDeclaration->Accept(&declarationVisitor);
     double tolerance = declarationVisitor.GetTolerance();
@@ -129,6 +121,8 @@ void Music::Update(double elapsed, double timeOnTrack)
         {
             mX = mKey->GetX1();
             mY = mKey->GetY1();
+            mLongX = mX;
+            mLongY = mY;
             mFirstUpdate = true;
         }
         else if(mY - mKey->GetY2() > 8 && !mPlayMusic)
@@ -180,7 +174,7 @@ void Music::Update(double elapsed, double timeOnTrack)
 
     }
 
-    if(mY >= mKey->GetY2() + acceptedY && !mPlayMusic && !mGame->GetAutopPlayState())
+    if(mY != 0 && mY >= mKey->GetY2() + acceptedY && !mPlayMusic && !mGame->GetAutopPlayState())
     {
         mPlayMusic = true;
     }
@@ -196,6 +190,10 @@ void Music::PlayAutoMusic()
         mAudio->LoadSound(mGame->GetAudioEngine());
         mAudio->PlaySound();
         mGame->UpdatePlayedNote();
+        if(mAudio->GetLong())
+        {
+            mGame->UpdatePlayedNote();
+        }
         mGame->GetGameStateManager()->UpdateScore(FullPoint);
 
     }
@@ -225,11 +223,16 @@ bool Music::PlayManualMusic()
 
     if(!mPlayMusic && mKey->GetY2() - mY <= acceptedY)
     {
-        mPlayMusic = true;
+        if (mY != 0)
+            mPlayMusic = true;
         mBeatPLay = mGame->GetAbsoluteBeat();
         mAudio->LoadSound(mGame->GetAudioEngine());
         mAudio->PlaySound();
         mGame->UpdatePlayedNote();
+        if(mAudio->GetLong())
+        {
+            mGame->UpdatePlayedNote();
+        }
         mGame->GetGameStateManager()->UpdateScore(FullPoint);
     }
     else if(mBeatPLay != 0 && mPlayMusic && mGame->GetAbsoluteBeat() - mDuration > mBeatPLay)

@@ -208,11 +208,6 @@ void GameView::OnPaint(wxPaintEvent &event)
             mCurrentLevel = (mCurrentLevel + 1) % 4;
             Sequence();
         }
-//        else if(mStopWatch.Time() - mClosingTime < 2 * LevelNoticeDuration * 1000
-//            && mStopWatch.Time() - mClosingTime > LevelNoticeDuration * 1000)
-//        {
-//            DisplayStar(gc);
-//        }
 
     }
 
@@ -311,8 +306,6 @@ void GameView::Sequence()
     mTime = 0;
     mDisplayLevelNotice = true;
     mClosingTime = 0;
-    mTimer.SetOwner(this);
-    mTimer.Start(FrameDuration);
     mStopWatch.Start();
     DisplayLevelNotice(mCurrentLevel);
 

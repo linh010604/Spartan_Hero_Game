@@ -55,7 +55,7 @@ TEST_F(GameTest, LoadLevelOne) {
 
     game.Load(level);
 
-    ASSERT_EQ(game.GetItemSize(), 6) << L"All items are loaded";
+    ASSERT_EQ(game.GetItemSize(), 7) << L"All items are loaded";
 
     ASSERT_EQ(game.GetDeclarationSize(), 14) << L"All declarations are loaded";
 
@@ -93,13 +93,13 @@ TEST_F(GameTest, LoadLevelThree) {
 
     game.Load(level);
 
-    ASSERT_EQ(game.GetItemSize(), 4) << L"All items are loaded";
+    ASSERT_EQ(game.GetItemSize(), 7) << L"All items are loaded";
 
-    ASSERT_EQ(game.GetDeclarationSize(), 12) << L"All declarations are loaded";
+    ASSERT_EQ(game.GetDeclarationSize(), 17) << L"All declarations are loaded";
 
-    ASSERT_EQ(game.GetMusicSize(), 262) << L"All notes in music are loaded";
+    ASSERT_EQ(game.GetMusicSize(), 271) << L"All notes in music are loaded";
 
-    ASSERT_EQ(game.GetAudioSize(), 39) << L"All audio is loaded";
+    ASSERT_EQ(game.GetAudioSize(), 43) << L"All audio is loaded";
 
 }
 

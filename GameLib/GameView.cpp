@@ -16,7 +16,8 @@
 
 using namespace std;
 
-double TopMargin = 200;
+/// Size of the top margin
+const double TopMargin = 200;
 
 /// Level notices duration in seconds
 const double LevelNoticeDuration = 2.0;

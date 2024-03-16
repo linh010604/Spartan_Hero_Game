@@ -32,7 +32,10 @@ class Game
 public:
     /// Enumeration class for different game states
     enum class GameState {Ready, Countdown, Playing, Closing};
-    /// Shared pointer of Game State Manager
+    /**
+     * Gets the Game State Manager
+     * @return Shared pointer of Game State Manager
+     */
     std::shared_ptr<GameStateManager> GetGameStateManager();
 
 private:
@@ -112,6 +115,7 @@ private:
 
     int mTotalNote = 0 ;///< Total notes have been pass
 
+    /// Shared pointer of Game State Manager
     std::shared_ptr<GameStateManager> mGameStateManager;
 
 public:

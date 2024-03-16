@@ -17,7 +17,7 @@ class ItemMeter : public Item
 {
 
 private:
-    double mCurrentMeterValue = 0;
+    double mCurrentMeterValue = 0; ///< The current value of the meter
 public:
     /// Default constructor (disabled)
     ItemMeter() = delete;

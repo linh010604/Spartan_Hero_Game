@@ -30,7 +30,9 @@ class Sound;
 class Game
 {
 public:
+    /// Enumeration class for different game states
     enum class GameState {Ready, Countdown, Playing, Closing};
+    /// Shared pointer of Game State Manager
     std::shared_ptr<GameStateManager> GetGameStateManager();
 
 private:
@@ -70,6 +72,7 @@ private:
     /// All of the declarations to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarations;
 
+    /// All of the declarations notes to populate our game
     std::vector<std::shared_ptr<Declaration>> mDeclarationNote;
 
     /// All of music to use our game
@@ -96,6 +99,7 @@ private:
     /// how long since this lv start
     double mTimePLaying = 0;
 
+    /// Ready state
     GameState mState = GameState::Ready;
 
     double mTimeOnTrack; ///< time on track
@@ -192,8 +196,16 @@ public:
      */
     size_t GetDeclarationSize() const {return mDeclarations.size();}
 
+    /**
+     * Gets the number of played notes in the game.
+     * @return The number of notes successfully played.
+     */
     int GetPlayedNote() const {return mNumberOfPlayedNote ; }
 
+    /**
+     * Gets the total number of notes in the current game level.
+     * @return The total number of notes.
+     */
     int GetTotalNote() const {return mTotalNote ;}
 
     /**
@@ -328,8 +340,14 @@ public:
 
     void UpdateAutoPlayMode(bool autoplay);
 
+    /**
+     * Updates the count of played notes by one.
+     */
     void UpdatePlayedNote(){mNumberOfPlayedNote+=1;}
 
+    /**
+     * Updates the total count of notes in the game.
+     */
     void UpdateTotalNote(){mTotalNote+=1;}
 
     void AutoplayMusic();

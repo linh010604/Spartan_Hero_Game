@@ -39,10 +39,13 @@ public:
      */
     void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationScoreBoard(this); }
 private:
+    ///Bitmap cover
     std::unique_ptr<wxBitmap> mCoverBitmap;
 
+    /// Text for scoreboard
     std::string mText = "Placeholder";
 
+    /// Score display for scoreboard
     int mScore = 000000;
 
 };

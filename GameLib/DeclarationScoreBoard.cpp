@@ -2,6 +2,7 @@
  * @file DeclarationScoreBoard.cpp
  * @author Linh Nguyen
  * @author Angelina Jolie Daoud
+ * @author Naod Ghebredngl
  */
 
 #include "pch.h"

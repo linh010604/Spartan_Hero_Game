@@ -48,7 +48,7 @@ private:
     double mDuration = 0 ;///<Measure of the sound
     bool mFirstUpdate = false ;///<Check if this is time for note to appear
     bool mPlayMusic = false; ///<Check if this note has been played or not
-    double mBeatPLay = 0; ///< Beat which the note are played
+    double mBeatPlay = 0; ///< Beat which the note are played
     bool mContinueDurationLine = false; ///<check if we still need to draw red line
     bool mStopAtKey = false; ///< check if note hit the key
     bool mAddedNote = false; ///<check if the note is added to total note

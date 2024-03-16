@@ -120,20 +120,20 @@ public:
     void XmlLoad(wxXmlNode *node);
 
     /**
-     * Add the match puck with the sound
-     * @param declaration the puck
+     * Adds a declaration to this object.
+     * @param declaration A shared pointer to the declaration to be added.
      */
     void AddDeclaration(const std::shared_ptr<Declaration>& declaration) {mDeclaration = declaration;}
 
     /**
-     * Add the match audio with the music note
+     * Sets the sound associated with this object
      * @param sound the sound pointer
      */
     void AddSound(const std::shared_ptr<Sound>& sound) {mAudio = sound;}
 
     /**
-     * Add the match key with the sound
-     * @param key the item key
+     * Associates a key with this object
+     * @param key A shared pointer to the item key to be associated with this object.
      */
     void AddKey(const std::shared_ptr<ItemKey>& key) {mKey = key;}
 

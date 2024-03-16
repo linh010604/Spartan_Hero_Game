@@ -217,6 +217,7 @@ void GameView::OnPaint(wxPaintEvent &event)
         else if(mStopWatch.Time() - mClosingTime < 2 * LevelNoticeDuration * 1000
             && mStopWatch.Time() - mClosingTime > LevelNoticeDuration * 1000)
         {
+
             DisplayStar(gc);
         }
 

@@ -16,15 +16,19 @@
  */
 class ItemSoundBoardVisitor : public ItemVisitor {
 private:
-    int mTrack;
-    std::shared_ptr<ItemKey> mKey;
+    int mTrack; ///< Number of Tracks
+    std::shared_ptr<ItemKey> mKey; ///< The Item Keys
 
 public:
+    /**
+     * Visitor for Soundboard
+     * @param track The number of tracks
+     */
     ItemSoundBoardVisitor(int track) : mTrack(track) {}
 
     /**
     * Visit key
-    * @param key The key we are visiting
+    * @param soundboard The soundboard we are visiting
     */
     void VisitItemSoundboard (ItemSoundboard* soundboard) override
     {

@@ -53,9 +53,7 @@ public:
      */
     void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationNote(this); }
 
-    ///  Handle updates for animation
-    /// @param elapsed The time since the last update
-    void Update(double elapsed) override;
+    void Update(double scale) override;
 
 };
 

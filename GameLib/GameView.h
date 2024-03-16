@@ -51,10 +51,6 @@ public:
      */
     GameView(ma_engine *audioEngine);
 
-    /**
-     * Paint event, draws the window.
-     * @param event Paint event object
-     */
     void OnPaint(wxPaintEvent& event);
 
     void Initialize(wxFrame *mainFrame);

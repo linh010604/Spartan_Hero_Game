@@ -23,7 +23,7 @@ class ItemSoundboard;
 class ItemKey {
 private:
 
-    // The soundboard this track is contained in
+    /// The soundboard this track is contained in
     ItemSoundboard  *mItemSoundBoard;
 
     /// The track number

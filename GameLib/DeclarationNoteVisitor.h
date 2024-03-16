@@ -16,7 +16,7 @@
  */
 class DeclarationNoteVisitor : public DeclarationVisitor {
 private:
-    int mTrack = 0; ///> Number of Tracks
+    int mTrack = 0; ///< Number of Tracks
     double mTolerance = 0; ///< Tolerance of the note
 public:
 
@@ -35,7 +35,7 @@ public:
 
     /**
     * Visit key
-    * @param key The key we are visiting
+    * @param note The note we are visiting
     */
     void VisitDeclarationNote (DeclarationNote* note) override
     {

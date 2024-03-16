@@ -9,7 +9,10 @@
 #include "ItemScoreboard.h"
 #include "DeclarationScoreBoard.h"
 
-
+/**
+ * Constructor
+ * @param game The game this item is a member of
+ */
 ItemScoreboard::ItemScoreboard(Game* game)
 : Item(game)
     {

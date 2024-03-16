@@ -9,7 +9,6 @@
 #define PROJECT1_GAMELIB_DECLARATION_H
 
 #include "DeclarationVisitor.h"
-#include "ItemKey.h"
 
 // Forward reference
 class Game;
@@ -17,12 +16,13 @@ class Game;
 /**
  * Base class for any declaration in our game.
  */
-class Declaration {
+class Declaration
+{
 private:
     /// The game this declaration is contained in
-    Game   *mGame;
+    Game *mGame;
 
-    wxString  mId = "";  ///< Id of the declaration
+    wxString mId = "";  ///< Id of the declaration
     double mWidth = 0;  ///< Width of the declaration
     double mHeight = 0; ///< Length of the declaration
     double mScale = 1; ///< Scale of the note
@@ -75,13 +75,13 @@ public:
      * The top width of the soundboard
      * @return top width of the soundboard
      */
-    virtual double GetTopWidth() {return 0;}
+    virtual double GetTopWidth() { return 0; }
 
     /**
      * Get the pointer to the Game object
      * @return Pointer to Game object
      */
-    Game *GetGame() { return mGame;  }
+    Game *GetGame() { return mGame; }
 
     virtual void XmlLoad(wxXmlNode *node);
 
@@ -91,7 +91,7 @@ public:
     * Accept a visitor
      * @param visitor The visitor we accept
      */
-    virtual void Accept(DeclarationVisitor* visitor) = 0;
+    virtual void Accept(DeclarationVisitor *visitor) = 0;
 
     ///  Handle updates for animation
     /// @param elapsed The time since the last update

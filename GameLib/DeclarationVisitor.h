@@ -36,26 +36,27 @@ public:
     virtual void VisitDeclarationSoundBoard(DeclarationSoundBoard* soundboard) {}
 
     /**
-     * Visit a ItemScoreboard object
-     * @param scoreboard Soundboard we are visiting
+     * Visit a DeclarationScoreBoard object
+     * @param scoreboard Scoreboard declaration we are visiting
      */
     virtual void VisitDeclarationScoreBoard(DeclarationScoreBoard* scoreboard) {}
 
+
     /**
-     * Visit a ItemSoundboard object
-     * @param soundboard Soundboard we are visiting
+     * Visit a DeclarationImage object
+     * @param image Image declaration we are visiting
      */
     virtual void VisitDeclarationImage(DeclarationImage* image) {}
 
     /**
-     * Visit a ItemSoundboard object
-     * @param soundboard Soundboard we are visiting
-     */
+    * Visit a DeclarationMeter object
+    * @param meter Meter declaration we are visiting
+    */
     virtual void VisitDeclarationMeter(DeclarationMeter* meter) {}
 
     /**
-     * Visit a ItemSoundboard object
-     * @param soundboard Soundboard we are visiting
+     * Visit a DeclarationNote object
+     * @param note Note declaration we are visiting
      */
     virtual void VisitDeclarationNote(DeclarationNote* note) {}
 

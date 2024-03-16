@@ -56,7 +56,10 @@ public:
 
     Sound(Game *game);
 
-    /// Return mLong of the sound
+    /**
+     * CHeck if the sound is long or not
+     * @return mLong of the sound
+     */
     bool GetLong(){ return mLong;}
 
     void PlaySound();
@@ -68,17 +71,9 @@ public:
     void XmlLoad(wxXmlNode *node);
 
     /**
-     * Set audio file directory
-     * @param audioFile
+     * Get name of the sound
+     * @return mName the name of the sound
      */
-    void SetAudioFile(wxString audioFile) {mAudioFile = audioFile;};
-
-    /**
-     * Set audio volume directory
-     * @param volume
-     */
-    void SetVolume(double volume) {mVolume = volume;};
-
     wxString GetName() {return mName;}
 
 };

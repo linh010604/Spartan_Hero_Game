@@ -33,15 +33,17 @@ double const SecondsPerMinute = 60;
 /// Starting beat
 double const StartingBeat = 4;
 
-Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine){
+Game::Game(ma_engine *PEngine) : mAudioEngine(PEngine)
+{
 }
 
-std::shared_ptr<GameStateManager> Game::GetGameStateManager() {
+std::shared_ptr<GameStateManager> Game::GetGameStateManager()
+{
     return mGameStateManager;
 }
 
-
-void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height) {
+void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height)
+{
     // Width of virtual pixels
     int virtualWidth = mVirtualWidth;
     // Height of virtual pixels
@@ -66,21 +68,21 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Scales coordinate system
     graphics->Scale(mScale, mScale);
 
-    for (auto item : mItems)
+    for(auto item : mItems)
     {
-        for (auto declaration : mDeclarations)
+        for(auto declaration : mDeclarations)
         {
-            if (item->GetId() == declaration->GetId()){
-                declaration->Draw(graphics,item->GetX(), item->GetY(),BeforeTrack);
-                item->Draw(graphics, declaration,BeforeTrack);
-                declaration->Draw(graphics,item->GetX(), item->GetY(),AfterTrack);
-                item->Draw(graphics, declaration,AfterTrack);
+            if(item->GetId() == declaration->GetId())
+            {
+                declaration->Draw(graphics, item->GetX(), item->GetY(), BeforeTrack);
+                item->Draw(graphics, declaration, BeforeTrack);
+                declaration->Draw(graphics, item->GetX(), item->GetY(), AfterTrack);
+                item->Draw(graphics, declaration, AfterTrack);
                 break;
             }
         }
 
     }
-
 
 }
 
@@ -112,7 +114,7 @@ void Game::Load(const wxString &filename)
 
     mGameStateManager = make_shared<GameStateManager>(this);
 
-    for (auto declaration: mDeclarationNote)
+    for(auto declaration : mDeclarationNote)
     {
         DeclarationNoteVisitor declarationVisitor;
         declaration->Accept(&declarationVisitor);
@@ -121,8 +123,10 @@ void Game::Load(const wxString &filename)
         ItemSoundBoardVisitor visitor(track);
         AcceptItem(&visitor);
         std::shared_ptr<ItemKey> key = visitor.GetKey();
-        for (auto note: mMusic){
-            if (declaration->GetId() == note->GetId()){
+        for(auto note : mMusic)
+        {
+            if(declaration->GetId() == note->GetId())
+            {
                 note->AddKey(key);
             }
         }
@@ -141,17 +145,18 @@ void Game::Load(const wxString &filename)
 void Game::Update(double elapsed)
 {
     mTimePLaying += elapsed;
-    if (mTimePLaying >= 2.0 && mState != GameState::Closing) mAbsoluteBeat += elapsed * mBeatsPerMinute/ SecondsPerMinute;
-    double beatsPerSecond = mBeatsPerMinute/SecondsPerMinute;
-    mTimeOnTrack = mBeatsPerMeasure/beatsPerSecond;
+    if(mTimePLaying >= 2.0 && mState != GameState::Closing)
+        mAbsoluteBeat += elapsed * mBeatsPerMinute / SecondsPerMinute;
+    double beatsPerSecond = mBeatsPerMinute / SecondsPerMinute;
+    mTimeOnTrack = mBeatsPerMeasure / beatsPerSecond;
     mGameStateManager->UpdateMeasureAndBeat();
     GameUpdate();
 
-    for (auto music:mMusic){
+    for(auto music : mMusic)
+    {
         music->Update(elapsed, mTimeOnTrack);
     }
 }
-
 
 /**
  * Add an item to the game
@@ -204,9 +209,12 @@ void Game::AddDeclarationNote(std::shared_ptr<Declaration> declaration)
  */
 void Game::PressKey(wxChar key)
 {
-    if (!mAutoPlay){
-        for (auto note: mMusic){
-            if (note->GetKey()->GetKey() == key){
+    if(!mAutoPlay)
+    {
+        for(auto note : mMusic)
+        {
+            if(note->GetKey()->GetKey() == key)
+            {
                 if(!note->PlayManualMusic())
                     break;
             }
@@ -220,7 +228,7 @@ void Game::PressKey(wxChar key)
  */
 void Game::AcceptItem(ItemVisitor *visitor)
 {
-    for (auto item : mItems)
+    for(auto item : mItems)
     {
         item->Accept(visitor);
     }
@@ -231,11 +239,12 @@ void Game::AcceptItem(ItemVisitor *visitor)
  */
 void Game::MergeDeclarationToNote()
 {
-    for (auto musicNote : mMusic)
+    for(auto musicNote : mMusic)
     {
-        for (auto declarationNote : mDeclarationNote)
+        for(auto declarationNote : mDeclarationNote)
         {
-            if (declarationNote->GetId() == musicNote->GetId()) {
+            if(declarationNote->GetId() == musicNote->GetId())
+            {
                 musicNote->AddDeclaration(declarationNote);
             }
         }
@@ -248,7 +257,7 @@ void Game::MergeDeclarationToNote()
  */
 void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
 {
-    for (auto music : mMusic)
+    for(auto music : mMusic)
     {
         music->Draw(gc);
     }
@@ -259,39 +268,43 @@ void Game::DrawNote(std::shared_ptr<wxGraphicsContext> gc)
  */
 void Game::GameUpdate()
 {
-    if (mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure+2) * mBeatsPerMeasure){
+    if(mState != GameState::Closing && wxRound(mAbsoluteBeat) >= (mMeasure + 2) * mBeatsPerMeasure)
+    {
         mState = GameState::Closing;
         mTimePLaying = 0;
-        for(auto sound:mAudio){
-            if (sound->GetName() == mBacking){
+        for(auto sound : mAudio)
+        {
+            if(sound->GetName() == mBacking)
+            {
                 sound->PlayEnd();
                 break;
             }
         }
 
     }
-    else if (wxRound(4-mAbsoluteBeat) < 0 && mState == GameState::Countdown)
+    else if(wxRound(4 - mAbsoluteBeat) < 0 && mState == GameState::Countdown)
     {
         mState = GameState::Playing;
     }
-    else if (mTimePLaying > 2.0 && mState == GameState::Ready)
+    else if(mTimePLaying > 2.0 && mState == GameState::Ready)
     {
         mState = GameState::Countdown;
     }
-    else if (mState == GameState::Countdown && mAbsoluteBeat >= StartingBeat && !mBackPlaying)
+    else if(mState == GameState::Countdown && mAbsoluteBeat >= StartingBeat && !mBackPlaying)
     {
-        for(auto sound:mAudio){
-            if (sound->GetName() == mBacking){
+        for(auto sound : mAudio)
+        {
+            if(sound->GetName() == mBacking)
+            {
                 sound->LoadSound(mAudioEngine);
                 sound->PlaySound();
-                mBackPlaying =! mBackPlaying;
+                mBackPlaying = !mBackPlaying;
             }
         }
 //        mAudio[0]->LoadSound(mAudioEngine);
 //        mAudio[0]->PlaySound();
 //        mBackPlaying =! mBackPlaying;
     }
-
 
 }
 
@@ -300,11 +313,12 @@ void Game::GameUpdate()
  */
 void Game::MergeSoundToNote()
 {
-    for (auto musicNote : mMusic)
+    for(auto musicNote : mMusic)
     {
-        for (auto audio : mAudio)
+        for(auto audio : mAudio)
         {
-            if (audio->GetName() == musicNote->GetSound()) {
+            if(audio->GetName() == musicNote->GetSound())
+            {
                 musicNote->AddSound(audio);
             }
         }
@@ -326,9 +340,12 @@ void Game::UpdateAutoPlayMode(bool autoplay)
  */
 void Game::KeyUp(wxChar key)
 {
-    if (!mAutoPlay){
-        for (auto note: mMusic){
-            if (note->GetKey()->GetKey() == key){
+    if(!mAutoPlay)
+    {
+        for(auto note : mMusic)
+        {
+            if(note->GetKey()->GetKey() == key)
+            {
                 if(!note->KeyUp())
                     break;
             }
@@ -341,8 +358,9 @@ void Game::KeyUp(wxChar key)
  */
 void Game::AutoplayMusic()
 {
-    if (mAutoPlay)
-        for (auto music:mMusic){
+    if(mAutoPlay)
+        for(auto music : mMusic)
+        {
             music->PlayAutoMusic();
         }
 }

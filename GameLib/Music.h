@@ -12,7 +12,7 @@
 #include "ItemKey.h"
 #include "Sound.h"
 
-// Forward Reference
+/// Forward Reference
 class Game;
 
 /**
@@ -26,21 +26,21 @@ private:
     std::shared_ptr<Sound> mAudio; ///> Shared pointer to audio sounds
 
     /// The game this item is contained in
-    Game   *mGame;
+    Game *mGame;
 
     // Note location in the game
-    double  mX = 0;     ///< X location for the center of the note
-    double  mY = 0;     ///< Y location for the center of the note
+    double mX = 0;     ///< X location for the center of the note
+    double mY = 0;     ///< Y location for the center of the note
     // Note red line location in the game
-    double  mLongX = 0;     ///< X long red line location from the center of the note
-    double  mLongY = 0;     ///< Y long red line location from the center of the note
+    double mLongX = 0;     ///< X long red line location from the center of the note
+    double mLongY = 0;     ///< Y long red line location from the center of the note
 
-    wxString  mId = L"";  ///< Id of the sound
-    wxString  mSound = L"";  ///< Sound name of the sound
-    int mMeasure = 0 ;///<Measure of the sound
-    double mBeat = 0 ;///<Measure of the sound
-    double mDuration = 0 ;///<Measure of the sound
-    bool mFirstUpdate = false ;///<Check if this is time for note to appear
+    wxString mId = L"";  ///< Id of the sound
+    wxString mSound = L"";  ///< Sound name of the sound
+    int mMeasure = 0;///<Measure of the sound
+    double mBeat = 0;///<Measure of the sound
+    double mDuration = 0;///<Measure of the sound
+    bool mFirstUpdate = false;///<Check if this is time for note to appear
     bool mPlayMusic = false; ///<Check if this note has been played or not
     double mBeatPlay = 0; ///< Beat which the note are played
     bool mContinueDurationLine = false; ///<check if we still need to draw red line
@@ -53,7 +53,7 @@ public:
      * Get the pointer to the Level object
      * @return Pointer to Level object
      */
-    Game *GetGame() { return mGame;}
+    Game *GetGame() { return mGame; }
 
     /**
      * The X location of the item
@@ -86,7 +86,7 @@ public:
     /**
      * @return sound name
      */
-    wxString GetSound() {return mSound;}
+    wxString GetSound() { return mSound; }
 
     /**
      * @return key item
@@ -103,7 +103,11 @@ public:
      * @param x X location in pixels
      * @param y Y location in pixels
      */
-    void SetLocation(double x, double y) { mX = x; mY = y; }
+    void SetLocation(double x, double y)
+    {
+        mX = x;
+        mY = y;
+    }
 
     Music(Game *game);
 
@@ -118,11 +122,11 @@ public:
 
     void XmlLoad(wxXmlNode *node);
 
-    void AddDeclaration(const std::shared_ptr<Declaration>& declaration) {mDeclaration = declaration;}
+    void AddDeclaration(const std::shared_ptr<Declaration> &declaration) { mDeclaration = declaration; }
 
-    void AddSound(const std::shared_ptr<Sound>& sound) {mAudio = sound;}
+    void AddSound(const std::shared_ptr<Sound> &sound) { mAudio = sound; }
 
-    void AddKey(const std::shared_ptr<ItemKey>& key) {mKey = key;}
+    void AddKey(const std::shared_ptr<ItemKey> &key) { mKey = key; }
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp);
 

@@ -16,7 +16,8 @@ class GameView;
 /**
  * The top-level (main) frame of the application
  */
-class MainFrame : public wxFrame {
+class MainFrame : public wxFrame
+{
 private:
     /// View class for our Game
     GameView *mGameView;
@@ -26,8 +27,8 @@ private:
      * Method displays a dialog showing info about application.
      * @param event The event object associated with the About action.
      */
-    void OnAbout(wxCommandEvent& event); // Declare the OnAbout method
-    void OnExit(wxCommandEvent& event);
+    void OnAbout(wxCommandEvent &event); // Declare the OnAbout method
+    void OnExit(wxCommandEvent &event);
     void OnClose(wxCloseEvent &event);
 
 public:

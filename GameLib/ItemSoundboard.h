@@ -26,7 +26,6 @@ private:
     /// All of the keys to populate our soundboard
     std::vector<std::shared_ptr<ItemKey>> mKeys;
 
-
 public:
     /// Default constructor (disabled)
     ItemSoundboard() = delete;
@@ -43,15 +42,17 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
-    void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard) override;
+    void Draw(std::shared_ptr<wxGraphicsContext> gp,
+              std::shared_ptr<Declaration> soundboard,
+              bool beforeSoundboard) override;
 
-    std::shared_ptr<ItemKey> SearchKey(int track) ;
+    std::shared_ptr<ItemKey> SearchKey(int track);
 
     /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(ItemVisitor* visitor) override { visitor->VisitItemSoundboard(this); }
+    void Accept(ItemVisitor *visitor) override { visitor->VisitItemSoundboard(this); }
 };
 
 #endif //PROJECT1_SOUNDBOARD_H

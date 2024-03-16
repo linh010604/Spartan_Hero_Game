@@ -15,7 +15,8 @@
 /**
  * Note Class derived from Declaration
  */
-class DeclarationNote : public Declaration{
+class DeclarationNote : public Declaration
+{
 private:
     int mTrack = 0; ///< Number of tracks
     double mTolerance; ///< Tolerance of the note
@@ -31,11 +32,11 @@ public:
 
     DeclarationNote(Game *game);
 
-    double GetTolerance() const {return mTolerance;}
+    double GetTolerance() const { return mTolerance; }
 
     void XmlLoad(wxXmlNode *node) override;
 
-    int GetTrack() const {return mTrack;}
+    int GetTrack() const { return mTrack; }
 
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
 
@@ -43,13 +44,12 @@ public:
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationNote(this); }
+    void Accept(DeclarationVisitor *visitor) override { visitor->VisitDeclarationNote(this); }
 
     ///  Handle updates for animation
     /// @param elapsed The time since the last update
     void Update(double elapsed) override;
 
 };
-
 
 #endif //PROJECT1_DECLARATIONNOTE_H

@@ -36,13 +36,13 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
-    void Draw(std::shared_ptr <wxGraphicsContext> gp, double x, double y, bool before) override;
+    void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
 
     /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationMeter(this); }
+    void Accept(DeclarationVisitor *visitor) override { visitor->VisitDeclarationMeter(this); }
 
 };
 

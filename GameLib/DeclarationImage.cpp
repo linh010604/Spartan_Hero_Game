@@ -13,6 +13,6 @@ using namespace std;
  * Constructor
  * @param game Game this declaration is a member of
  */
-DeclarationImage::DeclarationImage(Game *game): Declaration(game)
+DeclarationImage::DeclarationImage(Game *game) : Declaration(game)
 {
 }

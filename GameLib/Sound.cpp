@@ -23,11 +23,11 @@ Sound::Sound(Game *game) : mGame(game)
  * Load the attributes for an audio node.
  * @param node The Xml node we are loading the audio from
  */
-void Sound::XmlLoad(wxXmlNode* node)
+void Sound::XmlLoad(wxXmlNode *node)
 {
     node->GetAttribute(L"name", &mName);
     node->GetAttribute(L"audio", &mAudioFile);
-    if (node->GetAttribute(L"long", L"") != L"")
+    if(node->GetAttribute(L"long", L"") != L"")
         mLong = true;
 }
 
@@ -35,17 +35,17 @@ void Sound::XmlLoad(wxXmlNode* node)
  * Load the sound with its directory
  * @param audioEngine audio engine of the game
  */
-void Sound::LoadSound(ma_engine* audioEngine)
+void Sound::LoadSound(ma_engine *audioEngine)
 {
     if(!mLoaded && audioEngine != nullptr)
     {
         auto audioFile = AudioDirectory + L"/" + mAudioFile;
         auto result = ma_sound_init_from_file(audioEngine, wxString(audioFile), 0, NULL, NULL, &mSound);
-        if (result != MA_SUCCESS)
+        if(result != MA_SUCCESS)
         {
             wxString msg;
             msg.Printf(L"Unable to load audio file %s - %d", audioFile, result);
-            wxMessageBox( msg, wxT("miniaudio failure"), wxICON_ERROR);
+            wxMessageBox(msg, wxT("miniaudio failure"), wxICON_ERROR);
         }
         else
         {

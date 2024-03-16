@@ -59,12 +59,12 @@ void LevelLoader::Load(const wxString &filename)
     // node of the XML document in memory!!!!
     //
 
-    auto sizeString = root->GetAttribute("size","0,0");
+    auto sizeString = root->GetAttribute("size", "0,0");
     sizeString.BeforeFirst(',').ToDouble(&virtualWidth);
     sizeString.AfterFirst(',').ToDouble(&virtualHeight);
 
     auto child = root->GetChildren();
-    for( ; child; child=child->GetNext())
+    for(; child; child = child->GetNext())
     {
         auto name = child->GetName();
         if(name == L"declarations")
@@ -72,21 +72,21 @@ void LevelLoader::Load(const wxString &filename)
             auto node = child->GetChildren();
             XmlDeclarations(node);
         }
-        else if (name == L"items")
+        else if(name == L"items")
         {
             auto node = child->GetChildren();
             XmlItems(node);
         }
-        else if (name == L"music")
+        else if(name == L"music")
         {
-            child->GetAttribute("beats-per-minute","0").ToDouble(&beatsPerMinute);
-            child->GetAttribute("beats-per-measure","0").ToDouble(&beatsPerMeasure);
-            child->GetAttribute("measures","0").ToDouble(&measure);
-            backing = child->GetAttribute("backing","").ToStdWstring();
+            child->GetAttribute("beats-per-minute", "0").ToDouble(&beatsPerMinute);
+            child->GetAttribute("beats-per-measure", "0").ToDouble(&beatsPerMeasure);
+            child->GetAttribute("measures", "0").ToDouble(&measure);
+            backing = child->GetAttribute("backing", "").ToStdWstring();
             auto node = child->GetChildren();
             XmlMusic(node);
         }
-        else if (name == L"audio")
+        else if(name == L"audio")
         {
             auto node = child->GetChildren();
             XmlAudio(node);
@@ -111,7 +111,7 @@ void LevelLoader::XmlDeclarations(wxXmlNode *node)
     // A pointer for the declaration we are loading
 
     // auto child = node->GetChildren();
-    for ( *node ; node; node=node->GetNext())
+    for(*node; node; node = node->GetNext())
     {
         shared_ptr<Declaration> declaration;
         auto name = node->GetName();
@@ -138,13 +138,12 @@ void LevelLoader::XmlDeclarations(wxXmlNode *node)
             mGame->AddDeclarationNote(declaration);
         }
 
-        if (declaration != nullptr)
+        if(declaration != nullptr)
         {
             declaration->XmlLoad(node);
             mGame->AddDeclaration(declaration);
         }
     }
-
 
 }
 
@@ -157,7 +156,7 @@ void LevelLoader::XmlItems(wxXmlNode *node)
     // A pointer for the item we are loading
 
     // auto child = node->GetChildren();
-    for( *node ; node; node=node->GetNext())
+    for(*node; node; node = node->GetNext())
     {
         shared_ptr<Item> item;
         auto name = node->GetName();
@@ -178,7 +177,7 @@ void LevelLoader::XmlItems(wxXmlNode *node)
             item = make_shared<ItemScoreboard>(mGame);
         }
 
-        if (item != nullptr)
+        if(item != nullptr)
         {
             item->XmlLoad(node);
             mGame->AddItem(item);
@@ -192,11 +191,11 @@ void LevelLoader::XmlItems(wxXmlNode *node)
  */
 void LevelLoader::XmlMusic(wxXmlNode *node)
 {
-    for( *node ; node; node=node->GetNext())
+    for(*node; node; node = node->GetNext())
     {
-            shared_ptr<Music> music = make_shared<Music>(mGame);
-            music->XmlLoad(node);
-            mGame->AddMusic(music);
+        shared_ptr<Music> music = make_shared<Music>(mGame);
+        music->XmlLoad(node);
+        mGame->AddMusic(music);
     }
 }
 
@@ -206,7 +205,7 @@ void LevelLoader::XmlMusic(wxXmlNode *node)
  */
 void LevelLoader::XmlAudio(wxXmlNode *node)
 {
-    for( *node ; node; node=node->GetNext())
+    for(*node; node; node = node->GetNext())
     {
         shared_ptr<Sound> sound = make_shared<Sound>(mGame);
         sound->XmlLoad(node);

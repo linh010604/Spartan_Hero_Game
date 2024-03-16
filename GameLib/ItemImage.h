@@ -13,7 +13,8 @@
 /**
  * Class for a Image Item
  */
-class ItemImage : public Item {
+class ItemImage : public Item
+{
 public:
     /// Default constructor (disabled)
     ItemImage() = delete;
@@ -30,8 +31,7 @@ public:
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(ItemVisitor* visitor) override { visitor->VisitItemImage(this); }
-
+    void Accept(ItemVisitor *visitor) override { visitor->VisitItemImage(this); }
 
 };
 

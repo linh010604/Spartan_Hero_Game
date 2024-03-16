@@ -16,15 +16,15 @@
 // Forward reference
 class ItemSoundboard;
 
-
 /**
  * Class for Item Key
  */
-class ItemKey {
+class ItemKey
+{
 private:
 
     // The soundboard this track is contained in
-    ItemSoundboard  *mItemSoundBoard;
+    ItemSoundboard *mItemSoundBoard;
 
     /// The track number
     int mTrack = 0;
@@ -32,14 +32,14 @@ private:
     /// The bitmap we can display for this soundboard
     std::unique_ptr<wxBitmap> mKeyBitmap;
 
-    wxString  mKey = "";  ///< ItemTrackLine of the track
+    wxString mKey = "";  ///< ItemTrackLine of the track
     double mWidth = 0;  ///< Width of the key
     double mHeight = 0; ///< Length of the key
     // Item location in the game
-    double  mX2 = 0;     ///< X location for the center of the item
-    double  mY2 = 0;     ///< Y location for the center of the item
-    double  mX1 = 0;     ///< X location for another point of the item
-    double  mY1 = 0;     ///< Y location for another point of the item
+    double mX2 = 0;     ///< X location for the center of the item
+    double mY2 = 0;     ///< Y location for the center of the item
+    double mX1 = 0;     ///< X location for another point of the item
+    double mY1 = 0;     ///< Y location for another point of the item
 
 public:
     /// Default constructor (disabled)
@@ -57,7 +57,6 @@ public:
      * @return key item
      */
     wxString GetKey() { return mKey; }
-
 
     /**
      * The X1 location of the item
@@ -91,11 +90,10 @@ public:
      * The Id of the item
      * @return Id
      */
-    int GetTrack() const {return mTrack;}
+    int GetTrack() const { return mTrack; }
 
-    void SetLocation(double x1, double x2, double y1,double y2);
+    void SetLocation(double x1, double x2, double y1, double y2);
 
 };
-
 
 #endif //PROJECT1_TRACK_H

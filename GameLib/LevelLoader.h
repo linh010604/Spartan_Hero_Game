@@ -24,7 +24,7 @@ class LevelLoader
 {
 private:
     /// The game the level will be loaded into
-    Game   *mGame;
+    Game *mGame;
 
 public:
     LevelLoader(Game *game);

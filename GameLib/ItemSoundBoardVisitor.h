@@ -14,7 +14,8 @@
 /**
  * Class for a Soundboard Visitor
  */
-class ItemSoundBoardVisitor : public ItemVisitor {
+class ItemSoundBoardVisitor : public ItemVisitor
+{
 private:
     int mTrack;
     std::shared_ptr<ItemKey> mKey;
@@ -26,7 +27,7 @@ public:
     * Visit key
     * @param key The key we are visiting
     */
-    void VisitItemSoundboard (ItemSoundboard* soundboard) override
+    void VisitItemSoundboard(ItemSoundboard *soundboard) override
     {
         mKey = soundboard->SearchKey(mTrack);
     }

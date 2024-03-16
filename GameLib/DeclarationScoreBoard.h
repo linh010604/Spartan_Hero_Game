@@ -29,15 +29,13 @@ public:
 
     DeclarationScoreBoard(Game *game);
 
-
-   
     void Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before) override;
 
     /**
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(DeclarationVisitor* visitor) override { visitor->VisitDeclarationScoreBoard(this); }
+    void Accept(DeclarationVisitor *visitor) override { visitor->VisitDeclarationScoreBoard(this); }
 private:
     ///Bitmap cover
     std::unique_ptr<wxBitmap> mCoverBitmap;

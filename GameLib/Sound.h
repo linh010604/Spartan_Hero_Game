@@ -21,7 +21,7 @@ class Sound
 {
 private:
     /// The game this sound is contained in
-    Game   *mGame;
+    Game *mGame;
 
     /// Name of the sound
     wxString mName;
@@ -60,13 +60,13 @@ public:
      * CHeck if the sound is long or not
      * @return mLong of the sound
      */
-    bool GetLong(){ return mLong;}
+    bool GetLong() { return mLong; }
 
     void PlaySound();
 
     void PlayEnd();
 
-    void LoadSound(ma_engine* audioEngine);
+    void LoadSound(ma_engine *audioEngine);
 
     void XmlLoad(wxXmlNode *node);
 
@@ -74,7 +74,7 @@ public:
      * Get name of the sound
      * @return mName the name of the sound
      */
-    wxString GetName() {return mName;}
+    wxString GetName() { return mName; }
 
 };
 

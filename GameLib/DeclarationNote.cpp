@@ -16,7 +16,7 @@ wstring const ImageDir = L"images/";
  * Constructor
  * @param game Game this declaration is a member of
  */
-DeclarationNote::DeclarationNote(Game *game): Declaration(game)
+DeclarationNote::DeclarationNote(Game *game) : Declaration(game)
 {
 }
 
@@ -52,7 +52,7 @@ void DeclarationNote::XmlLoad(wxXmlNode *node)
  */
 void DeclarationNote::Draw(std::shared_ptr<wxGraphicsContext> gp, double x, double y, bool before)
 {
-    Declaration::Draw(gp, x, y,before);
+    Declaration::Draw(gp, x, y, before);
 }
 
 /**

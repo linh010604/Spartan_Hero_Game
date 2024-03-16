@@ -37,8 +37,7 @@ public:
      * Accept a visitor
      * @param visitor The visitor we accept
      */
-    void Accept(ItemVisitor* visitor) override { visitor->VisitItemMeter(this); }
-
+    void Accept(ItemVisitor *visitor) override { visitor->VisitItemMeter(this); }
 
 };
 

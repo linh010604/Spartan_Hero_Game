@@ -5,7 +5,6 @@
 
 #include "pch.h"
 
-
 #include "ItemVisitor.h"
 #include "ItemMeter.h"
 #include <iostream>

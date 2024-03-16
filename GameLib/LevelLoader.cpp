@@ -27,6 +27,13 @@ LevelLoader::LevelLoader(Game *game) : mGame(game)
 {
 }
 
+/**
+ * Loads in all the values from the XML file into the member variables in Game.
+ *
+ * This function parses the XML file specified by the filename and populates the game with declarations, items, music, and audio.
+ *
+ * @param filename The filename of the XML file to load.
+ */
 void LevelLoader::Load(const wxString &filename)
 {
     double virtualHeight;

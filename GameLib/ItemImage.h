@@ -1,6 +1,6 @@
 /**
  * @file ItemImage.h
- * @author thaol
+ * @author Linh Nguyen
  *
  *
  */

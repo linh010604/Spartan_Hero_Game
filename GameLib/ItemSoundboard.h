@@ -12,14 +12,8 @@
 #include "Item.h"
 #include "DeclarationNote.h"
 
-/**
- * Allows access to ItemKey without creating circular dependency.
- */
+// Forward references
 class ItemKey;
-
-/**
- * Allows access to ItemTrackLine without creating circular dependency.
- */
 class ItemTrackLine;
 
 /**
@@ -52,8 +46,6 @@ public:
     void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, bool beforeSoundboard) override;
 
     std::shared_ptr<ItemKey> SearchKey(int track) ;
-
-    void DrawRedLines(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> soundboard, double puckX, double puckY);
 
     /**
      * Accept a visitor

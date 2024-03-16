@@ -2,7 +2,7 @@
  * @file ItemKey.h
  * @author Naod Ghebredngl
  *
- * File for ItemKey class
+ * File for Item Key Class
  */
 
 #ifndef PROJECT1_TRACK_H
@@ -13,14 +13,12 @@
 #include <string>
 #include <vector>
 
-/**
- * Allows access to ItemSoundBoars without creating a circular dependency.
- */
+// Forward reference
 class ItemSoundboard;
 
 
 /**
- * Class for ItemKey that derives from Item
+ * Class for Item Key
  */
 class ItemKey {
 private:
@@ -40,8 +38,8 @@ private:
     // Item location in the game
     double  mX2 = 0;     ///< X location for the center of the item
     double  mY2 = 0;     ///< Y location for the center of the item
-    double  mX1 = 0;
-    double  mY1 = 0;
+    double  mX1 = 0;     ///< X location for another point of the item
+    double  mY1 = 0;     ///< Y location for another point of the item
 
 public:
     /// Default constructor (disabled)

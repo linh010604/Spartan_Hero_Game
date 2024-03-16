@@ -1,8 +1,8 @@
 /**
  * @file DeclarationNoteVisitor.h
- * @author thaol
+ * @author Linh Nguyen
  *
- *
+ * File for the Declaration Note Visitor Class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATIONNOTEVISITOR_H
@@ -10,13 +10,14 @@
 
 #include "DeclarationVisitor.h"
 #include "DeclarationNote.h"
+
 /**
- * Class for a Note Declaration Visitor
+ * Note Visitor Class derived from DeclarationVisitor
  */
 class DeclarationNoteVisitor : public DeclarationVisitor {
 private:
-    int mTrack = 0;
-    double mTolerance = 0;
+    int mTrack = 0; ///> Number of Tracks
+    double mTolerance = 0; ///< Tolerance of the note
 public:
 
     /**
@@ -26,9 +27,9 @@ public:
     int GetTrack() const { return mTrack; }
 
     /**
- * Get track of the note
- * @return track of the note
- */
+    * Get track of the note
+    * @return track of the note
+    */
     double GetTolerance() const { return mTolerance; }
 
 

@@ -2,7 +2,7 @@
  * @file Sound.h
  * @author Roshni Kaur
  *
- * File for Sound Class
+ * File for the Sound Class
  */
 
 #ifndef PROJECT1_GAMELIB_SOUND_H
@@ -11,9 +11,7 @@
 #include <string>
 #include <miniaudio.h>
 
-/**
- * Allows access to Game without creating a circular dependency.
- */
+// Forward Reference
 class Game;
 
 /**

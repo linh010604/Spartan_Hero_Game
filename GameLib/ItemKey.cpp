@@ -1,7 +1,6 @@
 /**
  * @file ItemKey.cpp
  * @author Naod Ghebredngl
- *
  */
 
 #include "pch.h"
@@ -12,7 +11,6 @@ using namespace std;
 
 /// All images directory
 wstring const ImageDir = L"images/";
-
 
 /**
  * Constructor
@@ -57,6 +55,14 @@ void ItemKey::Draw(std::shared_ptr<wxGraphicsContext> gp) {
                    mWidth, mHeight);
 }
 
+/**
+ * Sets the location of the item.
+ *
+ * @param x1 The x-coordinate of the starting point.
+ * @param x2 The x-coordinate of the ending point.
+ * @param y1 The y-coordinate of the starting point.
+ * @param y2 The y-coordinate of the ending point.
+ */
 void ItemKey::SetLocation(double x1, double x2, double y1, double y2)
 {
     mX1 = x1;

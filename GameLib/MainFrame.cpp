@@ -1,6 +1,6 @@
 /**
  * @file MainFrame.cpp
- * @author thaol
+ * @author Linh Nguyen
  */
 
 #include "pch.h"
@@ -10,6 +10,7 @@
 
 /**
  * Initialize the MainFrame window.
+ *
  * @param PEngine The audio engine for miniaudio
  */
 void MainFrame::Initialize(ma_engine *PEngine)
@@ -63,14 +64,17 @@ void MainFrame::Initialize(ma_engine *PEngine)
 
 /**
  * Exit menu option handlers
- * @param event
+ * @param event The Exit event
  */
 void MainFrame::OnExit(wxCommandEvent& event)
 {
     Close(true);
 }
 
-
+/**
+ * About menu option handlers
+ * @param event The About event
+ */
 void MainFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox(L"Welcome to the Game!",
                  L"About Spartan Hero",

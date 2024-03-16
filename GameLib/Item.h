@@ -11,9 +11,7 @@
 #include "Declaration.h"
 #include "ItemVisitor.h"
 
-/**
- * Allows access to Game without creating a circular dependency.
- */
+// Forward reference
 class Game;
 
 /**
@@ -21,8 +19,6 @@ class Game;
  */
 class Item {
 private:
-
-
     /// The game this item is contained in
     Game   *mGame;
 
@@ -78,8 +74,18 @@ public:
     /// Assignment operator
     void operator=(const Item &) = delete;
 
+    /**
+     * Loads data from an XML node.
+     * @param node
+     */
     virtual void XmlLoad(wxXmlNode *node);
 
+    /**
+     * Draws the object on the graphics context.
+     * @param gp Shared pointer to the wxGraphicsContext object for drawing.
+     * @param declaration Shared pointer to the Declaration object associated with the object.
+     * @param beforeSoundboard Boolean indicating whether the drawing occurs before the soundboard.
+     */
     virtual void Draw(std::shared_ptr<wxGraphicsContext> gp, std::shared_ptr<Declaration> declaration, bool beforeSoundboard);
 
     /**

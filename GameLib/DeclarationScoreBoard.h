@@ -3,7 +3,7 @@
  * @author Linh Nguyen
  * @author Angelina Jolie Daoud
  *
- *
+ * File for the Declaration Scoreboard Class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATIONSCOREBOARD_H
@@ -13,7 +13,7 @@
 #include "GameStateManager.h"
 
 /**
- * Class for a Scoreboard Declaration
+ * Scoreboard Class derived from Declaration
  */
 class DeclarationScoreBoard : public Declaration
 {

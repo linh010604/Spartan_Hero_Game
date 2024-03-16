@@ -1,8 +1,8 @@
 /**
  * @file MainFrame.h
- * @author thaol
+ * @author Linh Nguyen
  *
- *
+ * File for MainFrame Class
  */
 
 #ifndef PROJECT1_GAMELIB_MAINFRAME_H
@@ -10,6 +10,7 @@
 
 #include "Game.h"
 
+// Forward reference
 class GameView;
 
 /**

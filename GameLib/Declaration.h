@@ -1,8 +1,8 @@
 /**
  * @file Declaration.h
- * @author thaol
+ * @author Linh Nguyen
  *
- *
+ * File for the declaration class
  */
 
 #ifndef PROJECT1_GAMELIB_DECLARATION_H
@@ -11,6 +11,7 @@
 #include "DeclarationVisitor.h"
 #include "ItemKey.h"
 
+// Forward reference
 class Game;
 
 /**
@@ -71,11 +72,6 @@ public:
     wxString GetId() const { return mId; }
 
     /**
-     * The Bitmap of the item
-     * @return Bitmap
-     */
-
-    /**
      * The top width of the soundboard
      * @return top width of the soundboard
      */
@@ -87,6 +83,10 @@ public:
      */
     Game *GetGame() { return mGame;  }
 
+    /**
+     * The attributes loaded from the Xml file
+     * @param node The XML node from which to load attributes
+     */
     virtual void XmlLoad(wxXmlNode *node);
 
     /**
